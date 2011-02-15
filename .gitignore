@@ -5,6 +5,7 @@
 
 # build
 bin
+liblwjgl.jnilib
 
 # OS,editor
 .DS_Store
