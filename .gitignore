@@ -3,5 +3,9 @@
 .project
 .settings
 
+# build
+bin
+
+# OS,editor
 .DS_Store
 *~
