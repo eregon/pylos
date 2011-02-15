@@ -1,0 +1,9 @@
+Install / Dependencies:
+
+- jMonkeyEngine: http://jmonkeyengine.org/
+  Download last JME3 nightly from http://jmonkeyengine.com/nightly/ (like jME3_02-14-2011.zip)
+  Uncompress and import in Eclipse. It should automatically add all the needed libraries.
+
+Eclipse settings:
+XML -> XML Files -> Editor: indent using 2 spaces, line width: 150
+	
