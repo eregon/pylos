@@ -3,7 +3,7 @@ package pylos.model;
 import pylos.exception.PylosError;
 
 public class Board {
-	private int levels;
+	private final int levels;
 
 	public Board() { this(4); }
 	public Board(int levels) {
@@ -16,9 +16,9 @@ public class Board {
 	/** number of balls for a number of levels.
 	 * @param n number of levels
 	 *
-	 * for 4: 1 + 4 + 9 + 16
+	 * for n = 4: 1 + 4 + 9 + 16
 	 * = sum(1,n) n*n
-	 * = 1/3x^3 + 1/2x^2 + 1/6x
+	 * = 1/3n^3 + 1/2n^2 + 1/6n
 	 * (by polynomial interpolation)
 	 */
 	private static int ballsForLevels(int n) {
