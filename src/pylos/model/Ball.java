@@ -1,5 +1,5 @@
 package pylos.model;
 
-public class Model {
+public class Ball {
 
 }
