@@ -12,8 +12,12 @@ public class Pylos {
 	public static void main(String[] args) {
 		System.out.println("Welcome to Pylos!");
 
+		Config.configureProject();
+
 		board = new Board();
 		view = new View();
 		controller = new Controller(board, view);
+
+		view.show();
 	}
 }
