@@ -4,13 +4,25 @@ import pylos.exception.PylosError;
 
 public class Board {
 	private final int levels;
+	private final Ball[] balls;
+	private final Player[] players;
 
 	public Board() { this(4); }
 	public Board(int levels) {
-		if (ballsForLevels(levels) % 2 != 0) {
+		int nb_balls = ballsForLevels(levels);
+		if (nb_balls % 2 != 0) {
 			throw new PylosError("There must be an even number of balls, please choose a correct number of levels (4, 6, ...)");
 		}
 		this.levels = levels;
+		
+		players = new Player[] { new Player(), new Player() };
+		balls = new Ball[nb_balls];
+		for (int i = 0; i < balls.length/2; i++) {
+			balls[i] = new Ball(players[0]);
+		}
+		for (int i = balls.length/2; i < balls.length; i++) {
+			balls[i] = new Ball(players[1]);
+		}
 	}
 
 	/** number of balls for a number of levels.
