@@ -14,7 +14,7 @@ public class Board {
 			throw new PylosError("There must be an even number of balls, please choose a correct number of levels (4, 6, ...)");
 		}
 		this.levels = levels;
-		
+
 		players = new Player[] { new Player(), new Player() };
 		balls = new Ball[nb_balls];
 		for (int i = 0; i < balls.length/2; i++) {
