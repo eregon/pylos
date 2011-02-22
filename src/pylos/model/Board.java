@@ -4,7 +4,7 @@ import pylos.exception.PylosError;
 
 public class Board {
 	private final int levels;
-	private final Ball[] balls;
+	public final Ball[] balls;
 	private final Player[] players;
 
 	public Board() { this(4); }

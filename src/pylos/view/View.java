@@ -1,6 +1,7 @@
 package pylos.view;
 
 import pylos.Pylos;
+import pylos.model.Ball;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
@@ -38,7 +39,7 @@ public class View extends SimpleApplication {
 
 		// Load model
 		Spatial board = assetManager.loadModel("Models/Board/Board.mesh.xml");
-		board.scale(1, 0.1f, 1);
+		board.scale(5, 0.5f, 5);
 //		Material mat = new Material(assetManager, "Common/MatDefs/Misc/SolidColor.j3md");
 //		mat.setColor("Color", ColorRGBA.Gray);
 //		board.setMaterial(mat);
@@ -52,6 +53,17 @@ public class View extends SimpleApplication {
 		flyCam.setEnabled(false);
 		ChaseCamera chaseCam = new ChaseCamera(cam, camTarget, inputManager);
 		chaseCam.setInvertVerticalAxis(true);
+
+		//Pylos.board.balls
+		for (Ball ball : Pylos.board.balls) {
+			if (ball.onBoard) {
+				//TODO
+			} else {
+				Geometry geom = ball.graphics.draw();
+				geom.move(Math.random() < 0.5 ? 5.5f : -5.5f, 0.8f, 0);
+				rootNode.attachChild(geom);
+			}
+		}
 	}
 
 	public Geometry	makeBoard() {
