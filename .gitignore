@@ -13,3 +13,7 @@ libopenal.so
 # OS,editor
 .DS_Store
 *~
+
+# Logs
+hs_err_pid*.log
+
