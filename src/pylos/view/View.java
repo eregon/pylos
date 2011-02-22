@@ -11,6 +11,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
 
@@ -32,12 +33,16 @@ public class View extends SimpleApplication {
 		camTarget.setMaterial(new Material(assetManager, "Common/MatDefs/Misc/SolidColor.j3md"));
 		rootNode.attachChild(camTarget);
 
-		Geometry b = makeBoard();
-		rootNode.attachChild(b);
+//		Geometry b = makeBoard();
+//		rootNode.attachChild(b);
 
 		// Load model
-		//Spatial board = assetManager.loadModel("Models/Cube/Sphere.mesh.xml");
-		//rootNode.attachChild(board);
+		Spatial board = assetManager.loadModel("Models/Board/Board.mesh.xml");
+		board.scale(1, 0.1f, 1);
+//		Material mat = new Material(assetManager, "Common/MatDefs/Misc/SolidColor.j3md");
+//		mat.setColor("Color", ColorRGBA.Gray);
+//		board.setMaterial(mat);
+		rootNode.attachChild(board);
 
 		// You must add a light to make the model visible
 		DirectionalLight sun = new DirectionalLight();
