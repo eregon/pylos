@@ -60,7 +60,8 @@ public class View extends SimpleApplication {
 				//TODO
 			} else {
 				Geometry geom = ball.graphics.draw();
-				geom.move(Math.random() < 0.5 ? 5.5f : -5.5f, 0.8f, 0);
+				geom.move(ball.x, ball.y, ball.z);
+				//geom.move(Math.random() < 0.5 ? 5.5f : -5.5f, 0.8f, 0);
 				rootNode.attachChild(geom);
 			}
 		}

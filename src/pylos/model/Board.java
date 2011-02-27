@@ -18,10 +18,10 @@ public class Board {
 		players = new Player[] { new Player(), new Player() };
 		balls = new Ball[nb_balls];
 		for (int i = 0; i < balls.length/2; i++) {
-			balls[i] = new Ball(players[0]);
+			balls[i] = new Ball(players[0], 5.5f, 0.8f, i-7);
 		}
 		for (int i = balls.length/2; i < balls.length; i++) {
-			balls[i] = new Ball(players[1]);
+			balls[i] = new Ball(players[1], -5.5f, 0.8f, i-7-balls.length/2);
 		}
 	}
 
