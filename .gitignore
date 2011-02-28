@@ -1,19 +1,18 @@
 # Eclipse
-.classpath
-.project
-.settings
+/.classpath
+/.project
+/.settings
 
 # build
-bin
-liblwjgl.jnilib
-libjinput-osx.jnilib
-liblwjgl.so
-libopenal.so
+/bin
+/liblwjgl.jnilib
+/libjinput-osx.jnilib
+/liblwjgl.so
+/libopenal.so
 
 # OS,editor
 .DS_Store
 *~
 
 # Logs
-hs_err_pid*.log
-
+/hs_err_pid*.log
