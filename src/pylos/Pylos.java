@@ -3,11 +3,11 @@ package pylos;
 import java.io.File;
 
 import pylos.controller.Controller;
-import pylos.model.Board;
+import pylos.model.Model;
 import pylos.view.View;
 
 public class Pylos {
-	public static Board board;
+	public static Model model;
 	public static View view;
 	public static Controller controller;
 
@@ -18,9 +18,9 @@ public class Pylos {
 
 		Config.configureProject();
 
-		board = new Board();
+		model = new Model();
 		view = new View();
-		controller = new Controller(board, view);
+		controller = new Controller(model, view);
 
 		view.show();
 	}

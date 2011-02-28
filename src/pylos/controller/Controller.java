@@ -1,14 +1,14 @@
 package pylos.controller;
 
-import pylos.model.Board;
+import pylos.model.Model;
 import pylos.view.View;
 
 public class Controller {
-	protected Board board;
+	protected Model model;
 	protected View  view;
 
-	public Controller(Board board, View view) {
-		this.board = board;
+	public Controller(Model model, View view) {
+		this.model = model;
 		this.view = view;
 	}
 

@@ -2,13 +2,13 @@ package pylos.model;
 
 import pylos.exception.PylosError;
 
-public class Board {
+public class Model {
 	public final int levels;
 	public final Ball[] balls;
 	private final Player[] players;
 
-	public Board() { this(4); }
-	public Board(int levels) {
+	public Model() { this(4); }
+	public Model(int levels) {
 		int nb_balls = ballsForLevels(levels);
 		if (nb_balls % 2 != 0) {
 			throw new PylosError("There must be an even number of balls, please choose a correct number of levels (4, 6, ...)");

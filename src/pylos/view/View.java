@@ -55,7 +55,7 @@ public class View extends SimpleApplication {
 		chaseCam.setInvertVerticalAxis(true);
 
 		//Pylos.board.balls
-		for (Ball ball : Pylos.board.balls) {
+		for (Ball ball : Pylos.model.balls) {
 			if (ball.onBoard) {
 				//TODO
 			} else {
