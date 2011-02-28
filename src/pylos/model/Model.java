@@ -5,7 +5,9 @@ import pylos.exception.PylosError;
 public class Model {
 	public final int levels;
 	public final Ball[] balls;
-	private final Player[] players;
+	public final Player player1;
+	public final Player player2;
+	public final Player[] players;
 
 	public Model() { this(4); }
 	public Model(int levels) {
@@ -15,13 +17,16 @@ public class Model {
 		}
 		this.levels = levels;
 
-		players = new Player[] { new Player(), new Player() };
+		player1 = new Player();
+		player2 = new Player();
+		players = new Player[] { player1, player2 };
+
 		balls = new Ball[nb_balls];
 		for (int i = 0; i < balls.length/2; i++) {
-			balls[i] = new Ball(players[0], 5.5f, 0.8f, i-7);
+			balls[i] = new Ball(player1, 5.5f, 0.8f, i-7);
 		}
 		for (int i = balls.length/2; i < balls.length; i++) {
-			balls[i] = new Ball(players[1], -5.5f, 0.8f, i-7-balls.length/2);
+			balls[i] = new Ball(player2, -5.5f, 0.8f, i-7-balls.length/2);
 		}
 	}
 
