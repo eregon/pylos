@@ -3,7 +3,7 @@ package pylos.model;
 import pylos.exception.PylosError;
 
 public class Board {
-	private final int levels;
+	public final int levels;
 	public final Ball[] balls;
 	private final Player[] players;
 
