@@ -9,9 +9,8 @@ import pylos.Pylos;
 import pylos.model.Ball;
 
 public class BallGraphics {
-
 	private Ball model;
-	private Geometry geometry;
+	Geometry geometry;
 
 	public BallGraphics(Ball model) {
 		this.model = model;
@@ -21,10 +20,4 @@ public class BallGraphics {
 		mat.setColor("Color", ColorRGBA.randomColor());
 		geometry.setMaterial(mat);
 	}
-
-	public Geometry getGeometry() {
-		return geometry;
-	}
-
-
 }

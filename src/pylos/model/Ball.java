@@ -13,6 +13,5 @@ public class Ball {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		graphics = new BallGraphics(this);
 	}
 }
