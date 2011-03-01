@@ -45,10 +45,11 @@ public class View extends SimpleApplication {
 		initFlyCam();
 
 		for (Ball ball : Pylos.model.balls) {
+			ball.graphics = new BallGraphics(ball);
 			if (ball.onBoard) {
 				//TODO
 			} else {
-				Geometry geom = ball.graphics.getGeometry();
+				Geometry geom = ball.graphics.geometry;
 				geom.move(ball.x, ball.y, ball.z);
 				rootNode.attachChild(geom);
 			}
