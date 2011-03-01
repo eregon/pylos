@@ -11,18 +11,19 @@ import pylos.model.Ball;
 public class BallGraphics {
 
 	private Ball model;
+	private Geometry geometry;
 
 	public BallGraphics(Ball model) {
 		this.model = model;
-	}
-
-	public Geometry draw() {
 		Sphere s = new Sphere(50, 50, 0.5f);
-		Geometry geom = new Geometry("s", s);
+		geometry = new Geometry("s", s);
 		Material mat = new Material(Pylos.view.getAssetManager(), "Common/MatDefs/Misc/SolidColor.j3md");
 		mat.setColor("Color", ColorRGBA.randomColor());
-		geom.setMaterial(mat);
-		return geom;
+		geometry.setMaterial(mat);
+	}
+
+	public Geometry getGeometry() {
+		return geometry;
 	}
 
 

@@ -35,14 +35,6 @@ public class View extends SimpleApplication {
 		camTarget.setMaterial(new Material(assetManager, "Common/MatDefs/Misc/SolidColor.j3md"));
 		rootNode.attachChild(camTarget);
 
-//		Geometry b = makeBoard();
-//		rootNode.attachChild(b);
-
-		// Load model
-
-//		Material mat = new Material(assetManager, "Common/MatDefs/Misc/SolidColor.j3md");
-//		mat.setColor("Color", ColorRGBA.Gray);
-//		board.setMaterial(mat);
 		board = new BoardGraphics(this);
 		rootNode.attachChild(board.getSpatial());
 
@@ -55,14 +47,12 @@ public class View extends SimpleApplication {
 		ChaseCamera chaseCam = new ChaseCamera(cam, camTarget, inputManager);
 		chaseCam.setInvertVerticalAxis(true);
 
-		//Pylos.board.balls
 		for (Ball ball : Pylos.model.balls) {
 			if (ball.onBoard) {
 				//TODO
 			} else {
-				Geometry geom = ball.graphics.draw();
+				Geometry geom = ball.graphics.getGeometry();
 				geom.move(ball.x, ball.y, ball.z);
-				//geom.move(Math.random() < 0.5 ? 5.5f : -5.5f, 0.8f, 0);
 				rootNode.attachChild(geom);
 			}
 		}
