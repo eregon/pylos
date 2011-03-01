@@ -46,7 +46,7 @@ public class View extends SimpleApplication {
 
 	public void initBalls() {
 		for (Ball ball : Model.balls) {
-			ball.graphics = new BallGraphics(ball);
+			ball.graphics = new BallGraphics();
 			rootNode.attachChild(ball.graphics.geometry);
 		}
 		Pylos.controller.updateBallsPosition();
