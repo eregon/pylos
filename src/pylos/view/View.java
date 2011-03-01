@@ -2,7 +2,6 @@ package pylos.view;
 
 import pylos.Pylos;
 import pylos.model.Ball;
-import pylos.model.Player;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;

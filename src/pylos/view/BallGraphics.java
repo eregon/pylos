@@ -9,6 +9,7 @@ import pylos.Pylos;
 import pylos.model.Ball;
 
 public class BallGraphics {
+	final static float DIAMETER = 1.0f;
 	private Ball model;
 	public float x, y, z;
 	Geometry geometry;
@@ -16,7 +17,7 @@ public class BallGraphics {
 
 	public BallGraphics(Ball model) {
 		this.model = model;
-		Sphere s = new Sphere(50, 50, 0.5f);
+		Sphere s = new Sphere(50, 50, DIAMETER/2);
 		geometry = new Geometry("s", s);
 		Material mat = new Material(Pylos.view.getAssetManager(), "Common/MatDefs/Misc/SolidColor.j3md");
 		mat.setColor("Color", ColorRGBA.randomColor());

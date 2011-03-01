@@ -1,9 +1,5 @@
 package pylos.controller;
 
-import com.jme3.scene.Geometry;
-
-import pylos.Pylos;
-import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.view.View;
 
