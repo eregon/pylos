@@ -8,7 +8,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Sphere;
 
 public class BallGraphics {
-	public final static float DIAMETER = 1.2f;
+	public final static float DIAMETER = 1.38f;
 	public float x, y, z;
 	Geometry geometry;
 
