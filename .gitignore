@@ -13,6 +13,7 @@
 # OS,editor
 .DS_Store
 *~
+*.blend1
 
 # Logs
 /hs_err_pid*.log
