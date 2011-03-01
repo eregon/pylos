@@ -9,7 +9,7 @@ import pylos.Pylos;
 import pylos.model.Ball;
 
 public class BallGraphics {
-	final static float DIAMETER = 1.0f;
+	public final static float DIAMETER = 1.2f;
 	private Ball model;
 	public float x, y, z;
 	Geometry geometry;

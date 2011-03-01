@@ -1,6 +1,7 @@
 package pylos.controller;
 
 import pylos.model.Model;
+import pylos.view.BallGraphics;
 import pylos.view.View;
 
 public class Controller {
@@ -14,10 +15,10 @@ public class Controller {
 
 	public void updateBallsPosition() {
 		for (int i = 0; i < model.nbBalls/2; i++) {
-			model.player1.balls[i].graphics.setPosition(5.5f, 0.75f, i-model.nbBalls/4);
+			model.player1.balls[i].graphics.setPosition(5.5f, 0.75f, (i-model.nbBalls/4)*BallGraphics.DIAMETER);
 		}
 		for (int i = 0; i < model.nbBalls/2; i++) {
-			model.player2.balls[i].graphics.setPosition(-5.5f, 0.75f, i-model.nbBalls/4);
+			model.player2.balls[i].graphics.setPosition(-5.5f, 0.75f, (i-model.nbBalls/4)*BallGraphics.DIAMETER);
 		}
 	}
 
