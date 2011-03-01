@@ -25,6 +25,4 @@ public class BallGraphics {
 	public Geometry getGeometry() {
 		return geometry;
 	}
-
-
 }

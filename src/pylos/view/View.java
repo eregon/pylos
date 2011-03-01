@@ -54,7 +54,7 @@ public class View extends SimpleApplication {
 			}
 		}
 	}
-	
+
 	public void initFlyCam() {
 		flyCam.setEnabled(false);
 		ChaseCamera chaseCam = new ChaseCamera(cam, cameraTarget.geometry, inputManager);
