@@ -41,9 +41,8 @@ public class View extends SimpleApplication {
 		sun.setDirection((new Vector3f(-0.1f, -0.7f, -1.0f)).normalize());
 		rootNode.addLight(sun);
 
-		flyCam.setEnabled(false);
-		ChaseCamera chaseCam = new ChaseCamera(cam, cameraTarget.geometry, inputManager);
-		chaseCam.setInvertVerticalAxis(true);
+
+		initFlyCam();
 
 		for (Ball ball : Pylos.model.balls) {
 			if (ball.onBoard) {
@@ -54,6 +53,12 @@ public class View extends SimpleApplication {
 				rootNode.attachChild(geom);
 			}
 		}
+	}
+	
+	public void initFlyCam() {
+		flyCam.setEnabled(false);
+		ChaseCamera chaseCam = new ChaseCamera(cam, cameraTarget.geometry, inputManager);
+		chaseCam.setInvertVerticalAxis(true);
 	}
 
 	public Geometry	makeBoard() {
