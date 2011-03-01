@@ -11,12 +11,12 @@ import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
-import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
 
 public class View extends SimpleApplication {
-	public BoardGraphics board;
+	BoardGraphics board;
+	CameraTarget cameraTarget;
 
 	public View() {
 		super();
@@ -30,10 +30,8 @@ public class View extends SimpleApplication {
 	public void simpleInitApp() {
 		assetManager.registerLocator(Pylos.rootPath + "/assets", FileLocator.class);
 
-		Geometry camTarget = new Geometry("Chasing camera target");
-		camTarget.setMesh(new Mesh());
-		camTarget.setMaterial(new Material(assetManager, "Common/MatDefs/Misc/SolidColor.j3md"));
-		rootNode.attachChild(camTarget);
+		cameraTarget = new CameraTarget(this);
+		rootNode.attachChild(cameraTarget.geometry);
 
 		board = new BoardGraphics(this);
 		rootNode.attachChild(board.getSpatial());
@@ -44,7 +42,7 @@ public class View extends SimpleApplication {
 		rootNode.addLight(sun);
 
 		flyCam.setEnabled(false);
-		ChaseCamera chaseCam = new ChaseCamera(cam, camTarget, inputManager);
+		ChaseCamera chaseCam = new ChaseCamera(cam, cameraTarget.geometry, inputManager);
 		chaseCam.setInvertVerticalAxis(true);
 
 		for (Ball ball : Pylos.model.balls) {
