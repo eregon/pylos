@@ -3,15 +3,12 @@ package pylos.model;
 import pylos.view.BallGraphics;
 
 public class Ball {
-	public float x, y, z;
 	public Player owner;
 	public boolean onBoard = false;
 	public BallGraphics graphics;
 
-	public Ball(Player owner, float x, float y, float z) {
+	public Ball(Player owner, Model model) {
 		this.owner = owner;
-		this.x = x;
-		this.y = y;
-		this.z = z;
+		model.balls.add(this);
 	}
 }

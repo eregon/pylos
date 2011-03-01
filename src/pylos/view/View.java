@@ -2,11 +2,11 @@ package pylos.view;
 
 import pylos.Pylos;
 import pylos.model.Ball;
+import pylos.model.Player;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.ChaseCamera;
-import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -41,15 +41,17 @@ public class View extends SimpleApplication {
 
 		initFlyCam();
 
+		initBalls();
+	}
+
+	public void initBalls() {
 		for (Ball ball : Pylos.model.balls) {
 			ball.graphics = new BallGraphics(ball);
-			if (ball.onBoard) {
-				//TODO
-			} else {
-				Geometry geom = ball.graphics.geometry;
-				geom.move(ball.x, ball.y, ball.z);
-				rootNode.attachChild(geom);
-			}
+			rootNode.attachChild(ball.graphics.geometry);
+		}
+		Pylos.controller.updateBallsPosition();
+		for (Ball ball : Pylos.model.balls) {
+			ball.graphics.move();
 		}
 	}
 
