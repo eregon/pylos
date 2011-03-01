@@ -37,10 +37,7 @@ public class View extends SimpleApplication {
 		rootNode.attachChild(board.getSpatial());
 
 		// You must add a light to make the model visible
-		DirectionalLight sun = new DirectionalLight();
-		sun.setDirection((new Vector3f(-0.1f, -0.7f, -1.0f)).normalize());
-		rootNode.addLight(sun);
-
+		rootNode.addLight((new Sun()).light);
 
 		initFlyCam();
 
