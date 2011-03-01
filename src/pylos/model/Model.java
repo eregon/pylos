@@ -4,16 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Model {
-	public final int levels = 4;
-	public final int nbBalls = 30;
-	public final List<Ball> balls = new LinkedList<Ball>();
-	public final Player player1;
-	public final Player player2;
-	public final Player[] players;
-
-	public Model() {
-		player1 = new Player(this);
-		player2 = new Player(this);
-		players = new Player[] { player1, player2 };
-	}
+	public static final int levels = 4;
+	public static final int nbBalls = 30;
+	public static final List<Ball> balls = new LinkedList<Ball>();
+	public static final Player player1 = new Player();
+	public static final Player player2 = new Player();
+	public static final Player[] players =  { player1, player2 };
 }

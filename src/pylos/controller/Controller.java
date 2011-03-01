@@ -14,11 +14,11 @@ public class Controller {
 	}
 
 	public void updateBallsPosition() {
-		for (int i = 0; i < model.nbBalls/2; i++) {
-			model.player1.balls[i].graphics.setPosition(5.5f, 0.75f, (i-model.nbBalls/4)*BallGraphics.DIAMETER);
+		for (int i = 0; i < Model.nbBalls/2; i++) {
+			Model.player1.balls[i].graphics.setPosition(5.5f, 0.75f, (i-Model.nbBalls/4)*BallGraphics.DIAMETER);
 		}
-		for (int i = 0; i < model.nbBalls/2; i++) {
-			model.player2.balls[i].graphics.setPosition(-5.5f, 0.75f, (i-model.nbBalls/4)*BallGraphics.DIAMETER);
+		for (int i = 0; i < Model.nbBalls/2; i++) {
+			Model.player2.balls[i].graphics.setPosition(-5.5f, 0.75f, (i-Model.nbBalls/4)*BallGraphics.DIAMETER);
 		}
 	}
 

@@ -3,12 +3,11 @@ package pylos.model;
 
 public class Player {
 
-	public Ball[] balls;
+	public Ball[] balls = new Ball[Model.nbBalls/2];
 
-	public Player(Model model) {
-		balls = new Ball[model.nbBalls/2];
+	public Player() {
 		for (int i = 0; i < balls.length; i++) {
-			balls[i] = new Ball(this, model);
+			balls[i] = new Ball(this);
 		}
 	}
 }

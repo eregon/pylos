@@ -2,6 +2,7 @@ package pylos.view;
 
 import pylos.Pylos;
 import pylos.model.Ball;
+import pylos.model.Model;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
@@ -44,12 +45,12 @@ public class View extends SimpleApplication {
 	}
 
 	public void initBalls() {
-		for (Ball ball : Pylos.model.balls) {
+		for (Ball ball : Model.balls) {
 			ball.graphics = new BallGraphics(ball);
 			rootNode.attachChild(ball.graphics.geometry);
 		}
 		Pylos.controller.updateBallsPosition();
-		for (Ball ball : Pylos.model.balls) {
+		for (Ball ball : Model.balls) {
 			ball.graphics.move();
 		}
 	}
