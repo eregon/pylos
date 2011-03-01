@@ -49,7 +49,7 @@ public class View extends SimpleApplication {
 			ball.graphics = new BallGraphics();
 			rootNode.attachChild(ball.graphics.geometry);
 		}
-		Pylos.controller.updateBallsPosition();
+		board.drawBalls();
 		for (Ball ball : Model.balls) {
 			ball.graphics.move();
 		}
