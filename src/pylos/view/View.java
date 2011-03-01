@@ -12,11 +12,12 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
-import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
 
 public class View extends SimpleApplication {
+	public BoardGraphics board;
+
 	public View() {
 		super();
 		showSettings = false;
@@ -38,12 +39,12 @@ public class View extends SimpleApplication {
 //		rootNode.attachChild(b);
 
 		// Load model
-		Spatial board = assetManager.loadModel("Models/Board/Board.mesh.xml");
-		board.scale(5, 0.5f, 5);
+
 //		Material mat = new Material(assetManager, "Common/MatDefs/Misc/SolidColor.j3md");
 //		mat.setColor("Color", ColorRGBA.Gray);
 //		board.setMaterial(mat);
-		rootNode.attachChild(board);
+		board = new BoardGraphics(this);
+		rootNode.attachChild(board.getSpatial());
 
 		// You must add a light to make the model visible
 		DirectionalLight sun = new DirectionalLight();
