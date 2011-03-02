@@ -61,7 +61,7 @@ public class View extends SimpleApplication {
 		chaseCam.setInvertVerticalAxis(true);
 	}
 
-	public Geometry	makeBoard() {
+	public Geometry makeBoard() {
 		Box board = new Box(new Vector3f(), 2, 0.1f, 2);
 		Geometry geom = new Geometry("board", board);
 		Material mat = new Material(assetManager, "Common/MatDefs/Misc/SolidColor.j3md");
