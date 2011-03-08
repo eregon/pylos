@@ -2,11 +2,10 @@ package pylos.model;
 
 import java.util.LinkedList;
 
-
 public class Player {
-	public static final int nbBalls = Model.nbBalls/2;
-	public Ball[] balls = new Ball[nbBalls];
-	public int side;
+	public static final int nbBalls = Model.nbBalls / 2;
+	public final Ball[] balls = new Ball[nbBalls];
+	public final int side;
 
 	public Player(int side) {
 		this.side = side;

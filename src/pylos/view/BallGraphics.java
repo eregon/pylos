@@ -12,9 +12,8 @@ public class BallGraphics {
 	public float x, y, z;
 	Geometry geometry;
 
-
 	public BallGraphics() {
-		Sphere s = new Sphere(50, 50, DIAMETER/2);
+		Sphere s = new Sphere(50, 50, DIAMETER / 2);
 		geometry = new Geometry("s", s);
 		Material mat = new Material(Pylos.view.getAssetManager(), "Common/MatDefs/Misc/SolidColor.j3md");
 		mat.setColor("Color", ColorRGBA.randomColor());
