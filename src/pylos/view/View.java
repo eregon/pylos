@@ -7,16 +7,21 @@ import pylos.model.Model;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.ChaseCamera;
+import com.jme3.input.controls.InputListener;
+import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
 
 public class View extends SimpleApplication {
 	BoardGraphics board;
 	CameraTarget cameraTarget;
+	Node targets = new Node("Targets");
+	InputListener listener;
 
 	public View() {
 		super();
@@ -42,6 +47,16 @@ public class View extends SimpleApplication {
 		initFlyCam();
 
 		initBalls();
+
+		initKeys();
+	}
+
+	private void initKeys() {
+		inputManager.addMapping("PickBall", new MouseButtonTrigger(0)); // left-button click
+
+		listener = new Listener(cam, targets);
+
+		inputManager.addListener(listener, "PickBall");
 	}
 
 	public void initBalls() {
