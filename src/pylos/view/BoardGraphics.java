@@ -26,7 +26,7 @@ public class BoardGraphics {
 	}
 
 	public void drawBalls() {
-		float distanceCenterSide = BallGraphics.DIAMETER*(BALLS_BY_SIDE/2);
+		float distanceCenterSide = BallGraphics.DIAMETER * (BALLS_BY_SIDE / 2);
 
 		for (Player player : Model.players) {
 			LinkedList<Ball> ballsInSide = player.ballsInSide();
@@ -34,28 +34,28 @@ public class BoardGraphics {
 
 			for (int i = 0; i < limit; i++) {
 				ballsInSide.pop().graphics.setPosition(
-					distanceCenterSide * player.side,
-					BOARD_HEIGHT,
-					(i-BALLS_BY_SIDE/2) * BallGraphics.DIAMETER
-				);
+						distanceCenterSide * player.side,
+						BOARD_HEIGHT,
+						(i - BALLS_BY_SIDE / 2) * BallGraphics.DIAMETER
+						);
 			}
 
 			limit = Math.min(BALLS_BY_SMALL_SIDE, ballsInSide.size());
 			for (int i = 0; i < limit; i++) {
 				ballsInSide.pop().graphics.setPosition(
-					(i+1) * BallGraphics.DIAMETER * player.side,
-					BOARD_HEIGHT,
-					distanceCenterSide
-				);
+						(i + 1) * BallGraphics.DIAMETER * player.side,
+						BOARD_HEIGHT,
+						distanceCenterSide
+						);
 			}
 
 			limit = Math.min(BALLS_BY_SMALL_SIDE, ballsInSide.size());
 			for (int i = 0; i < limit; i++) {
 				ballsInSide.pop().graphics.setPosition(
-					(i+1) * BallGraphics.DIAMETER * player.side,
-					BOARD_HEIGHT,
-					-distanceCenterSide
-				);
+						(i + 1) * BallGraphics.DIAMETER * player.side,
+						BOARD_HEIGHT,
+						-distanceCenterSide
+						);
 			}
 		}
 	}
