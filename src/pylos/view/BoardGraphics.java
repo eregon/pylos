@@ -30,18 +30,12 @@ public class BoardGraphics {
 
 		for (Player player : Model.players) {
 			LinkedList<Ball> ballsInSide = player.ballsInSide();
-			int limit = Math.min(BALLS_BY_SIDE, ballsInSide.size());
+			int n = ballsInSide.size();
+			int limitFront = Math.min(BALLS_BY_SIDE, n);
+			int limitZNeg = (n - limitFront) / 2;
+			int limitZPos = n - limitFront - limitZNeg;
 
-			for (int i = 0; i < limit; i++) {
-				ballsInSide.pop().graphics.setPosition(
-						distanceCenterSide * player.side,
-						BOARD_HEIGHT,
-						(i - BALLS_BY_SIDE / 2) * BallGraphics.DIAMETER
-						);
-			}
-
-			limit = Math.min(BALLS_BY_SMALL_SIDE, ballsInSide.size());
-			for (int i = 0; i < limit; i++) {
+			for (int i = 0; i < limitZPos; i++) {
 				ballsInSide.pop().graphics.setPosition(
 						(i + 1) * BallGraphics.DIAMETER * player.side,
 						BOARD_HEIGHT,
@@ -49,10 +43,17 @@ public class BoardGraphics {
 						);
 			}
 
-			limit = Math.min(BALLS_BY_SMALL_SIDE, ballsInSide.size());
-			for (int i = 0; i < limit; i++) {
+			for (int i = 0; i < limitFront; i++) {
 				ballsInSide.pop().graphics.setPosition(
-						(i + 1) * BallGraphics.DIAMETER * player.side,
+						distanceCenterSide * player.side,
+						BOARD_HEIGHT,
+						(BALLS_BY_SIDE / 2 - i) * BallGraphics.DIAMETER
+						);
+			}
+
+			for (int i = 0; i < limitZNeg; i++) {
+				ballsInSide.pop().graphics.setPosition(
+						(BALLS_BY_SIDE / 2 - i - 1) * BallGraphics.DIAMETER * player.side,
 						BOARD_HEIGHT,
 						-distanceCenterSide
 						);
