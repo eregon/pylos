@@ -19,6 +19,7 @@ import com.jme3.system.AppSettings;
 
 public class View extends SimpleApplication {
 	BoardGraphics board;
+	ChaseCamera chaseCam;
 	CameraTarget cameraTarget;
 	Node targets = new Node("Targets");
 	InputListener listener;
@@ -72,7 +73,8 @@ public class View extends SimpleApplication {
 
 	public void initFlyCam() {
 		flyCam.setEnabled(false);
-		ChaseCamera chaseCam = new ChaseCamera(cam, cameraTarget.geometry, inputManager);
+		chaseCam = new ChaseCamera(cam, cameraTarget.geometry, inputManager);
+		// chaseCam.setDragToRotate(false);
 		chaseCam.setInvertVerticalAxis(true);
 	}
 
