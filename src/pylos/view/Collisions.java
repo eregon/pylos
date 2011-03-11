@@ -4,7 +4,6 @@ import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Spatial;
 
 public class Collisions {
 	View view;
@@ -21,14 +20,6 @@ public class Collisions {
 		Ray ray = new Ray(origin, direction);
 
 		n = view.targets.collideWith(ray, results);
-	}
-
-	public Spatial getClosestSpatial() {
-		if (n > 0) {
-			return view.targets.getChild(results.getClosestCollision().getGeometry().getName());
-		} else {
-			return null;
-		}
 	}
 
 	public void show() {

@@ -10,12 +10,7 @@ import com.jme3.input.ChaseCamera;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.InputListener;
 import com.jme3.input.controls.MouseButtonTrigger;
-import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
 
 public class View extends SimpleApplication {
@@ -89,15 +84,6 @@ public class View extends SimpleApplication {
 		chaseCam = new ChaseCamera(cam, cameraTarget.geometry, inputManager);
 		chaseCam.setInvertVerticalAxis(true);
 		chaseCam.setToggleRotationTrigger(new MouseButtonTrigger(MouseInput.BUTTON_RIGHT));
-	}
-
-	public Geometry makeBoard() {
-		Box board = new Box(new Vector3f(), 2, 0.1f, 2);
-		Geometry geom = new Geometry("board", board);
-		Material mat = new Material(assetManager, "Common/MatDefs/Misc/SolidColor.j3md");
-		mat.setColor("Color", ColorRGBA.Gray);
-		geom.setMaterial(mat);
-		return geom;
 	}
 
 	public void show() {
