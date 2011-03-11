@@ -13,6 +13,7 @@ public class Listener implements ActionListener {
 	Camera cam;
 	Node targets;
 	InputManager inputManager;
+	CollisionResults results;
 
 	public Listener(View view) {
 		cam = view.getCamera();
@@ -22,7 +23,7 @@ public class Listener implements ActionListener {
 
 	public void onAction(String name, boolean isPressed, float tpf) {
 		if (name.equals("PickBall") && !isPressed) {
-			CollisionResults results = new CollisionResults();
+			results = new CollisionResults();
 
 			Vector3f origin = cam.getWorldCoordinates(inputManager.getCursorPosition(), 0);
 			Vector3f direction = cam.getWorldCoordinates(inputManager.getCursorPosition(), 1);
