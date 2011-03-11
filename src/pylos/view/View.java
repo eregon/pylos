@@ -7,6 +7,7 @@ import pylos.model.Model;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.ChaseCamera;
+import com.jme3.input.MouseInput;
 import com.jme3.input.controls.InputListener;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.material.Material;
@@ -74,8 +75,8 @@ public class View extends SimpleApplication {
 	public void initFlyCam() {
 		flyCam.setEnabled(false);
 		chaseCam = new ChaseCamera(cam, cameraTarget.geometry, inputManager);
-		// chaseCam.setDragToRotate(false);
 		chaseCam.setInvertVerticalAxis(true);
+		chaseCam.setToggleRotationTrigger(new MouseButtonTrigger(MouseInput.BUTTON_RIGHT));
 	}
 
 	public Geometry makeBoard() {
