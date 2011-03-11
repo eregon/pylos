@@ -19,11 +19,13 @@ import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
 
 public class View extends SimpleApplication {
+	static final int CheckTargetsEveryFrames = 30;
+
 	BoardGraphics board;
 	ChaseCamera chaseCam;
 	CameraTarget cameraTarget;
 	Node targets = new Node("Targets");
-	InputListener listener;
+	InputListener listener = new Listener();
 
 	public View() {
 		super();
@@ -53,15 +55,20 @@ public class View extends SimpleApplication {
 		initBalls();
 
 		initKeys();
+	}
 
-		targets.attachChild(board.getSpatial());
+	@Override
+	public void simpleUpdate(float tpf) {
+		if ((int) (tpf) % CheckTargetsEveryFrames == 0) {
+			Collisions collisions = new Collisions(this);
+			if (collisions.any()) {
+				// TODO: show the PositionBallGraphics
+			}
+		}
 	}
 
 	private void initKeys() {
 		inputManager.addMapping("PickBall", new MouseButtonTrigger(0)); // left-button click
-
-		listener = new Listener(this);
-
 		inputManager.addListener(listener, "PickBall");
 	}
 
