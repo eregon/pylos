@@ -1,6 +1,7 @@
 package pylos.model;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Player {
 	public static final int nbBalls = Model.nbBalls / 2;
@@ -22,5 +23,32 @@ public class Player {
 			}
 		}
 		return list;
+	}
+
+	public List<Ball> getBallsToRemove() {
+		List<Ball> list = new LinkedList<Ball>();
+		// TODO
+		return list;
+	}
+
+	public List<Ball> getBallsToCarryUp() {
+		List<Ball> list = new LinkedList<Ball>();
+		// TODO
+		return list;
+	}
+
+	public boolean checkIfAnyLineOrSquare() {
+		// TODO
+		return false;
+	}
+
+	public boolean checkIfAnyLine() {
+		// TODO
+		return false;
+	}
+
+	public boolean checkIfAnySquare() {
+		// TODO
+		return false;
 	}
 }

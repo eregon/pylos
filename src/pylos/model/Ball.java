@@ -14,4 +14,9 @@ public class Ball {
 		Model.balls.add(this);
 		graphics = new BallGraphics(this);
 	}
+
+	public boolean checkIfRemovable() {
+		// TODO
+		return false;
+	}
 }
