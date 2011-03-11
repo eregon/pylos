@@ -15,6 +15,11 @@ public class Ball {
 		graphics = new BallGraphics(this);
 	}
 
+	@Override
+	public String toString() {
+		return "Ball #" + i + " (" + owner.side + ")";
+	}
+
 	public boolean checkIfRemovable() {
 		// TODO
 		return false;

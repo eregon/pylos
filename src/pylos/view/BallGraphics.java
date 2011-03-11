@@ -31,7 +31,7 @@ public class BallGraphics {
 	public void create() {
 		Material mat;
 		Sphere s = new Sphere(50, 50, DIAMETER / 2);
-		geometry = new Geometry("Ball #" + model.i + " (" + model.owner.side + ")", s);
+		geometry = new Geometry(model.toString(), s);
 		if (model.owner == Model.player1) {
 			mat = new Material(Pylos.view.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
 		} else {
