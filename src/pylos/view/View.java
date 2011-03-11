@@ -37,6 +37,8 @@ public class View extends SimpleApplication {
 	public void simpleInitApp() {
 		assetManager.registerLocator(Pylos.rootPath + "/assets", FileLocator.class);
 
+		rootNode.attachChild(targets);
+
 		cameraTarget = new CameraTarget(this);
 		rootNode.attachChild(cameraTarget.geometry);
 
@@ -51,20 +53,23 @@ public class View extends SimpleApplication {
 		initBalls();
 
 		initKeys();
+
+		targets.attachChild(board.getSpatial());
 	}
 
 	private void initKeys() {
 		inputManager.addMapping("PickBall", new MouseButtonTrigger(0)); // left-button click
 
-		listener = new Listener(cam, targets);
+		listener = new Listener(this);
 
 		inputManager.addListener(listener, "PickBall");
 	}
 
 	public void initBalls() {
 		for (Ball ball : Model.balls) {
-			ball.graphics = new BallGraphics();
+			ball.graphics.create();
 			rootNode.attachChild(ball.graphics.geometry);
+			targets.attachChild(ball.graphics.geometry);
 		}
 		board.drawBalls();
 		for (Ball ball : Model.balls) {
