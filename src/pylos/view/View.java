@@ -83,9 +83,6 @@ public class View extends SimpleApplication {
 			rootNode.attachChild(ball.graphics.geometry);
 		}
 		board.drawBalls();
-		for (Ball ball : Model.balls) {
-			ball.graphics.move();
-		}
 	}
 
 	public void initFlyCam() {

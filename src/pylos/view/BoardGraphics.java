@@ -36,7 +36,7 @@ public class BoardGraphics {
 			int limitZPos = n - limitFront - limitZNeg;
 
 			for (int i = 0; i < limitZPos; i++) {
-				ballsInSide.pop().graphics.setPosition(
+				ballsInSide.pop().graphics.geometry.center().move(
 						(i + 1) * BallGraphics.DIAMETER * player.side,
 						BOARD_HEIGHT,
 						distanceCenterSide
@@ -44,7 +44,7 @@ public class BoardGraphics {
 			}
 
 			for (int i = 0; i < limitFront; i++) {
-				ballsInSide.pop().graphics.setPosition(
+				ballsInSide.pop().graphics.geometry.center().move(
 						distanceCenterSide * player.side,
 						BOARD_HEIGHT,
 						(BALLS_BY_SIDE / 2 - i) * BallGraphics.DIAMETER
@@ -52,7 +52,7 @@ public class BoardGraphics {
 			}
 
 			for (int i = 0; i < limitZNeg; i++) {
-				ballsInSide.pop().graphics.setPosition(
+				ballsInSide.pop().graphics.geometry.center().move(
 						(BALLS_BY_SIDE / 2 - i - 1) * BallGraphics.DIAMETER * player.side,
 						BOARD_HEIGHT,
 						-distanceCenterSide
