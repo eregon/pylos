@@ -7,6 +7,7 @@ public class PositionBall {
 	public String toString() {
 		return "(" + x + ", " + y + ", " + z + ")";
 	}
+
 	public PositionBall(int x, int y, int z) {
 		this.x = x;
 		this.y = y;
