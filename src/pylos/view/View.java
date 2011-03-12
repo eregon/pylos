@@ -12,6 +12,9 @@ import com.jme3.input.ChaseCamera;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.InputListener;
 import com.jme3.input.controls.MouseButtonTrigger;
+import com.jme3.material.Material;
+import com.jme3.math.ColorRGBA;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
@@ -68,6 +71,10 @@ public class View extends SimpleApplication {
 			Collisions collisions = new Collisions(this);
 			if (collisions.any()) {
 				// TODO: show the PositionBallGraphics
+				Geometry closest = collisions.results.getClosestCollision().getGeometry();
+				Material material = new Material(assetManager, "Common/MatDefs/Misc/SolidColor.j3md");
+				material.setColor("Color", ColorRGBA.randomColor());
+				closest.setMaterial(material);
 			}
 		}
 	}
