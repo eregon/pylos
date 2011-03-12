@@ -39,4 +39,8 @@ public class Model {
 		// TODO
 		return list;
 	}
+
+	public static int ballsBySideAtLevel(int level) {
+		return levels - level;
+	}
 }

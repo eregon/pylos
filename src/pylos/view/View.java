@@ -1,8 +1,10 @@
 package pylos.view;
 
 import pylos.Pylos;
+import pylos.controller.Controller;
 import pylos.model.Ball;
 import pylos.model.Model;
+import pylos.model.PositionBall;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
@@ -16,6 +18,9 @@ import com.jme3.system.AppSettings;
 public class View extends SimpleApplication {
 	static final int CheckTargetsEveryFrames = 30;
 
+	public Model model;
+	public Controller controller;
+
 	BoardGraphics board;
 	ChaseCamera chaseCam;
 	CameraTarget cameraTarget;
@@ -23,11 +28,12 @@ public class View extends SimpleApplication {
 
 	Node targets = new Node("Targets");
 
-	// Node ballsOnBoard = new Node("Balls on Board");
-	// Node positionBalls = new Node("Position Balls");
+	Node ballsOnBoard = new Node("Balls on Board");
+	Node positionBalls = new Node("Position Balls");
 
-	public View() {
+	public View(Model model) {
 		super();
+		this.model = model;
 		showSettings = false;
 		settings = new AppSettings(true);
 		settings.setResolution(800, 600);
@@ -37,8 +43,6 @@ public class View extends SimpleApplication {
 	@Override
 	public void simpleInitApp() {
 		assetManager.registerLocator(Pylos.rootPath + "/assets", FileLocator.class);
-
-		rootNode.attachChild(targets);
 
 		cameraTarget = new CameraTarget(this);
 		rootNode.attachChild(cameraTarget.geometry);
@@ -54,6 +58,8 @@ public class View extends SimpleApplication {
 		initBalls();
 
 		initKeys();
+
+		controller.initTurn();
 	}
 
 	@Override
@@ -75,7 +81,6 @@ public class View extends SimpleApplication {
 		for (Ball ball : Model.balls) {
 			ball.graphics.create();
 			rootNode.attachChild(ball.graphics.geometry);
-			targets.attachChild(ball.graphics.geometry);
 		}
 		board.drawBalls();
 		for (Ball ball : Model.balls) {
@@ -92,5 +97,16 @@ public class View extends SimpleApplication {
 
 	public void show() {
 		start();
+	}
+
+	public void placePositionBalls() {
+		for (PositionBall ball : model.getPositionsToPlaceBallOnBoard()) {
+			ball.graphics.create();
+			ball.graphics.place();
+			positionBalls.attachChild(ball.graphics.geometry);
+		}
+
+		targets.attachChild(positionBalls);
+		rootNode.attachChild(targets);
 	}
 }

@@ -19,7 +19,7 @@ public class Pylos {
 		Config.configureProject();
 
 		model = new Model();
-		view = new View();
+		view = new View(model);
 		controller = new Controller(model, view);
 
 		view.show();

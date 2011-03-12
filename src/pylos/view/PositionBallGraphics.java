@@ -1,6 +1,7 @@
 package pylos.view;
 
 import pylos.Pylos;
+import pylos.model.Model;
 import pylos.model.PositionBall;
 
 import com.jme3.material.Material;
@@ -9,6 +10,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Sphere;
 
 public class PositionBallGraphics {
+	public final static float DIAMETER = BallGraphics.DIAMETER;
 	PositionBall model;
 	public float x, y, z;
 	Geometry geometry;
@@ -28,10 +30,19 @@ public class PositionBallGraphics {
 	}
 
 	public void create() {
-		Sphere s = new Sphere(50, 50, BallGraphics.DIAMETER / 2);
+		Sphere s = new Sphere(50, 50, DIAMETER / 2);
 		geometry = new Geometry(model.toString(), s);
 		Material mat = new Material(Pylos.view.getAssetManager(), "Common/MatDefs/Misc/SolidColor.j3md");
 		mat.setColor("Color", ColorRGBA.Gray);
 		geometry.setMaterial(mat);
+	}
+
+	public void place() {
+		float offset = (Model.ballsBySideAtLevel(model.y) - 1) * DIAMETER / 2;
+		geometry.center().move(
+				model.x * DIAMETER - offset,
+				BoardGraphics.BOARD_HEIGHT,
+				model.z * DIAMETER - offset
+				);
 	}
 }
