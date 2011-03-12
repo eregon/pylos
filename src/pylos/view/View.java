@@ -19,8 +19,12 @@ public class View extends SimpleApplication {
 	BoardGraphics board;
 	ChaseCamera chaseCam;
 	CameraTarget cameraTarget;
-	Node targets = new Node("Targets");
 	InputListener listener = new Listener();
+
+	Node targets = new Node("Targets");
+
+	// Node ballsOnBoard = new Node("Balls on Board");
+	// Node positionBalls = new Node("Position Balls");
 
 	public View() {
 		super();
