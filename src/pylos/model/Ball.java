@@ -5,7 +5,7 @@ import pylos.view.BallGraphics;
 public class Ball {
 	public final Player owner;
 	public boolean onBoard = false;
-	public int i, x, y, z;
+	public int i, x, y, level;
 	public BallGraphics graphics;
 
 	public Ball(Player owner, int i) {
