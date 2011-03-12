@@ -17,7 +17,7 @@ public class Model {
 		if (isBoardEmpty()) {
 			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < 4; j++) {
-					list.add(new PositionBall(i, 0, j));
+					list.add(new PositionBall(i, j, 0));
 				}
 
 			}

@@ -38,11 +38,11 @@ public class PositionBallGraphics {
 	}
 
 	public void place() {
-		float offset = (Model.ballsBySideAtLevel(model.y) - 1) * DIAMETER / 2;
+		float offset = (Model.ballsBySideAtLevel(model.level) - 1) * DIAMETER / 2;
 		geometry.center().move(
 				model.x * DIAMETER - offset,
-				BoardGraphics.BOARD_HEIGHT,
-				model.z * DIAMETER - offset
+				BoardGraphics.BOARD_HEIGHT + model.level * DIAMETER,
+				model.y * DIAMETER - offset
 				);
 	}
 }
