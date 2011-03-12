@@ -12,21 +12,10 @@ import com.jme3.scene.shape.Sphere;
 public class PositionBallGraphics {
 	public final static float DIAMETER = BallGraphics.DIAMETER;
 	PositionBall model;
-	public float x, y, z;
 	Geometry geometry;
 
 	public PositionBallGraphics(PositionBall model) {
 		this.model = model;
-	}
-
-	public void setPosition(float x, float y, float z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
-
-	public void move() {
-		geometry.move(x, y, z);
 	}
 
 	public void create() {
