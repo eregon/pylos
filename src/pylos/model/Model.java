@@ -14,7 +14,23 @@ public class Model {
 	public List<PositionBall> getPositionsToPlaceBallOnBoard() {
 		List<PositionBall> list = new LinkedList<PositionBall>();
 		// TODO
+		if(isBoardEmpty()) {  
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					list.add(new PositionBall(i, 0, j));	
+				}
+							
+			}
+			
+		}
 		return list;
+	}
+	
+	public boolean isBoardEmpty(){
+		for (Ball ball : balls) {
+			if(ball.onBoard) return false;
+		}
+		return true;
 	}
 
 	public List<PositionBall> getWhereToPlaceBallToCarryUp(Ball ball) {
