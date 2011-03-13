@@ -87,8 +87,8 @@ public class View extends SimpleApplication {
 
 	public void initBalls() {
 		for (Ball ball : Model.balls) {
-			ball.graphics.create();
-			rootNode.attachChild(ball.graphics.geometry);
+			ball.graphics.create(this);
+			rootNode.attachChild(ball.graphics);
 		}
 		board.drawBalls();
 	}
@@ -106,9 +106,9 @@ public class View extends SimpleApplication {
 
 	public void placePositionBalls() {
 		for (PositionBall ball : model.getPositionsToPlaceBallOnBoard()) {
-			ball.graphics.create();
+			ball.graphics.create(this);
 			ball.graphics.place();
-			positionBalls.attachChild(ball.graphics.geometry);
+			positionBalls.attachChild(ball.graphics);
 		}
 
 		targets.attachChild(positionBalls);
