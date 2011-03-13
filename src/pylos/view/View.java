@@ -12,8 +12,6 @@ import com.jme3.input.ChaseCamera;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.InputListener;
 import com.jme3.input.controls.MouseButtonTrigger;
-import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
@@ -33,6 +31,7 @@ public class View extends SimpleApplication {
 
 	Node ballsOnBoard = new Node("Balls on Board");
 	Node positionBalls = new Node("Position Balls");
+	Node visible = new Node("Visible");
 
 	public View(Model model) {
 		super();
@@ -46,6 +45,8 @@ public class View extends SimpleApplication {
 	@Override
 	public void simpleInitApp() {
 		assetManager.registerLocator(Pylos.rootPath + "/assets", FileLocator.class);
+
+		rootNode.attachChild(visible);
 
 		cameraTarget = new CameraTarget(this);
 		rootNode.attachChild(cameraTarget.geometry);
@@ -72,9 +73,9 @@ public class View extends SimpleApplication {
 			if (collisions.any()) {
 				// TODO: show the PositionBallGraphics
 				Geometry closest = collisions.results.getClosestCollision().getGeometry();
-				Material material = new Material(assetManager, "Common/MatDefs/Misc/SolidColor.j3md");
-				material.setColor("Color", ColorRGBA.randomColor());
-				closest.setMaterial(material);
+				Geometry clone = closest.clone();
+				visible.detachAllChildren();
+				visible.attachChild(clone);
 			}
 		}
 	}
@@ -111,6 +112,5 @@ public class View extends SimpleApplication {
 		}
 
 		targets.attachChild(positionBalls);
-		rootNode.attachChild(targets);
 	}
 }
