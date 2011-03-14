@@ -5,6 +5,7 @@
 
 # build
 /bin
+/lib
 /liblwjgl.jnilib
 /libjinput-osx.jnilib
 /liblwjgl.so

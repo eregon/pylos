@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<project name="Pylos" default="run">
+	<path id="classpath">
+		<fileset dir="lib" includes="**/*.jar"/>
+	</path>
+
+	<target name="clean">
+		<delete dir="bin"/>
+	</target>
+
+	<target name="compile">
+		<mkdir dir="bin"/>
+		<javac srcdir="src" destdir="bin" classpathref="classpath" includeantruntime="false"/>
+	</target>
+
+	<target name="run" depends="compile">
+		<java classname="pylos.Pylos" fork="true">
+			<classpath>
+				<path refid="classpath"/>
+				<pathelement path="bin"/>
+			</classpath>
+		</java>
+	</target>
+</project>
