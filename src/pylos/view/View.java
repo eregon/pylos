@@ -6,7 +6,6 @@ import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.PositionBall;
 import pylos.view.ball.HighlightBallGraphics;
-import pylos.view.ball.PositionBallGraphics;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
@@ -14,7 +13,6 @@ import com.jme3.input.ChaseCamera;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.InputListener;
 import com.jme3.input.controls.MouseButtonTrigger;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
@@ -76,12 +74,9 @@ public class View extends SimpleApplication {
 		if ((int) (tpf) % CheckTargetsEveryFrames == 0) {
 			Collisions collisions = new Collisions(this);
 			if (collisions.any()) {
-				Geometry closest = collisions.results.getClosestCollision().getGeometry();
-				if (closest instanceof PositionBallGraphics) {
-					PositionBall ball = ((PositionBallGraphics) closest).model;
-					board.place(highlightBall, ball.x, ball.y, ball.level);
-					visible.attachChild(highlightBall);
-				}
+				PositionBall ball = collisions.getPositionBall();
+				board.place(highlightBall, ball.x, ball.y, ball.level);
+				visible.attachChild(highlightBall);
 			} else {
 				visible.detachChild(highlightBall);
 			}
