@@ -5,6 +5,8 @@ import pylos.controller.Controller;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.PositionBall;
+import pylos.view.ball.HighlightBallGraphics;
+import pylos.view.ball.PositionBallGraphics;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
@@ -12,7 +14,6 @@ import com.jme3.input.ChaseCamera;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.InputListener;
 import com.jme3.input.controls.MouseButtonTrigger;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
@@ -32,6 +33,7 @@ public class View extends SimpleApplication {
 	Node ballsOnBoard = new Node("Balls on Board");
 	Node positionBalls = new Node("Position Balls");
 	Node visible = new Node("Visible");
+	HighlightBallGraphics highlightBall = new HighlightBallGraphics();
 
 	public View(Model model) {
 		super();
@@ -64,18 +66,21 @@ public class View extends SimpleApplication {
 		initKeys();
 
 		controller.initTurn();
+
+		highlightBall.create(this);
 	}
 
 	@Override
 	public void simpleUpdate(float tpf) {
 		if ((int) (tpf) % CheckTargetsEveryFrames == 0) {
 			Collisions collisions = new Collisions(this);
+			visible.detachAllChildren();
 			if (collisions.any()) {
 				// TODO: show the PositionBallGraphics
-				Geometry closest = collisions.results.getClosestCollision().getGeometry();
-				Geometry clone = closest.clone();
-				visible.detachAllChildren();
-				visible.attachChild(clone);
+				PositionBallGraphics closest = (PositionBallGraphics) collisions.results.getClosestCollision().getGeometry();
+				PositionBall ball = closest.model;
+				board.place(highlightBall, ball.x, ball.y, ball.level);
+				visible.attachChild(highlightBall);
 			}
 		}
 	}
@@ -107,7 +112,7 @@ public class View extends SimpleApplication {
 	public void placePositionBalls() {
 		for (PositionBall ball : model.getPositionsToPlaceBallOnBoard()) {
 			ball.graphics.create(this);
-			ball.graphics.place();
+			board.place(ball.graphics, ball.x, ball.y, ball.level);
 			positionBalls.attachChild(ball.graphics);
 		}
 

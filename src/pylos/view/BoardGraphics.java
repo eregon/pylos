@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Player;
-import pylos.view.ball.BallGraphics;
 
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 
 public class BoardGraphics {
@@ -15,6 +15,7 @@ public class BoardGraphics {
 	public static final float BOARD_HEIGHT = 1f;
 	static final int BALLS_BY_SIDE = 9;
 	static final int BALLS_BY_SMALL_SIDE = 3;
+	public static final float BALL_DIAMETER = 1.38f;
 	Spatial board;
 
 	public BoardGraphics(View view) {
@@ -27,7 +28,7 @@ public class BoardGraphics {
 	}
 
 	public void drawBalls() {
-		float distanceCenterSide = BallGraphics.DIAMETER * (BALLS_BY_SIDE / 2);
+		float distanceCenterSide = BALL_DIAMETER * (BALLS_BY_SIDE / 2);
 
 		for (Player player : Model.players) {
 			LinkedList<Ball> ballsInSide = player.ballsInSide();
@@ -38,7 +39,7 @@ public class BoardGraphics {
 
 			for (int i = 0; i < limitZPos; i++) {
 				ballsInSide.pop().graphics.center().move(
-						(i + 1) * BallGraphics.DIAMETER * player.side,
+						(i + 1) * BALL_DIAMETER * player.side,
 						BOARD_HEIGHT,
 						distanceCenterSide
 						);
@@ -48,17 +49,26 @@ public class BoardGraphics {
 				ballsInSide.pop().graphics.center().move(
 						distanceCenterSide * player.side,
 						BOARD_HEIGHT,
-						(BALLS_BY_SIDE / 2 - i) * BallGraphics.DIAMETER
+						(BALLS_BY_SIDE / 2 - i) * BALL_DIAMETER
 						);
 			}
 
 			for (int i = 0; i < limitZNeg; i++) {
 				ballsInSide.pop().graphics.center().move(
-						(BALLS_BY_SIDE / 2 - i - 1) * BallGraphics.DIAMETER * player.side,
+						(BALLS_BY_SIDE / 2 - i - 1) * BALL_DIAMETER * player.side,
 						BOARD_HEIGHT,
 						-distanceCenterSide
 						);
 			}
 		}
+	}
+
+	public void place(Geometry ball, int x, int y, int level) {
+		float offset = (Model.ballsBySideAtLevel(level) - 1) * BALL_DIAMETER / 2;
+		ball.center().move(
+				x * BALL_DIAMETER - offset,
+				BoardGraphics.BOARD_HEIGHT + level * BALL_DIAMETER,
+				y * BALL_DIAMETER - offset
+				);
 	}
 }
