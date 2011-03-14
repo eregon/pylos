@@ -111,7 +111,6 @@ public class View extends SimpleApplication {
 
 	public void placePositionBalls() {
 		for (PositionBall ball : model.getPositionsToPlaceBallOnBoard()) {
-			ball.graphics.create(this);
 			board.place(ball.graphics, ball.x, ball.y, ball.level);
 			positionBalls.attachChild(ball.graphics);
 		}
