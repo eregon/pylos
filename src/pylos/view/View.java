@@ -11,12 +11,12 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.ChaseCamera;
 import com.jme3.input.MouseInput;
-import com.jme3.input.controls.InputListener;
+import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
-public class View extends SimpleApplication {
+public class View extends SimpleApplication implements ActionListener {
 	static final int CheckTargetsEveryFrames = 30;
 
 	public Model model;
@@ -25,7 +25,6 @@ public class View extends SimpleApplication {
 	BoardGraphics board;
 	ChaseCamera chaseCam;
 	CameraTarget cameraTarget;
-	InputListener listener = new Listener();
 
 	Node targets = new Node("Targets");
 
@@ -85,7 +84,7 @@ public class View extends SimpleApplication {
 
 	private void initKeys() {
 		inputManager.addMapping("PickBall", new MouseButtonTrigger(0)); // left-button click
-		inputManager.addListener(listener, "PickBall");
+		inputManager.addListener(this, "PickBall");
 	}
 
 	public void initBalls() {
@@ -114,5 +113,12 @@ public class View extends SimpleApplication {
 		}
 
 		targets.attachChild(positionBalls);
+	}
+
+	public void onAction(String name, boolean isPressed, float tpf) {
+		if (name.equals("PickBall") && !isPressed) {
+			Collisions collisions = new Collisions(Pylos.view);
+			collisions.show();
+		}
 	}
 }
