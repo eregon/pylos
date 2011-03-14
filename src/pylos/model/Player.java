@@ -3,16 +3,20 @@ package pylos.model;
 import java.util.LinkedList;
 import java.util.List;
 
+import pylos.view.PlayerGraphics;
+
 public class Player {
 	public static final int nbBalls = Model.nbBalls / 2;
 	public final Ball[] balls = new Ball[nbBalls];
 	public final int side;
+	public PlayerGraphics graphics;
 
 	public Player(int side) {
 		this.side = side;
 		for (int i = 0; i < balls.length; i++) {
 			balls[i] = new Ball(this, i);
 		}
+		graphics = new PlayerGraphics(this);
 	}
 
 	public LinkedList<Ball> ballsInSide() {
