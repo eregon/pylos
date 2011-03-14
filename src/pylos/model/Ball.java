@@ -1,6 +1,6 @@
 package pylos.model;
 
-import pylos.view.BallGraphics;
+import pylos.view.ball.BallGraphics;
 
 public class Ball {
 	public final Player owner;

@@ -1,7 +1,8 @@
-package pylos.view;
+package pylos.view.ball;
 
 import pylos.model.Ball;
 import pylos.model.Model;
+import pylos.view.View;
 
 import com.jme3.material.Material;
 import com.jme3.scene.Geometry;

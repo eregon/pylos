@@ -5,13 +5,14 @@ import java.util.LinkedList;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Player;
+import pylos.view.ball.BallGraphics;
 
 import com.jme3.scene.Spatial;
 
 public class BoardGraphics {
 	static final float HORIZONTAL_SCALE = 5;
 	static final float VERTICAL_SCALE = 0.5f;
-	static final float BOARD_HEIGHT = 1f;
+	public static final float BOARD_HEIGHT = 1f;
 	static final int BALLS_BY_SIDE = 9;
 	static final int BALLS_BY_SMALL_SIDE = 3;
 	Spatial board;

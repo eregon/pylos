@@ -1,7 +1,9 @@
-package pylos.view;
+package pylos.view.ball;
 
 import pylos.model.Model;
 import pylos.model.PositionBall;
+import pylos.view.BoardGraphics;
+import pylos.view.View;
 
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;

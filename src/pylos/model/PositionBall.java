@@ -1,6 +1,6 @@
 package pylos.model;
 
-import pylos.view.PositionBallGraphics;
+import pylos.view.ball.PositionBallGraphics;
 
 public class PositionBall {
 	public int x, y, level;
