@@ -10,12 +10,12 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 
 public class BoardGraphics {
+	public static final float BOARD_HEIGHT = 1f;
+	public static final float BALL_DIAMETER = 1.38f;
 	static final float HORIZONTAL_SCALE = 5;
 	static final float VERTICAL_SCALE = 0.5f;
-	public static final float BOARD_HEIGHT = 1f;
 	static final int BALLS_BY_SIDE = 9;
 	static final int BALLS_BY_SMALL_SIDE = 3;
-	public static final float BALL_DIAMETER = 1.38f;
 	Spatial board;
 
 	public BoardGraphics(View view) {
