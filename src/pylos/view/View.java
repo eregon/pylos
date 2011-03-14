@@ -14,6 +14,7 @@ import com.jme3.input.ChaseCamera;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.InputListener;
 import com.jme3.input.controls.MouseButtonTrigger;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
@@ -74,13 +75,15 @@ public class View extends SimpleApplication {
 	public void simpleUpdate(float tpf) {
 		if ((int) (tpf) % CheckTargetsEveryFrames == 0) {
 			Collisions collisions = new Collisions(this);
-			visible.detachAllChildren();
 			if (collisions.any()) {
-				// TODO: show the PositionBallGraphics
-				PositionBallGraphics closest = (PositionBallGraphics) collisions.results.getClosestCollision().getGeometry();
-				PositionBall ball = closest.model;
-				board.place(highlightBall, ball.x, ball.y, ball.level);
-				visible.attachChild(highlightBall);
+				Geometry closest = collisions.results.getClosestCollision().getGeometry();
+				if (closest instanceof PositionBallGraphics) {
+					PositionBall ball = ((PositionBallGraphics) closest).model;
+					board.place(highlightBall, ball.x, ball.y, ball.level);
+					visible.attachChild(highlightBall);
+				}
+			} else {
+				visible.detachChild(highlightBall);
 			}
 		}
 	}
