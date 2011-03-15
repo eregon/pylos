@@ -27,6 +27,13 @@ public class BoardGraphics {
 		return board;
 	}
 
+	/*
+	 * The balls on the board must be placed this way (to look like natural moves)
+	 * 13                      14
+	 * 11                      12
+	 *  9                      10
+	 *  7  5  3  1  0  2  4  6  8
+	 */
 	public void drawBalls() {
 		float distanceCenterSide = BALL_DIAMETER * (BALLS_BY_SIDE / 2);
 
@@ -37,28 +44,30 @@ public class BoardGraphics {
 			int limitZNeg = (n - limitFront) / 2;
 			int limitZPos = n - limitFront - limitZNeg;
 
-			for (int i = 0; i < limitZPos; i++) {
-				ballsInSide.pop().graphics.center().move(
-						(i + 1) * BALL_DIAMETER * player.side,
-						BOARD_HEIGHT,
-						distanceCenterSide
-						);
-			}
-
+			// 0-8 front line
 			for (int i = 0; i < limitFront; i++) {
 				ballsInSide.pop().graphics.center().move(
 						distanceCenterSide * player.side,
 						BOARD_HEIGHT,
-						(BALLS_BY_SIDE / 2 - i) * BALL_DIAMETER
+						((i + 1) / 2) * BALL_DIAMETER * (i % 2 == 1 ? 1 : -1)
 						);
 			}
 
-			for (int i = 0; i < limitZNeg; i++) {
+			// 9-14 sides
+			final int offset = BALLS_BY_SIDE / 2 - 1;
+			for (int i = 0; i < limitZPos; i++) {
 				ballsInSide.pop().graphics.center().move(
-						(BALLS_BY_SIDE / 2 - i - 1) * BALL_DIAMETER * player.side,
+						(offset - i) * BALL_DIAMETER * player.side,
 						BOARD_HEIGHT,
-						-distanceCenterSide
+						distanceCenterSide
 						);
+				if (i < limitZNeg) {
+					ballsInSide.pop().graphics.center().move(
+							(offset - i) * BALL_DIAMETER * player.side,
+							BOARD_HEIGHT,
+							-distanceCenterSide
+							);
+				}
 			}
 
 			for (Ball ball : ballsOnBoard) {
