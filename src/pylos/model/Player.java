@@ -23,7 +23,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player #" + (this == Model.player1 ? 1 : 2);
+		return "Player " + (this == Model.player1 ? 1 : 2);
 	}
 
 	public LinkedList<Ball> partitionBalls(LinkedList<Ball> ballsOnBoard) {
