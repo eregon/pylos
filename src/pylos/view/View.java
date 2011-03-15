@@ -22,7 +22,7 @@ public class View extends SimpleApplication implements ActionListener {
 	public Model model;
 	public Controller controller;
 
-	BoardGraphics board;
+	public BoardGraphics board;
 	ChaseCamera chaseCam;
 	CameraTarget cameraTarget;
 
@@ -118,7 +118,11 @@ public class View extends SimpleApplication implements ActionListener {
 	public void onAction(String name, boolean isPressed, float tpf) {
 		if (name.equals("PickBall") && !isPressed) {
 			Collisions collisions = new Collisions(Pylos.view);
-			collisions.show();
+			if (collisions.any()) {
+				collisions.show();
+
+				controller.placePlayerBall(collisions.getPositionBall());
+			}
 		}
 	}
 }

@@ -11,6 +11,8 @@ public class Model {
 	public static final Player player2 = new Player(-1);
 	public static final Player[] players = { player1, player2 };
 
+	public static Player currentPlayer = player1;
+
 	public List<PositionBall> getPositionsToPlaceBallOnBoard() {
 		List<PositionBall> list = new LinkedList<PositionBall>();
 		// TODO

@@ -31,7 +31,7 @@ public class BoardGraphics {
 		float distanceCenterSide = BALL_DIAMETER * (BALLS_BY_SIDE / 2);
 
 		for (Player player : Model.players) {
-			LinkedList<Ball> ballsInSide = player.ballsInSide();
+			LinkedList<Ball> ballsOnBoard = new LinkedList<Ball>(), ballsInSide = player.partitionBalls(ballsOnBoard);
 			int n = ballsInSide.size();
 			int limitFront = Math.min(BALLS_BY_SIDE, n);
 			int limitZNeg = (n - limitFront) / 2;
@@ -59,6 +59,10 @@ public class BoardGraphics {
 						BOARD_HEIGHT,
 						-distanceCenterSide
 						);
+			}
+
+			for (Ball ball : ballsOnBoard) {
+				place(ball.graphics, ball.x, ball.y, ball.level);
 			}
 		}
 	}
