@@ -17,9 +17,9 @@ public class Model {
 		List<Position> list = new LinkedList<Position>();
 		// TODO
 		if (isBoardEmpty()) {
-			for (int i = 0; i < 4; i++) {
-				for (int j = 0; j < 4; j++) {
-					list.add(new Position(i, j, 0));
+			for (int x = 0; x < 4; x++) {
+				for (int y = 0; y < 4; y++) {
+					list.add(new Position(x, y, 0));
 				}
 
 			}
