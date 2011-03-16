@@ -44,7 +44,7 @@ public class Player {
 		last.x = position.x;
 		last.y = position.y;
 		last.level = position.level;
-		Pylos.logger.info(this + " place his " + last + " at " + position);
+		Pylos.logger.info(this + " place a ball at " + position);
 	}
 
 	private Ball lastBallOnSide() {
