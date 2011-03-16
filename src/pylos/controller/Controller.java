@@ -1,7 +1,7 @@
 package pylos.controller;
 
 import pylos.model.Model;
-import pylos.model.PositionBall;
+import pylos.model.Position;
 import pylos.view.View;
 
 public class Controller {
@@ -18,8 +18,8 @@ public class Controller {
 		view.placePositionBalls();
 	}
 
-	public void placePlayerBall(PositionBall positionBall) {
-		Model.currentPlayer.putBallOnBoard(positionBall);
+	public void placePlayerBall(Position position) {
+		Model.currentPlayer.putBallOnBoard(position);
 		nextTurn();
 	}
 

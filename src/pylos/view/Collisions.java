@@ -1,7 +1,7 @@
 package pylos.view;
 
 import pylos.exception.PylosError;
-import pylos.model.PositionBall;
+import pylos.model.Position;
 import pylos.view.ball.PositionBallGraphics;
 
 import com.jme3.collision.CollisionResult;
@@ -35,11 +35,11 @@ public class Collisions {
 		}
 	}
 
-	public PositionBall getPositionBall() {
+	public Position getPosition() {
 		if (n > 0) {
 			Geometry closest = results.getClosestCollision().getGeometry();
 			if (closest instanceof PositionBallGraphics) {
-				return ((PositionBallGraphics) closest).model;
+				return ((PositionBallGraphics) closest).position;
 			} else {
 				throw new PylosError("Can not cast collision to PositionBall : " + closest.getClass());
 			}

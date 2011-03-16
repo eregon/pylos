@@ -4,8 +4,9 @@ import pylos.Pylos;
 import pylos.controller.Controller;
 import pylos.model.Ball;
 import pylos.model.Model;
-import pylos.model.PositionBall;
+import pylos.model.Position;
 import pylos.view.ball.HighlightBallGraphics;
+import pylos.view.ball.PositionBallGraphics;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
@@ -73,8 +74,8 @@ public class View extends SimpleApplication implements ActionListener {
 		if ((int) (tpf) % CheckTargetsEveryFrames == 0) {
 			Collisions collisions = new Collisions(this);
 			if (collisions.any()) {
-				PositionBall ball = collisions.getPositionBall();
-				board.place(highlightBall, ball.x, ball.y, ball.level);
+				Position position = collisions.getPosition();
+				board.place(highlightBall, position);
 				visible.attachChild(highlightBall);
 			} else {
 				visible.detachChild(highlightBall);
@@ -107,9 +108,10 @@ public class View extends SimpleApplication implements ActionListener {
 	}
 
 	public void placePositionBalls() {
-		for (PositionBall ball : model.getPositionsToPlaceBallOnBoard()) {
-			board.place(ball.graphics, ball.x, ball.y, ball.level);
-			positionBalls.attachChild(ball.graphics);
+		for (Position position : model.getPositionsToPlaceBallOnBoard()) {
+			PositionBallGraphics graphics = new PositionBallGraphics(position);
+			board.place(graphics, position);
+			positionBalls.attachChild(graphics);
 		}
 
 		targets.attachChild(positionBalls);
@@ -121,7 +123,7 @@ public class View extends SimpleApplication implements ActionListener {
 			if (collisions.any()) {
 				collisions.show();
 
-				controller.placePlayerBall(collisions.getPositionBall());
+				controller.placePlayerBall(collisions.getPosition());
 			}
 		}
 	}

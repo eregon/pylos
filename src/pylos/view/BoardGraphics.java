@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Player;
+import pylos.model.Position;
 
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
@@ -71,17 +72,17 @@ public class BoardGraphics {
 			}
 
 			for (Ball ball : ballsOnBoard) {
-				place(ball.graphics, ball.x, ball.y, ball.level);
+				place(ball.graphics, ball.position);
 			}
 		}
 	}
 
-	public void place(Geometry ball, int x, int y, int level) {
-		float offset = (Model.ballsBySideAtLevel(level) - 1) * BALL_DIAMETER / 2;
+	public void place(Geometry ball, Position pos) {
+		float offset = (Model.ballsBySideAtLevel(pos.z) - 1) * BALL_DIAMETER / 2;
 		ball.center().move(
-				x * BALL_DIAMETER - offset,
-				BoardGraphics.BOARD_HEIGHT + level * BALL_DIAMETER,
-				y * BALL_DIAMETER - offset
+				pos.x * BALL_DIAMETER - offset,
+				BoardGraphics.BOARD_HEIGHT + pos.z * BALL_DIAMETER,
+				pos.y * BALL_DIAMETER - offset
 				);
 	}
 }

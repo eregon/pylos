@@ -38,12 +38,10 @@ public class Player {
 		return ballsInSide;
 	}
 
-	public void putBallOnBoard(PositionBall position) {
+	public void putBallOnBoard(Position position) {
 		Ball last = lastBallOnSide();
 		last.onBoard = true;
-		last.x = position.x;
-		last.y = position.y;
-		last.level = position.level;
+		last.position = position;
 		Pylos.logger.info(this + " place a ball at " + position);
 	}
 

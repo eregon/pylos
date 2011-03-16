@@ -3,9 +3,9 @@ package pylos.model;
 import pylos.view.ball.BallGraphics;
 
 public class Ball {
+	public Position position;
 	public final Player owner;
 	public boolean onBoard = false;
-	public int x, y, level;
 	public BallGraphics graphics;
 
 	public Ball(Player owner, int i) {

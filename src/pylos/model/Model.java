@@ -13,13 +13,13 @@ public class Model {
 
 	public static Player currentPlayer = player1;
 
-	public List<PositionBall> getPositionsToPlaceBallOnBoard() {
-		List<PositionBall> list = new LinkedList<PositionBall>();
+	public List<Position> getPositionsToPlaceBallOnBoard() {
+		List<Position> list = new LinkedList<Position>();
 		// TODO
 		if (isBoardEmpty()) {
 			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < 4; j++) {
-					list.add(new PositionBall(i, j, 0));
+					list.add(new Position(i, j, 0));
 				}
 
 			}
@@ -36,8 +36,8 @@ public class Model {
 		return true;
 	}
 
-	public List<PositionBall> getWhereToPlaceBallToCarryUp(Ball ball) {
-		List<PositionBall> list = new LinkedList<PositionBall>();
+	public List<Position> getWhereToPlaceBallToCarryUp(Ball ball) {
+		List<Position> list = new LinkedList<Position>();
 		// TODO
 		return list;
 	}
