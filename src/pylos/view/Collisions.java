@@ -11,8 +11,9 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 
 public class Collisions {
-	View view;
+	public Geometry closest;
 	CollisionResults results = new CollisionResults();
+	View view;
 	int n;
 
 	public Collisions(View view) {
@@ -25,6 +26,9 @@ public class Collisions {
 		Ray ray = new Ray(origin, direction);
 
 		n = view.targets.collideWith(ray, results);
+		if (n > 0) {
+			closest = results.getClosestCollision().getGeometry();
+		}
 	}
 
 	public void show() {
@@ -37,7 +41,6 @@ public class Collisions {
 
 	public Position getPosition() {
 		if (n > 0) {
-			Geometry closest = results.getClosestCollision().getGeometry();
 			if (closest instanceof PositionBallGraphics) {
 				return ((PositionBallGraphics) closest).position;
 			} else {
