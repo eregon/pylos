@@ -42,15 +42,15 @@ public class BoardGraphics {
 		float distanceCenterSide = BALL_DIAMETER * (BALLS_BY_SIDE / 2);
 
 		for (Player player : Model.players) {
-			LinkedList<Ball> ballsOnBoard = new LinkedList<Ball>(), ballsInSide = player.partitionBalls(ballsOnBoard);
-			int n = ballsInSide.size();
+			LinkedList<Ball> ballsOnBoard = new LinkedList<Ball>(), ballsOnSide = player.partitionBalls(ballsOnBoard);
+			int n = ballsOnSide.size();
 			int limitFront = Math.min(BALLS_BY_SIDE, n);
 			int limitZNeg = (n - limitFront) / 2;
 			int limitZPos = n - limitFront - limitZNeg;
 
 			// 0-8 front line
 			for (int i = 0; i < limitFront; i++) {
-				ballsInSide.pop().graphics.center().move(
+				ballsOnSide.pop().graphics.center().move(
 						distanceCenterSide * player.side,
 						BOARD_SIDE_HEIGHT,
 						((i + 1) / 2) * BALL_DIAMETER * (i % 2 == 1 ? 1 : -1)
@@ -60,13 +60,13 @@ public class BoardGraphics {
 			// 9-14 sides
 			final int offset = BALLS_BY_SIDE / 2 - 1;
 			for (int i = 0; i < limitZPos; i++) {
-				ballsInSide.pop().graphics.center().move(
+				ballsOnSide.pop().graphics.center().move(
 						(offset - i) * BALL_DIAMETER * player.side,
 						BOARD_SIDE_HEIGHT,
 						distanceCenterSide
 						);
 				if (i < limitZNeg) {
-					ballsInSide.pop().graphics.center().move(
+					ballsOnSide.pop().graphics.center().move(
 							(offset - i) * BALL_DIAMETER * player.side,
 							BOARD_SIDE_HEIGHT,
 							-distanceCenterSide

@@ -27,15 +27,15 @@ public class Player {
 	}
 
 	public LinkedList<Ball> partitionBalls(LinkedList<Ball> ballsOnBoard) {
-		LinkedList<Ball> ballsInSide = new LinkedList<Ball>();
+		LinkedList<Ball> ballsOnSide = new LinkedList<Ball>();
 		for (Ball ball : balls) {
 			if (!ball.onBoard) {
-				ballsInSide.add(ball);
+				ballsOnSide.add(ball);
 			} else {
 				ballsOnBoard.add(ball);
 			}
 		}
-		return ballsInSide;
+		return ballsOnSide;
 	}
 
 	public void putBallOnBoard(Position position) {
