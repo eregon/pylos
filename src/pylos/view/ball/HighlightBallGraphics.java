@@ -1,16 +1,13 @@
 package pylos.view.ball;
 
-import pylos.view.BoardGraphics;
 import pylos.view.View;
 
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.shape.Sphere;
 
-public class HighlightBallGraphics extends Geometry {
+public class HighlightBallGraphics extends BallGraphics {
 	public HighlightBallGraphics() {
-		super("Highlight Ball", new Sphere(BoardGraphics.BALL_SAMPLES, BoardGraphics.BALL_SAMPLES, BoardGraphics.BALL_DIAMETER / 2));
+		super("Highlight Ball");
 	}
 
 	public void create(View view) {
