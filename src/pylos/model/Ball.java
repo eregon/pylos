@@ -1,17 +1,17 @@
 package pylos.model;
 
-import pylos.view.ball.BallGraphics;
+import pylos.view.ball.PlayerBallGraphics;
 
 public class Ball {
 	public Position position;
 	public final Player owner;
 	public boolean onBoard = false;
-	public BallGraphics graphics;
+	public PlayerBallGraphics graphics;
 
 	public Ball(Player owner, int i) {
 		this.owner = owner;
 		Model.balls.add(this);
-		graphics = new BallGraphics(this);
+		graphics = new PlayerBallGraphics(this);
 	}
 
 	@Override

@@ -7,10 +7,10 @@ import pylos.view.View;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Sphere;
 
-public class BallGraphics extends Geometry {
+public class PlayerBallGraphics extends Geometry {
 	Ball model;
 
-	public BallGraphics(Ball model) {
+	public PlayerBallGraphics(Ball model) {
 		super(model.toString(), new Sphere(BoardGraphics.BALL_SAMPLES, BoardGraphics.BALL_SAMPLES, BoardGraphics.BALL_DIAMETER / 2));
 		this.model = model;
 	}
