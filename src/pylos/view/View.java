@@ -65,8 +65,6 @@ public class View extends SimpleApplication implements ActionListener {
 		initKeys();
 
 		controller.initTurn();
-
-		highlightBall.create(this);
 	}
 
 	@Override
@@ -75,6 +73,7 @@ public class View extends SimpleApplication implements ActionListener {
 			Collisions collisions = new Collisions(this);
 			if (collisions.any()) {
 				Position position = collisions.getPosition();
+				highlightBall.setMaterial(Model.currentPlayer.graphics.ballMaterial);
 				board.place(highlightBall, position);
 				visible.attachChild(highlightBall);
 			} else {
