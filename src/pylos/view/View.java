@@ -121,8 +121,6 @@ public class View extends SimpleApplication implements ActionListener {
 		if (name.equals("PickBall") && !isPressed) {
 			Collisions collisions = new Collisions(Pylos.view);
 			if (collisions.any()) {
-				collisions.show();
-
 				controller.placePlayerBall(collisions.getPosition());
 			}
 		}
