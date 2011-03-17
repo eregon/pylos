@@ -56,7 +56,7 @@ public class View extends SimpleApplication implements ActionListener {
 		rootNode.attachChild(board.getSpatial());
 
 		// You must add a light to make the model visible
-		rootNode.addLight((new Sun()).light);
+		new Lights(this);
 
 		initFlyCam();
 
