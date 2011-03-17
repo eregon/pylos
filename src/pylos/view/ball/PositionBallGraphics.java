@@ -10,7 +10,7 @@ public class PositionBallGraphics extends Geometry {
 	public Position position;
 
 	public PositionBallGraphics(Position model) {
-		super(model.toString(), new Sphere(50, 50, BoardGraphics.BALL_DIAMETER / 2));
-		this.position = model;
+		super(model.toString(), new Sphere(BoardGraphics.BALL_SAMPLES, BoardGraphics.BALL_SAMPLES, BoardGraphics.BALL_DIAMETER / 2));
+		position = model;
 	}
 }

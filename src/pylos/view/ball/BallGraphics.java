@@ -11,7 +11,7 @@ public class BallGraphics extends Geometry {
 	Ball model;
 
 	public BallGraphics(Ball model) {
-		super(model.toString(), new Sphere(50, 50, BoardGraphics.BALL_DIAMETER / 2));
+		super(model.toString(), new Sphere(BoardGraphics.BALL_SAMPLES, BoardGraphics.BALL_SAMPLES, BoardGraphics.BALL_DIAMETER / 2));
 		this.model = model;
 	}
 

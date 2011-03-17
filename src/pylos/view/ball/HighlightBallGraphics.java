@@ -10,7 +10,7 @@ import com.jme3.scene.shape.Sphere;
 
 public class HighlightBallGraphics extends Geometry {
 	public HighlightBallGraphics() {
-		super("Highlight Ball", new Sphere(50, 50, BoardGraphics.BALL_DIAMETER / 2));
+		super("Highlight Ball", new Sphere(BoardGraphics.BALL_SAMPLES, BoardGraphics.BALL_SAMPLES, BoardGraphics.BALL_DIAMETER / 2));
 	}
 
 	public void create(View view) {

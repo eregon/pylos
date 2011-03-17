@@ -11,6 +11,8 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 
 public class BoardGraphics {
+	public static final int BALL_SAMPLES = 32;
+
 	public static final float BOARD_HEIGHT = 1f;
 	public static final float BALL_DIAMETER = 1.38f;
 	static final float HORIZONTAL_SCALE = 5;
