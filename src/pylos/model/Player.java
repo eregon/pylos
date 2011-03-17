@@ -16,7 +16,7 @@ public class Player {
 	public Player(int side) {
 		this.side = side;
 		for (int i = 0; i < balls.length; i++) {
-			balls[i] = new Ball(this, i);
+			balls[i] = new Ball(this);
 		}
 		graphics = new PlayerGraphics(this);
 	}

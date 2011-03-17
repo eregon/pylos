@@ -8,7 +8,7 @@ public class Ball {
 	public boolean onBoard = false;
 	public PlayerBallGraphics graphics;
 
-	public Ball(Player owner, int i) {
+	public Ball(Player owner) {
 		this.owner = owner;
 		Model.balls.add(this);
 		graphics = new PlayerBallGraphics(this);
