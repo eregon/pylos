@@ -13,7 +13,8 @@ import com.jme3.scene.Spatial;
 public class BoardGraphics {
 	public static final int BALL_SAMPLES = 32;
 
-	public static final float BOARD_HEIGHT = 1f;
+	public static final float BOARD_SIDE_HEIGHT = 1f;
+	public static final float BOARD_HEIGHT = 1.185f;
 	public static final float BALL_DIAMETER = 1.38f;
 	static final float HORIZONTAL_SCALE = 5;
 	static final float VERTICAL_SCALE = 0.5f;
@@ -51,7 +52,7 @@ public class BoardGraphics {
 			for (int i = 0; i < limitFront; i++) {
 				ballsInSide.pop().graphics.center().move(
 						distanceCenterSide * player.side,
-						BOARD_HEIGHT,
+						BOARD_SIDE_HEIGHT,
 						((i + 1) / 2) * BALL_DIAMETER * (i % 2 == 1 ? 1 : -1)
 						);
 			}
@@ -61,13 +62,13 @@ public class BoardGraphics {
 			for (int i = 0; i < limitZPos; i++) {
 				ballsInSide.pop().graphics.center().move(
 						(offset - i) * BALL_DIAMETER * player.side,
-						BOARD_HEIGHT,
+						BOARD_SIDE_HEIGHT,
 						distanceCenterSide
 						);
 				if (i < limitZNeg) {
 					ballsInSide.pop().graphics.center().move(
 							(offset - i) * BALL_DIAMETER * player.side,
-							BOARD_HEIGHT,
+							BOARD_SIDE_HEIGHT,
 							-distanceCenterSide
 							);
 				}
