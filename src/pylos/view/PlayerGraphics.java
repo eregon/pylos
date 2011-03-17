@@ -14,11 +14,13 @@ public class PlayerGraphics {
 	}
 
 	public void create(View view) {
-		if (model == Model.player1) {
-			ballMaterial = new Material(view.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
-		} else {
-			ballMaterial = new Material(view.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
-			ballMaterial.setFloat("Shininess", 0.5f);
+		if (ballMaterial == null) {
+			if (model == Model.player1) {
+				ballMaterial = new Material(view.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
+			} else {
+				ballMaterial = new Material(view.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
+				ballMaterial.setFloat("Shininess", 0.5f);
+			}
 		}
 	}
 }
