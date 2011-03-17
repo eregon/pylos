@@ -1,2 +1,6 @@
 14/03/2011
 7% Memory, 150 fps
+17/03/2011
+6.5% Memory
+45fps with 50 balls samples
+90fps with 32 balls samples
