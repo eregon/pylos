@@ -8,7 +8,7 @@ import pylos.exception.PylosError;
 import pylos.view.PlayerGraphics;
 
 public class Player {
-	public static final int nbBalls = Model.nbBalls / 2;
+	public static final int nbBalls = Model.BALLS / 2;
 	public final Ball[] balls = new Ball[nbBalls];
 	public final int side;
 	public PlayerGraphics graphics;
@@ -76,7 +76,7 @@ public class Player {
 
 	public boolean checkIfAnyLine(int level) { // Is there a point knowing which line is it ?
 		List<List<Position>> lines = new LinkedList<List<Position>>();
-		for (int i = 0; i < 4 - level; i++) {
+		for (int i = 0; i < Model.LEVELS - level; i++) {
 			lines.add(Model.getAllPositionsForLevelLineByLine(level, i));
 		}
 		for (List<Position> line : lines) {

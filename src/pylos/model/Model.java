@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Model {
-	public static final int levels = 4;
-	public static final int nbBalls = 30;
+	public static final int LEVELS = 4;
+	public static final int BALLS = 30;
 	public static final List<Ball> balls = new LinkedList<Ball>();
 	public static final Player player1 = new Player(+1);
 	public static final Player player2 = new Player(-1);
@@ -15,7 +15,7 @@ public class Model {
 
 	public List<Position> getPositionsToPlaceBallOnBoard() {
 		List<Position> list = new LinkedList<Position>();
-		for (int level = 0; level < 4; level++) {
+		for (int level = 0; level < LEVELS; level++) {
 			for (Position position : accessibleBalls(level)) {
 				list.add(position);
 			}
@@ -59,8 +59,8 @@ public class Model {
 
 	public List<Position> accessibleBalls(int level) {
 		List<Position> list = new LinkedList<Position>();
-		for (int x = 0; x < 4 - level; x++) {
-			for (int y = 0; y < 4 - level; y++) {
+		for (int x = 0; x < LEVELS - level; x++) {
+			for (int y = 0; y < LEVELS - level; y++) {
 				if (canPlaceBallAt(new Position(x, y, level)))
 					if (!isBallAt(new Position(x, y, level)))
 						list.add(new Position(x, y, level));
@@ -76,12 +76,12 @@ public class Model {
 	}
 
 	public static int ballsBySideAtLevel(int level) {
-		return levels - level;
+		return LEVELS - level;
 	}
 
 	public static List<Position> getAllPositionsForLevelLineByLine(int level, int line) { // to check if any lines
 		List<Position> list = new LinkedList<Position>();
-		for (int x = 0; x < 4 - level; x++) {
+		for (int x = 0; x < LEVELS - level; x++) {
 			list.add(new Position(x, line, level));
 		}
 		return list;
@@ -89,8 +89,8 @@ public class Model {
 
 	public static List<List<Position>> getAllPositionForLevelSquareBySquare(int level) { // to check if any squares
 		List<List<Position>> squares = new LinkedList<List<Position>>();
-		for (int line = 1; line < 4 - level; line++) {
-			for (int colomn = 1; colomn < 4 - level; colomn++) {
+		for (int line = 1; line < LEVELS - level; line++) {
+			for (int colomn = 1; colomn < LEVELS - level; colomn++) {
 				List<Position> square = new LinkedList<Position>();
 				square.add(new Position(line, colomn, level));
 				square.add(new Position(line - 1, colomn, level));
