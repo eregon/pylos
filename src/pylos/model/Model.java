@@ -90,12 +90,12 @@ public class Model {
 	public static List<List<Position>> getAllPositionForLevelSquareBySquare(int level) { // to check if any squares
 		List<List<Position>> squares = new LinkedList<List<Position>>();
 		for (int line = 1; line < LEVELS - level; line++) {
-			for (int colomn = 1; colomn < LEVELS - level; colomn++) {
+			for (int column = 1; column < LEVELS - level; column++) {
 				List<Position> square = new LinkedList<Position>();
-				square.add(new Position(line, colomn, level));
-				square.add(new Position(line - 1, colomn, level));
-				square.add(new Position(line, colomn - 1, level));
-				square.add(new Position(line - 1, colomn - 1, level));
+				square.add(new Position(line, column, level));
+				square.add(new Position(line - 1, column, level));
+				square.add(new Position(line, column - 1, level));
+				square.add(new Position(line - 1, column - 1, level));
 				squares.add(square);
 			}
 		}
