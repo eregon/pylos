@@ -14,24 +14,12 @@ public class Model {
 	public static Player currentPlayer = player1;
 
 	public List<Position> getPositionsToPlaceBallOnBoard() {
-		// List<Position> list = getAccessiblePositionForLevel(0);
-		List<Position> list = new LinkedList<Position>();
-		// TODO
-
-		for (int x = 0; x < 4; x++) {
-			for (int y = 0; y < 4; y++) {
-				list.add(new Position(x, y, 0));
+		List<Position> list = canPlaceBallAt(0);
+		for (int level = 0; level < 4; level++) {
+			for (Position position : canPlaceBallAt(level)) {
+				list.add(position);
 			}
 		}
-
-		// for (Ball ball : balls) {
-		// if(ball.onBoard) list.remove(list.indexOf(ball.position));
-		// }
-		// for (int level = 0; level < 4; level++) {
-		// for (Position position : getAccessiblePositionForLevel(0)) {
-		// list.add(position);
-		// };
-		// }
 
 		return list;
 	}
@@ -44,13 +32,11 @@ public class Model {
 		return true;
 	}
 
-	public boolean isBallOnThisPosition(Position position) { // does ball is on this position ?
-		for (Ball ball : balls) { // balls initialize ?
-			if (position.x == ball.position.x) {
-				if (position.y == ball.position.y) {
-					if (position.z == ball.position.z)
-						return true;
-				}
+	public boolean isBallAt(Position position) { // does ball is on this position ?
+		for (Ball ball : balls) {
+			if(ball.onBoard){
+				if (position.x == ball.position.x && position.y == ball.position.y && position.z == ball.position.z)
+					return true;
 			}
 		}
 		return false;
@@ -64,7 +50,7 @@ public class Model {
 			return true;
 		for (int x = position.x; x < position.x + 2; x++) {
 			for (int y = position.y; y < position.y + 2; y++) {
-				if (!isBallOnThisPosition(new Position(x, y, position.z - 1)))
+				if (!isBallAt(new Position(x, y, position.z - 1)))
 					return false;
 			}
 		}
@@ -76,9 +62,8 @@ public class Model {
 		for (int x = 0; x < 4 - level; x++) {
 			for (int y = 0; y < 4 - level; y++) {
 				if (are4BallsUnder(new Position(x, y, level)))
-					if (!isBallOnThisPosition(new Position(x, y, level)))
+					if (!isBallAt(new Position(x, y, level)))
 						list.add(new Position(x, y, level));
-				System.out.println("hola");
 			}
 		}
 		return list;
