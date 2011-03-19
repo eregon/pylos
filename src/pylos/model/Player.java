@@ -67,18 +67,21 @@ public class Player {
 	}
 
 	public boolean checkIfAnyLineOrSquare(int level) {
-		if (checkIfAnyLine(level)) return true;
-		if (checkIfAnySquare(level)) return true;
+		if (checkIfAnyLine(level))
+			return true;
+		if (checkIfAnySquare(level))
+			return true;
 		return false;
 	}
 
-	public boolean checkIfAnyLine(int level) {                           // Is there a point knowing which line is it ?
+	public boolean checkIfAnyLine(int level) { // Is there a point knowing which line is it ?
 		List<List<Position>> lines = new LinkedList<List<Position>>();
-		for (int i = 0; i < 4-level; i++) {
+		for (int i = 0; i < 4 - level; i++) {
 			lines.add(Model.getAllPositionsForLevelLineByLine(level, i));
 		}
 		for (List<Position> line : lines) {
-			if(checkIfThisLineOrSquare(line)) return true;
+			if (checkIfThisLineOrSquare(line))
+				return true;
 		}
 		return false;
 	}
@@ -86,23 +89,26 @@ public class Player {
 	public boolean checkIfAnySquare(int level) {
 		List<List<Position>> squares = Model.getAllPositionForLevelSquareBySquare(level);
 		for (List<Position> square : squares) {
-			if(checkIfThisLineOrSquare(square)) return true;
+			if (checkIfThisLineOrSquare(square))
+				return true;
 		}
 		return false;
 	}
 
-	public boolean checkIfThisLineOrSquare(List<Position> lineOrSquare){
+	public boolean checkIfThisLineOrSquare(List<Position> lineOrSquare) {
 		for (Position position : lineOrSquare) {
-			if(!isBallOnThisPosition(position)) return false;
+			if (!isBallOnThisPosition(position))
+				return false;
 		}
 		return true;
 	}
 
-	public boolean isBallOnThisPosition(Position position){	// does ball owned by this player be on this position ?
+	public boolean isBallOnThisPosition(Position position) { // does ball owned by this player be on this position ?
 		for (Ball ball : balls) {
-			if(position.x == ball.position.x) {
-				if(position.y == ball.position.y) {
-					if(position.z == ball.position.z) return true;
+			if (position.x == ball.position.x) {
+				if (position.y == ball.position.y) {
+					if (position.z == ball.position.z)
+						return true;
 				}
 			}
 		}

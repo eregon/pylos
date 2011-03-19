@@ -14,24 +14,24 @@ public class Model {
 	public static Player currentPlayer = player1;
 
 	public List<Position> getPositionsToPlaceBallOnBoard() {
-		//List<Position> list = getAccessiblePositionForLevel(0);
+		// List<Position> list = getAccessiblePositionForLevel(0);
 		List<Position> list = new LinkedList<Position>();
 		// TODO
-		if(isBoardEmpty()){
+		if (isBoardEmpty()) {
 			for (int x = 0; x < 4; x++) {
 				for (int y = 0; y < 4; y++) {
 					list.add(new Position(x, y, 0));
 				}
 			}
 		}
-//		for (Ball ball : balls) {
-//			if(ball.onBoard) list.remove(list.indexOf(ball.position));
-//		}
-//		for (int level = 0; level < 4; level++) {
-//			for (Position position : getAccessiblePositionForLevel(0)) {
-//				list.add(position);
-//			};
-//		}
+		// for (Ball ball : balls) {
+		// if(ball.onBoard) list.remove(list.indexOf(ball.position));
+		// }
+		// for (int level = 0; level < 4; level++) {
+		// for (Position position : getAccessiblePositionForLevel(0)) {
+		// list.add(position);
+		// };
+		// }
 
 		return list;
 	}
@@ -44,34 +44,38 @@ public class Model {
 		return true;
 	}
 
-	public boolean isBallOnThisPosition(Position position){	// does ball is on this position ?
-		for (Ball ball : balls) {							// balls initialize ?
-			if(position.x == ball.position.x) {
-				if(position.y == ball.position.y) {
-					if(position.z == ball.position.z) return true;
+	public boolean isBallOnThisPosition(Position position) { // does ball is on this position ?
+		for (Ball ball : balls) { // balls initialize ?
+			if (position.x == ball.position.x) {
+				if (position.y == ball.position.y) {
+					if (position.z == ball.position.z)
+						return true;
 				}
 			}
 		}
 		return false;
 	}
 
-	public boolean isAboveLevelPositionAccessible(Position position){	// check if position with z > 0 is accessible
-		if(position.z == 0) return true;
-		for (int x = position.x; x < position.x+2; x++) {
-			for (int y = position.y; y < position.y+2; y++) {
-				if(!isBallOnThisPosition(new Position(x,y,position.z-1))) return false;
+	public boolean isAboveLevelPositionAccessible(Position position) { // check if position with z > 0 is accessible
+		if (position.z == 0)
+			return true;
+		for (int x = position.x; x < position.x + 2; x++) {
+			for (int y = position.y; y < position.y + 2; y++) {
+				if (!isBallOnThisPosition(new Position(x, y, position.z - 1)))
+					return false;
 			}
 		}
 		return true;
 	}
 
-	public List<Position> getAccessiblePositionForLevel(int level){
+	public List<Position> getAccessiblePositionForLevel(int level) {
 		List<Position> list = new LinkedList<Position>();
-		for (int x = 0; x < 4-level; x++) {
-			for (int y = 0; y < 4-level; y++) {
-				if(isAboveLevelPositionAccessible(new Position(x,y,level)))
-					if(!isBallOnThisPosition(new Position(x,y,level))) list.add(new Position(x,y,level));
-					System.out.println("hola");
+		for (int x = 0; x < 4 - level; x++) {
+			for (int y = 0; y < 4 - level; y++) {
+				if (isAboveLevelPositionAccessible(new Position(x, y, level)))
+					if (!isBallOnThisPosition(new Position(x, y, level)))
+						list.add(new Position(x, y, level));
+				System.out.println("hola");
 			}
 		}
 		return list;
@@ -87,22 +91,23 @@ public class Model {
 		return levels - level;
 	}
 
-	public static List<Position> getAllPositionsForLevelLineByLine(int level, int line){	// to check if any lines
+	public static List<Position> getAllPositionsForLevelLineByLine(int level, int line) { // to check if any lines
 		List<Position> list = new LinkedList<Position>();
-		for (int x = 0; x < 4-level; x++) {
-			list.add(new Position(x,line,level));
+		for (int x = 0; x < 4 - level; x++) {
+			list.add(new Position(x, line, level));
 		}
 		return list;
 	}
-	public static List<List<Position>> getAllPositionForLevelSquareBySquare(int level){	// to check if any squares
+
+	public static List<List<Position>> getAllPositionForLevelSquareBySquare(int level) { // to check if any squares
 		List<List<Position>> squares = new LinkedList<List<Position>>();
-		for (int line = 1; line < 4-level; line++) {
-			for (int colomn = 1; colomn < 4-level; colomn++) {
+		for (int line = 1; line < 4 - level; line++) {
+			for (int colomn = 1; colomn < 4 - level; colomn++) {
 				List<Position> square = new LinkedList<Position>();
 				square.add(new Position(line, colomn, level));
-				square.add(new Position(line-1, colomn, level));
-				square.add(new Position(line, colomn-1, level));
-				square.add(new Position(line-1, colomn-1, level));
+				square.add(new Position(line - 1, colomn, level));
+				square.add(new Position(line, colomn - 1, level));
+				square.add(new Position(line - 1, colomn - 1, level));
 				squares.add(square);
 			}
 		}
