@@ -7,6 +7,7 @@ import pylos.model.Model;
 import pylos.model.Player;
 import pylos.model.Position;
 
+import com.jme3.math.FastMath;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 
@@ -16,6 +17,7 @@ public class BoardGraphics {
 	public static final float BOARD_SIDE_HEIGHT = 1f;
 	public static final float BOARD_HEIGHT = 1.185f;
 	public static final float BALL_DIAMETER = 1.38f;
+	public static final float HALF_SQRT_2 = FastMath.sqrt(2) / 2;
 	static final float HORIZONTAL_SCALE = 5;
 	static final float VERTICAL_SCALE = 0.5f;
 	static final int BALLS_BY_SIDE = 9;
@@ -83,7 +85,7 @@ public class BoardGraphics {
 		float offset = (Model.ballsBySideAtLevel(pos.z) - 1) * BALL_DIAMETER / 2;
 		ball.center().move(
 				pos.x * BALL_DIAMETER - offset,
-				BoardGraphics.BOARD_HEIGHT + pos.z * BALL_DIAMETER,
+				BoardGraphics.BOARD_HEIGHT + pos.z * BALL_DIAMETER * HALF_SQRT_2,
 				pos.y * BALL_DIAMETER - offset
 				);
 	}
