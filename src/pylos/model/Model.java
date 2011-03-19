@@ -17,13 +17,13 @@ public class Model {
 		// List<Position> list = getAccessiblePositionForLevel(0);
 		List<Position> list = new LinkedList<Position>();
 		// TODO
-		if (isBoardEmpty()) {
-			for (int x = 0; x < 4; x++) {
-				for (int y = 0; y < 4; y++) {
-					list.add(new Position(x, y, 0));
-				}
+
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
+				list.add(new Position(x, y, 0));
 			}
 		}
+
 		// for (Ball ball : balls) {
 		// if(ball.onBoard) list.remove(list.indexOf(ball.position));
 		// }

@@ -15,6 +15,7 @@ public class Controller {
 	}
 
 	public void initTurn() {
+		view.board.drawBalls();
 		view.placePositionBalls();
 	}
 
@@ -25,6 +26,7 @@ public class Controller {
 
 	private void nextTurn() {
 		Model.currentPlayer = (Model.currentPlayer == Model.player1) ? Model.player2 : Model.player1;
-		view.board.drawBalls();
+
+		initTurn();
 	}
 }
