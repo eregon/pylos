@@ -56,8 +56,11 @@ public class Model {
 		return false;
 	}
 
-	public boolean isAboveLevelPositionAccessible(Position position) { // check if position with z > 0 is accessible
-		if (position.z == 0)
+	/**
+	 * Checks if there are 4 balls under the position (so one can place a ball there)
+	 */
+	public boolean are4BallsUnder(Position position) {
+		if (position.z == 0) // TODO: this does not belong here
 			return true;
 		for (int x = position.x; x < position.x + 2; x++) {
 			for (int y = position.y; y < position.y + 2; y++) {
@@ -72,7 +75,7 @@ public class Model {
 		List<Position> list = new LinkedList<Position>();
 		for (int x = 0; x < 4 - level; x++) {
 			for (int y = 0; y < 4 - level; y++) {
-				if (isAboveLevelPositionAccessible(new Position(x, y, level)))
+				if (are4BallsUnder(new Position(x, y, level)))
 					if (!isBallOnThisPosition(new Position(x, y, level)))
 						list.add(new Position(x, y, level));
 				System.out.println("hola");
