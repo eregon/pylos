@@ -23,8 +23,8 @@ public class Model {
 				}
 
 			}
-
 		}
+		if(isAboveLevelAccessible()){}
 		return list;
 	}
 
@@ -36,6 +36,11 @@ public class Model {
 		return true;
 	}
 
+	public boolean isAboveLevelAccessible(){
+		//TODO
+		return true;
+	}
+
 	public List<Position> getWhereToPlaceBallToCarryUp(Ball ball) {
 		List<Position> list = new LinkedList<Position>();
 		// TODO
@@ -44,5 +49,27 @@ public class Model {
 
 	public static int ballsBySideAtLevel(int level) {
 		return levels - level;
+	}
+
+	public static List<Position> getAllPositionsForLevelLineByLine(int level, int line){	// to check if any lines
+		List<Position> list = new LinkedList<Position>();
+		for (int x = 0; x < 4-level; x++) {
+			list.add(new Position(x,line,level));
+		}
+		return list;
+	}
+	public static List<List<Position>> getAllPositionForLevelSquareBySquare(int level){	// to check if any squares
+		List<List<Position>> squares = new LinkedList<List<Position>>();
+		for (int line = 1; line < 4-level; line++) {
+			for (int colomn = 1; colomn < 4-level; colomn++) {
+				List<Position> square = new LinkedList<Position>();
+				square.add(new Position(line, colomn, level));
+				square.add(new Position(line-1, colomn, level));
+				square.add(new Position(line, colomn-1, level));
+				square.add(new Position(line-1, colomn-1, level));
+				squares.add(square);
+			}
+		}
+		return squares;
 	}
 }

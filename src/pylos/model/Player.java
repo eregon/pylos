@@ -66,18 +66,46 @@ public class Player {
 		return list;
 	}
 
-	public boolean checkIfAnyLineOrSquare() {
-		// TODO
+	public boolean checkIfAnyLineOrSquare(int level) {
+		if (checkIfAnyLine(level)) return true;
+		if (checkIfAnySquare(level)) return true;
 		return false;
 	}
 
-	public boolean checkIfAnyLine() {
-		// TODO
+	public boolean checkIfAnyLine(int level) {                           // Is there a point knowing which line is it ?
+		List<List<Position>> lines = new LinkedList<List<Position>>();
+		for (int i = 0; i < 4-level; i++) {
+			lines.add(Model.getAllPositionsForLevelLineByLine(level, i));
+		}
+		for (List<Position> line : lines) {
+			if(checkIfThisLineorSquare(line)) return true;
+		}
 		return false;
 	}
 
-	public boolean checkIfAnySquare() {
-		// TODO
+	public boolean checkIfAnySquare(int level) {
+		List<List<Position>> squares = Model.getAllPositionForLevelSquareBySquare(level);
+		for (List<Position> square : squares) {
+			if(checkIfThisLineorSquare(square)) return true;
+		}
+		return false;
+	}
+
+	public boolean checkIfThisLineorSquare(List<Position> lineOrSquare){
+		for (Position position : lineOrSquare) {
+			if(!isBallOnThisPosition(position)) return false;
+		}
+		return true;
+	}
+
+	public boolean isBallOnThisPosition(Position position){
+		for (Ball ball : balls) {
+			if(position.x == ball.position.x) {
+				if(position.y == ball.position.y) {
+					if(position.z == ball.position.z) return true;
+				}
+			}
+		}
 		return false;
 	}
 }

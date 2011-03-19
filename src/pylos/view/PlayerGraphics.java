@@ -1,7 +1,5 @@
 package pylos.view;
 
-import javax.vecmath.Color3f;
-
 import pylos.model.Model;
 import pylos.model.Player;
 
@@ -33,7 +31,7 @@ public class PlayerGraphics {
 				ballMaterial.setColor("Ambient",  ColorRGBA.Black);
 				ballMaterial.setColor("Diffuse",  ColorRGBA.DarkGray);
 				ballMaterial.setColor("Specular", ColorRGBA.Orange);
-			}	
+			}
 		}
 	}
 }
