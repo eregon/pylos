@@ -71,7 +71,7 @@ public class Model {
 		return true;
 	}
 
-	public List<Position> getAccessiblePositionForLevel(int level) {
+	public List<Position> canPlaceBallAt(int level) {
 		List<Position> list = new LinkedList<Position>();
 		for (int x = 0; x < 4 - level; x++) {
 			for (int y = 0; y < 4 - level; y++) {
