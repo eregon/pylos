@@ -14,13 +14,12 @@ public class Model {
 	public static Player currentPlayer = player1;
 
 	public List<Position> getPositionsToPlaceBallOnBoard() {
-		List<Position> list = canPlaceBallAt(0);
+		List<Position> list = new LinkedList<Position>();
 		for (int level = 0; level < 4; level++) {
-			for (Position position : canPlaceBallAt(level)) {
+			for (Position position : accessibleBalls(level)) {
 				list.add(position);
 			}
 		}
-
 		return list;
 	}
 
@@ -34,7 +33,7 @@ public class Model {
 
 	public boolean isBallAt(Position position) { // does ball is on this position ?
 		for (Ball ball : balls) {
-			if(ball.onBoard){
+			if (ball.onBoard) {
 				if (position.x == ball.position.x && position.y == ball.position.y && position.z == ball.position.z)
 					return true;
 			}
@@ -43,10 +42,11 @@ public class Model {
 	}
 
 	/**
-	 * Checks if there are 4 balls under the position (so one can place a ball there)
+	 * Checks if there are 4 balls under the position or if is it on the first level
+	 * (so one can place a ball there)
 	 */
-	public boolean are4BallsUnder(Position position) {
-		if (position.z == 0) // TODO: this does not belong here
+	public boolean canPlaceBallAt(Position position) {
+		if (position.z == 0)
 			return true;
 		for (int x = position.x; x < position.x + 2; x++) {
 			for (int y = position.y; y < position.y + 2; y++) {
@@ -57,11 +57,11 @@ public class Model {
 		return true;
 	}
 
-	public List<Position> canPlaceBallAt(int level) {
+	public List<Position> accessibleBalls(int level) {
 		List<Position> list = new LinkedList<Position>();
 		for (int x = 0; x < 4 - level; x++) {
 			for (int y = 0; y < 4 - level; y++) {
-				if (are4BallsUnder(new Position(x, y, level)))
+				if (canPlaceBallAt(new Position(x, y, level)))
 					if (!isBallAt(new Position(x, y, level)))
 						list.add(new Position(x, y, level));
 			}
