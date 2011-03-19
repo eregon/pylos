@@ -13,6 +13,10 @@ public class Model {
 
 	public static Player currentPlayer = player1;
 
+	public Model() {
+		Position.createPositions();
+	}
+
 	public List<Position> getPositionsToPlaceBallOnBoard() {
 		List<Position> list = new LinkedList<Position>();
 		for (int level = 0; level < LEVELS; level++) {
@@ -33,10 +37,8 @@ public class Model {
 
 	public boolean isBallAt(Position position) { // does ball is on this position ?
 		for (Ball ball : balls) {
-			if (ball.onBoard) {
-				if (ball.position.equals(position))
-					return true;
-			}
+			if (ball.onBoard && ball.position == position)
+				return true;
 		}
 		return false;
 	}
@@ -50,7 +52,7 @@ public class Model {
 			return true;
 		for (int x = position.x; x < position.x + 2; x++) {
 			for (int y = position.y; y < position.y + 2; y++) {
-				if (!isBallAt(new Position(x, y, position.z - 1)))
+				if (!isBallAt(Position.at(x, y, position.z - 1)))
 					return false;
 			}
 		}
@@ -61,9 +63,9 @@ public class Model {
 		List<Position> list = new LinkedList<Position>();
 		for (int x = 0; x < LEVELS - level; x++) {
 			for (int y = 0; y < LEVELS - level; y++) {
-				if (canPlaceBallAt(new Position(x, y, level)))
-					if (!isBallAt(new Position(x, y, level)))
-						list.add(new Position(x, y, level));
+				if (canPlaceBallAt(Position.at(x, y, level)))
+					if (!isBallAt(Position.at(x, y, level)))
+						list.add(Position.at(x, y, level));
 			}
 		}
 		return list;
@@ -82,7 +84,7 @@ public class Model {
 	public static List<Position> getAllPositionsForLevelLineByLine(int level, int line) { // to check if any lines
 		List<Position> list = new LinkedList<Position>();
 		for (int x = 0; x < LEVELS - level; x++) {
-			list.add(new Position(x, line, level));
+			list.add(Position.at(x, line, level));
 		}
 		return list;
 	}
@@ -92,10 +94,10 @@ public class Model {
 		for (int line = 1; line < LEVELS - level; line++) {
 			for (int column = 1; column < LEVELS - level; column++) {
 				List<Position> square = new LinkedList<Position>();
-				square.add(new Position(line, column, level));
-				square.add(new Position(line - 1, column, level));
-				square.add(new Position(line, column - 1, level));
-				square.add(new Position(line - 1, column - 1, level));
+				square.add(Position.at(line, column, level));
+				square.add(Position.at(line - 1, column, level));
+				square.add(Position.at(line, column - 1, level));
+				square.add(Position.at(line - 1, column - 1, level));
 				squares.add(square);
 			}
 		}
