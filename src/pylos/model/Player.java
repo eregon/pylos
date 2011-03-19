@@ -76,28 +76,28 @@ public class Player {
 		List<List<Position>> lines = new LinkedList<List<Position>>();
 		for (int i = 0; i < 4-level; i++) {
 			lines.add(Model.getAllPositionsForLevelLineByLine(level, i));
-		}
+		}	
 		for (List<Position> line : lines) {
-			if(checkIfThisLineorSquare(line)) return true;
+			if(checkIfThisLineOrSquare(line)) return true;
 		}
 		return false;
 	}
-
+	
 	public boolean checkIfAnySquare(int level) {
 		List<List<Position>> squares = Model.getAllPositionForLevelSquareBySquare(level);
 		for (List<Position> square : squares) {
-			if(checkIfThisLineorSquare(square)) return true;
+			if(checkIfThisLineOrSquare(square)) return true;
 		}
 		return false;
 	}
-
-	public boolean checkIfThisLineorSquare(List<Position> lineOrSquare){
+	
+	public boolean checkIfThisLineOrSquare(List<Position> lineOrSquare){
 		for (Position position : lineOrSquare) {
 			if(!isBallOnThisPosition(position)) return false;
 		}
 		return true;
 	}
-
+	
 	public boolean isBallOnThisPosition(Position position){
 		for (Ball ball : balls) {
 			if(position.x == ball.position.x) {

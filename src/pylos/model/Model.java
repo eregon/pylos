@@ -16,15 +16,17 @@ public class Model {
 	public List<Position> getPositionsToPlaceBallOnBoard() {
 		List<Position> list = new LinkedList<Position>();
 		// TODO
-		if (isBoardEmpty()) {
-			for (int x = 0; x < 4; x++) {
-				for (int y = 0; y < 4; y++) {
-					list.add(new Position(x, y, 0));
-				}
-
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
+				list.add(new Position(x, y, 0));
 			}
 		}
-		if(isAboveLevelAccessible()){}
+		if(!isBoardEmpty()){
+			for (Ball ball : balls) {
+				if(ball.onBoard) list.remove(list.indexOf(ball.position));
+			}
+		}
+//		if(isAboveLevelAccessible()){}
 		return list;
 	}
 
