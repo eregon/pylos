@@ -105,12 +105,8 @@ public class Player {
 
 	public boolean isBallOnThisPosition(Position position) { // does ball owned by this player be on this position ?
 		for (Ball ball : balls) {
-			if (position.x == ball.position.x) {
-				if (position.y == ball.position.y) {
-					if (position.z == ball.position.z)
-						return true;
-				}
-			}
+			if (ball.position == position)
+				return true;
 		}
 		return false;
 	}
