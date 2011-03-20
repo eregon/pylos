@@ -44,10 +44,13 @@ public class Model {
 	}
 
 	/**
-	 * Checks if there are 4 balls under the position or if is it on the first level
+	 * Checks if there are 4 balls under the position or if it is on the first level
+	 * and if there is no ball at that place
 	 * (so one can place a ball there)
 	 */
 	public boolean canPlaceBallAt(Position position) {
+		if (isBallAt(position))
+			return false;
 		if (position.z == 0)
 			return true;
 		for (int x = position.x; x < position.x + 2; x++) {
@@ -61,11 +64,12 @@ public class Model {
 
 	public List<Position> accessibleBalls(int level) {
 		List<Position> list = new LinkedList<Position>();
+		Position position;
 		for (int x = 0; x < LEVELS - level; x++) {
 			for (int y = 0; y < LEVELS - level; y++) {
-				if (canPlaceBallAt(Position.at(x, y, level)))
-					if (!isBallAt(Position.at(x, y, level)))
-						list.add(Position.at(x, y, level));
+				position = Position.at(x, y, level);
+				if (canPlaceBallAt(position))
+					list.add(position);
 			}
 		}
 		return list;
