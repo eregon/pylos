@@ -64,12 +64,12 @@ public class View extends SimpleApplication implements ActionListener {
 
 		initKeys();
 
-		controller.initTurn();
+		controller.updateView();
 	}
 
 	@Override
 	public void simpleUpdate(float tpf) {
-		if ((int) (tpf) % CheckTargetsEveryFrames == 0) {
+		if (!model.isWinner() && (int) (tpf) % CheckTargetsEveryFrames == 0) {
 			Collisions collisions = new Collisions(this);
 			if (collisions.any()) {
 				Position position = collisions.getPosition();
@@ -119,7 +119,7 @@ public class View extends SimpleApplication implements ActionListener {
 	}
 
 	public void onAction(String name, boolean isPressed, float tpf) {
-		if (name.equals("PickBall") && !isPressed) {
+		if (name.equals("PickBall") && !isPressed && !model.isWinner()) {
 			Collisions collisions = new Collisions(Pylos.view);
 			if (collisions.any()) {
 				controller.placePlayerBall(collisions.getPosition());

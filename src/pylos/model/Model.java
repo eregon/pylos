@@ -107,4 +107,8 @@ public class Model {
 		}
 		return squares;
 	}
+
+	public boolean isWinner() {
+		return isBallAt(Position.top);
+	}
 }

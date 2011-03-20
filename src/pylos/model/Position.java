@@ -6,6 +6,7 @@ package pylos.model;
  */
 public class Position {
 	public static final Position[][][] positions = new Position[Model.LEVELS][][];
+	public static Position top;
 	public final int x, y, z;
 
 	private Position(int x, int y, int z) {
@@ -28,6 +29,7 @@ public class Position {
 				}
 			}
 		}
+		top = Position.at(0, 0, Model.LEVELS - 1);
 	}
 
 	public static Position at(int x, int y, int z) {

@@ -1,5 +1,6 @@
 package pylos.controller;
 
+import pylos.Pylos;
 import pylos.model.Model;
 import pylos.model.Position;
 import pylos.view.View;
@@ -14,19 +15,27 @@ public class Controller {
 		view.controller = this;
 	}
 
-	public void initTurn() {
+	public void updateView() {
 		view.board.drawBalls();
 		view.placePositionBalls();
 	}
 
+	public void finishTurn() {
+		if (model.isWinner()) {
+			updateView();
+			Pylos.logger.info(Model.currentPlayer + " won");
+		} else {
+			nextTurn();
+		}
+	}
+
 	public void placePlayerBall(Position position) {
 		Model.currentPlayer.putBallOnBoard(position);
-		nextTurn();
+		finishTurn();
 	}
 
 	private void nextTurn() {
 		Model.currentPlayer = (Model.currentPlayer == Model.player1) ? Model.player2 : Model.player1;
-
-		initTurn();
+		updateView();
 	}
 }
