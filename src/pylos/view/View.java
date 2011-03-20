@@ -27,7 +27,7 @@ public class View extends SimpleApplication implements ActionListener {
 	ChaseCamera chaseCam;
 	CameraTarget cameraTarget;
 
-	Node targets = new Node("Targets");
+	Node targets;
 
 	Node ballsOnBoard = new Node("Balls on Board");
 	Node positionBalls = new Node("Position Balls");
