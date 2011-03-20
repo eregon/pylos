@@ -115,7 +115,7 @@ public class View extends SimpleApplication implements ActionListener {
 			positionBalls.attachChild(graphics);
 		}
 
-		targets.attachChild(positionBalls);
+		targets = positionBalls;
 	}
 
 	public void onAction(String name, boolean isPressed, float tpf) {

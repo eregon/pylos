@@ -13,11 +13,14 @@ import com.jme3.scene.Geometry;
 public class Collisions {
 	public Geometry closest;
 	CollisionResults results = new CollisionResults();
-	View view;
 	int n;
 
 	public Collisions(View view) {
-		this.view = view;
+		if (view.targets == null) {
+			throw new PylosError("View.targets must not be null when creating Collisions");
+		} else if (view.targets.getChildren().size() == 0) {
+			throw new PylosError("View.targets must not be empty when creating Collisions");
+		}
 
 		Vector3f origin = view.getCamera().getWorldCoordinates(view.getInputManager().getCursorPosition(), 0);
 		Vector3f direction = view.getCamera().getWorldCoordinates(view.getInputManager().getCursorPosition(), 1);
