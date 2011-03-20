@@ -18,8 +18,8 @@ public class BoardGraphics {
 	public static final float BOARD_HEIGHT = 1.185f;
 	public static final float BALL_DIAMETER = 1.38f;
 	public static final float HALF_SQRT_2 = FastMath.sqrt(2) / 2;
-	static final float HORIZONTAL_SCALE = 5;
-	static final float VERTICAL_SCALE = 0.5f;
+	static final float HORIZONTAL_SCALE = 0.8f;
+	static final float VERTICAL_SCALE = 0.85f;
 	static final int BALLS_BY_SIDE = 9;
 	Spatial board;
 
