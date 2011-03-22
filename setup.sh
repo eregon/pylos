@@ -3,6 +3,9 @@ if [ ! -e lib ]; then
   mkdir lib
 fi
 
-if [ ! -e lib/jME ]; then
-  curl http://eregon.me/pylos/jME -O jME
+cd lib
+
+if [ ! -e jME ]; then
+  echo "Downloading jME ..."
+  curl http://eregon.me/pylos/jME -o jME
 fi
