@@ -6,7 +6,7 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 
 public class Lights {
-	final static int radius = 28;
+	final static int radius = 32;
 	final static int lights = 4;
 	final static float distance = 15.5f;
 	final static float height = 4;
