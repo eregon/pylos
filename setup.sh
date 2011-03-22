@@ -15,5 +15,6 @@ fi
 cd jME
 
 if [ ! -e jMonkeyEngine3.jar ]; then
+  echo "Unpacking jME.zip"
   unzip -q ../jME.zip
 fi
