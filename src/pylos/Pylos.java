@@ -12,11 +12,13 @@ public class Pylos {
 	public static View view;
 	public static Controller controller;
 
-	public static final File rootPath = new File(".");
+	// Ugly hack to get root path: this is Java ...
+	public static final File rootPath = new File(Pylos.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile();
 	public static final Logger logger = Logger.getLogger(Pylos.class.getName());
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Pylos!");
+		logger.config("root path is " + rootPath);
 
 		Config.configureProject();
 
