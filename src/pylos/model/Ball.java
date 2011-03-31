@@ -1,7 +1,5 @@
 package pylos.model;
 
-import java.util.List;
-
 import pylos.Pylos;
 import pylos.view.ball.PlayerBallGraphics;
 
@@ -33,12 +31,11 @@ public class Ball {
 		return true;
 	}
 
+	/**
+	 * @return whether this ball can be mounted (so there is at least one place to mount it)
+	 */
 	public boolean isMountable() {
-		List<Position> list = Pylos.model.getPositionsToRise(this);
-		if (list.isEmpty()) {
-			return false;
-		}
-		return true;
+		return !Pylos.model.getPositionsToRise(this).isEmpty();
 	}
 
 	/**
