@@ -75,9 +75,20 @@ public class Model {
 		return list;
 	}
 
+	/*
+	 * this needs to change onBoard to true, when the ball is placed in his new position
+	 */
 	public List<Position> getWhereToPlaceBallToCarryUp(Ball ball) {
+		ball.onBoard=false;
 		List<Position> list = new LinkedList<Position>();
-		// TODO
+		for (int z = ball.position.z+1; z < LEVELS; z++) {
+			for (int x = 0; x < 4-z; x++) {
+				for (int y = 0; y < 4-z; y++) {
+					if(canPlaceBallAt(Position.at(x, y, z)))
+						list.add(Position.at(x,y,z));
+				}
+			}
+		}
 		return list;
 	}
 
