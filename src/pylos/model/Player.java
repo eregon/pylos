@@ -65,7 +65,12 @@ public class Player {
 
 	public List<Ball> getBallsToCarryUp() {
 		List<Ball> list = new LinkedList<Ball>();
-		// TODO
+		for (Ball ball : balls) {
+			if(ball.checkIfRemovable())
+				if(ball.checkIfCarryableUp()){
+					list.add(ball);
+				}
+		}
 		return list;
 	}
 

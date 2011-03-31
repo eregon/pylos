@@ -1,5 +1,8 @@
 package pylos.model;
 
+import java.util.List;
+
+import pylos.Pylos;
 import pylos.view.ball.PlayerBallGraphics;
 
 public class Ball {
@@ -26,6 +29,14 @@ public class Ball {
 				if(Model.isBallAt(Position.at(x, y, this.position.z+1)))
 					return false;
 			}
+		}
+		return true;
+	}
+
+	public boolean checkIfCarryableUp() {
+		List<Position> list = Pylos.model.getWhereToPlaceBallToCarryUp(this);
+		if(list.isEmpty()){
+			return false;
 		}
 		return true;
 	}
