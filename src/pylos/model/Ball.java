@@ -22,33 +22,34 @@ public class Ball {
 		return "Ball (" + owner.side + ")";
 	}
 
-	public boolean checkIfRemovable() {
-		int[] isExternal = checkIfExternal(this.position);
-		for (int x = isExternal[0]; x < this.position.x; x++) {
-			for (int y = isExternal[1]; y < this.position.y; y++) {
-				if(Model.isBallAt(Position.at(x, y, this.position.z+1)))
+	public boolean isRemovable() {
+		int[] isExternal = checkIfExternal(position);
+		for (int x = isExternal[0]; x < position.x; x++) {
+			for (int y = isExternal[1]; y < position.y; y++) {
+				if (Model.ballAt(Position.at(x, y, position.z + 1)))
 					return false;
 			}
 		}
 		return true;
 	}
 
-	public boolean checkIfCarryableUp() {
-		List<Position> list = Pylos.model.getWhereToPlaceBallToCarryUp(this);
-		if(list.isEmpty()){
+	public boolean isMountable() {
+		List<Position> list = Pylos.model.getPositionsToRise(this);
+		if (list.isEmpty()) {
 			return false;
 		}
 		return true;
 	}
-	/*
+
+	/**
 	 * This method check if a ball is in 1st or last line/column (which is important to know for checkIfRemovable)
 	 */
-	public int[] checkIfExternal(Position position){
-		int[] pos = {position.x-1, position.y-1};
-		if(position.x == 0 || position.x == 4-position.z){
+	public int[] checkIfExternal(Position position) {
+		int[] pos = { position.x - 1, position.y - 1 };
+		if (position.x == 0 || position.x == 4 - position.z) {
 			pos[0] = position.x;
 		}
-		if(position.y == 0 || position.y == 4-position.z){
+		if (position.y == 0 || position.y == 4 - position.z) {
 			pos[1] = position.y;
 		}
 		return pos;

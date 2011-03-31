@@ -54,20 +54,23 @@ public class Player {
 		throw new PylosError("Could not find ball in the side to put on the pyramid");
 	}
 
-	public List<Ball> getBallsToRemove() {
+	/**
+	 * Balls which can be removed from the board and be placed back on the side
+	 */
+	public List<Ball> getRemovableBalls() {
 		List<Ball> list = new LinkedList<Ball>();
 		for (Ball ball : balls) {
-			if(ball.checkIfRemovable())
+			if (ball.isRemovable())
 				list.add(ball);
 		}
 		return list;
 	}
 
-	public List<Ball> getBallsToCarryUp() {
+	public List<Ball> getMountableBalls() {
 		List<Ball> list = new LinkedList<Ball>();
 		for (Ball ball : balls) {
-			if(ball.checkIfRemovable())
-				if(ball.checkIfCarryableUp()){
+			if (ball.isRemovable())
+				if (ball.isMountable()) {
 					list.add(ball);
 				}
 		}

@@ -17,7 +17,7 @@ public class Model {
 		Position.createPositions();
 	}
 
-	public List<Position> getPositionsToPlaceBallOnBoard() {
+	public List<Position> getPositionBalls() {
 		List<Position> list = new LinkedList<Position>();
 		for (int level = 0; level < LEVELS; level++) {
 			for (Position position : accessibleBalls(level)) {
@@ -35,7 +35,7 @@ public class Model {
 		return true;
 	}
 
-	public static boolean isBallAt(Position position) { // does ball is on this position ?
+	public static boolean ballAt(Position position) { // does ball is on this position ?
 		for (Ball ball : balls) {
 			if (ball.onBoard && ball.position == position)
 				return true;
@@ -49,13 +49,13 @@ public class Model {
 	 * (so one can place a ball there)
 	 */
 	public boolean canPlaceBallAt(Position position) {
-		if (isBallAt(position))
+		if (ballAt(position))
 			return false;
 		if (position.z == 0)
 			return true;
 		for (int x = position.x; x < position.x + 2; x++) {
 			for (int y = position.y; y < position.y + 2; y++) {
-				if (!isBallAt(Position.at(x, y, position.z - 1)))
+				if (!ballAt(Position.at(x, y, position.z - 1)))
 					return false;
 			}
 		}
@@ -78,7 +78,7 @@ public class Model {
 	/*
 	 * this needs to change onBoard to true, when the ball is placed in his new position
 	 */
-	public List<Position> getWhereToPlaceBallToCarryUp(Ball ball) {
+	public List<Position> getPositionsToRise(Ball ball) {
 		ball.onBoard=false;
 		List<Position> list = new LinkedList<Position>();
 		for (int z = ball.position.z+1; z < LEVELS; z++) {
@@ -120,6 +120,6 @@ public class Model {
 	}
 
 	public boolean isWinner() {
-		return isBallAt(Position.top);
+		return ballAt(Position.top);
 	}
 }

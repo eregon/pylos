@@ -115,7 +115,7 @@ public class View extends SimpleApplication implements ActionListener {
 	public void placePositionBalls() {
 		positionBalls.detachAllChildren();
 
-		for (Position position : model.getPositionsToPlaceBallOnBoard()) {
+		for (Position position : model.getPositionBalls()) {
 			PositionBallGraphics graphics = new PositionBallGraphics(position);
 			board.place(graphics, position);
 			positionBalls.attachChild(graphics);
