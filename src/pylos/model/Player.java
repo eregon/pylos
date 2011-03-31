@@ -56,7 +56,10 @@ public class Player {
 
 	public List<Ball> getBallsToRemove() {
 		List<Ball> list = new LinkedList<Ball>();
-		// TODO
+		for (Ball ball : balls) {
+			if(ball.checkIfRemovable())
+				list.add(ball);
+		}
 		return list;
 	}
 
