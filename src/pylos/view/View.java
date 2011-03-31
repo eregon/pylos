@@ -1,5 +1,7 @@
 package pylos.view;
 
+import java.util.List;
+
 import pylos.Pylos;
 import pylos.controller.Controller;
 import pylos.model.Ball;
@@ -112,13 +114,15 @@ public class View extends SimpleApplication implements ActionListener {
 		start();
 	}
 
-	public void placePositionBalls() {
-		positionBalls.detachAllChildren();
+	public void updatePositionBalls() {
+		positionBalls = nodeFromPositions(model.getPositionBalls());
+	}
 
-		for (Position position : model.getPositionBalls()) {
-			PositionBallGraphics graphics = new PositionBallGraphics(position);
-			board.place(graphics, position);
-			positionBalls.attachChild(graphics);
+	public void updateMountableBalls() {
+		mountableBalls.detachAllChildren();
+
+		for (Ball ball : Model.currentPlayer.getMountableBalls()) {
+			mountableBalls.attachChild(ball.graphics);
 		}
 	}
 
@@ -135,11 +139,22 @@ public class View extends SimpleApplication implements ActionListener {
 				lastRightClick = time;
 			} else {
 				if (time - lastRightClick < MaxRightClickTime) {
+					updateMountableBalls();
 					Collisions collisions = new Collisions(this, mountableBalls);
 					if (collisions.any())
 						controller.risePlayerBall(collisions.getPosition());
 				}
 			}
 		}
+	}
+
+	public Node nodeFromPositions(List<Position> positions) {
+		Node targets = new Node("Targets");
+		for (Position position : positions) {
+			PositionBallGraphics graphics = new PositionBallGraphics(position);
+			board.place(graphics, position);
+			targets.attachChild(graphics);
+		}
+		return targets;
 	}
 }

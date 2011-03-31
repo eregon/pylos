@@ -17,7 +17,7 @@ public class Controller {
 
 	public void updateView() {
 		view.board.drawBalls();
-		view.placePositionBalls();
+		view.updatePositionBalls();
 	}
 
 	public void finishTurn() {
