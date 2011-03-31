@@ -21,6 +21,7 @@ public class BoardGraphics {
 	static final float HORIZONTAL_SCALE = 0.8f;
 	static final float VERTICAL_SCALE = 0.85f;
 	static final int BALLS_BY_SIDE = 9;
+	final float adjust = 0.335f;
 	Spatial board;
 
 	public BoardGraphics(View view) {
@@ -85,7 +86,7 @@ public class BoardGraphics {
 		float offset = (Model.ballsBySideAtLevel(pos.z) - 1) * BALL_DIAMETER / 2;
 		ball.center().move(
 				pos.x * BALL_DIAMETER - offset,
-				BoardGraphics.BOARD_HEIGHT + pos.z * BALL_DIAMETER * HALF_SQRT_2,
+				BoardGraphics.BOARD_HEIGHT + pos.z * BALL_DIAMETER * HALF_SQRT_2 + adjust,
 				pos.y * BALL_DIAMETER - offset
 				);
 	}
