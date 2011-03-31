@@ -1,6 +1,7 @@
 package pylos.controller;
 
 import pylos.Pylos;
+import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
 import pylos.view.View;
@@ -39,7 +40,8 @@ public class Controller {
 		updateView();
 	}
 
-	public void risePlayerBall(Position position) {
-		// TODO
+	public void risePlayerBall(Ball ball) {
+		ball.onBoard = false;
+		updateView();
 	}
 }

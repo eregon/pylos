@@ -35,12 +35,23 @@ public class Model {
 		return true;
 	}
 
-	public static boolean ballAt(Position position) { // does ball is on this position ?
+	/**
+	 * @return whether there is a ball at position
+	 */
+	public static boolean anyBallAt(Position position) {
 		for (Ball ball : balls) {
 			if (ball.onBoard && ball.position == position)
 				return true;
 		}
 		return false;
+	}
+
+	public static Ball ballAt(Position position) {
+		for (Ball ball : balls) {
+			if (ball.onBoard && ball.position == position)
+				return ball;
+		}
+		return null;
 	}
 
 	/**
@@ -49,13 +60,13 @@ public class Model {
 	 * (so one can place a ball there)
 	 */
 	public boolean canPlaceBallAt(Position position) {
-		if (ballAt(position))
+		if (anyBallAt(position))
 			return false;
 		if (position.z == 0)
 			return true;
 		for (int x = position.x; x < position.x + 2; x++) {
 			for (int y = position.y; y < position.y + 2; y++) {
-				if (!ballAt(Position.at(x, y, position.z - 1)))
+				if (!anyBallAt(Position.at(x, y, position.z - 1)))
 					return false;
 			}
 		}
@@ -79,7 +90,6 @@ public class Model {
 	 * this needs to change onBoard to true, when the ball is placed in his new position
 	 */
 	public List<Position> getPositionsToRise(Ball ball) {
-		ball.onBoard = false;
 		List<Position> list = new LinkedList<Position>();
 		for (int z = ball.position.z + 1; z < LEVELS; z++) {
 			for (int x = 0; x < 4 - z; x++) {
@@ -120,6 +130,6 @@ public class Model {
 	}
 
 	public boolean isWinner() {
-		return ballAt(Position.top);
+		return anyBallAt(Position.top);
 	}
 }

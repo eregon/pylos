@@ -56,6 +56,8 @@ public class View extends SimpleApplication implements ActionListener {
 
 		rootNode.attachChild(visible);
 
+		rootNode.attachChild(mountableBalls);
+
 		cameraTarget = new CameraTarget(this);
 		rootNode.attachChild(cameraTarget.geometry);
 
@@ -115,7 +117,7 @@ public class View extends SimpleApplication implements ActionListener {
 	}
 
 	public void updatePositionBalls() {
-		positionBalls = nodeFromPositions(model.getPositionBalls());
+		updateNodeFromPositions(positionBalls, model.getPositionBalls());
 	}
 
 	public void updateMountableBalls() {
@@ -142,19 +144,18 @@ public class View extends SimpleApplication implements ActionListener {
 					updateMountableBalls();
 					Collisions collisions = new Collisions(this, mountableBalls);
 					if (collisions.any())
-						controller.risePlayerBall(collisions.getPosition());
+						controller.risePlayerBall(Model.ballAt(collisions.getPosition()));
 				}
 			}
 		}
 	}
 
-	public Node nodeFromPositions(List<Position> positions) {
-		Node targets = new Node("Targets");
+	public void updateNodeFromPositions(Node node, List<Position> positions) {
+		node.detachAllChildren();
 		for (Position position : positions) {
 			PositionBallGraphics graphics = new PositionBallGraphics(position);
 			board.place(graphics, position);
-			targets.attachChild(graphics);
+			node.attachChild(graphics);
 		}
-		return targets;
 	}
 }

@@ -26,7 +26,7 @@ public class Ball {
 		int[] isExternal = checkIfExternal(position);
 		for (int x = isExternal[0]; x < position.x; x++) {
 			for (int y = isExternal[1]; y < position.y; y++) {
-				if (Model.ballAt(Position.at(x, y, position.z + 1)))
+				if (Model.anyBallAt(Position.at(x, y, position.z + 1)))
 					return false;
 			}
 		}
