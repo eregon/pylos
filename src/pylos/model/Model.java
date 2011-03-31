@@ -35,7 +35,7 @@ public class Model {
 		return true;
 	}
 
-	public boolean isBallAt(Position position) { // does ball is on this position ?
+	public static boolean isBallAt(Position position) { // does ball is on this position ?
 		for (Ball ball : balls) {
 			if (ball.onBoard && ball.position == position)
 				return true;
