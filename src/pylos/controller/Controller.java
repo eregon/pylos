@@ -41,7 +41,7 @@ public class Controller {
 	}
 
 	public void risePlayerBall(Ball ball) {
-		ball.onBoard = false;
+		ball.removeFromBoard();
 		updateView();
 	}
 }

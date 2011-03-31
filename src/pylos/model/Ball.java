@@ -20,6 +20,16 @@ public class Ball {
 		return "Ball (" + owner.side + ")";
 	}
 
+	public void placeAt(Position position) {
+		onBoard = true;
+		this.position = position;
+	}
+
+	public void removeFromBoard() {
+		onBoard = false;
+		position = null;
+	}
+
 	public boolean isRemovable() {
 		if (!onBoard)
 			return false;
