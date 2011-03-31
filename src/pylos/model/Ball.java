@@ -21,6 +21,8 @@ public class Ball {
 	}
 
 	public boolean isRemovable() {
+		if (!onBoard)
+			return false;
 		int[] isExternal = checkIfExternal(position);
 		for (int x = isExternal[0]; x < position.x; x++) {
 			for (int y = isExternal[1]; y < position.y; y++) {
