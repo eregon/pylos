@@ -1,5 +1,6 @@
 package pylos.view;
 
+import pylos.Pylos;
 import pylos.exception.PylosError;
 import pylos.model.Position;
 import pylos.view.ball.PositionBallGraphics;
@@ -9,17 +10,18 @@ import com.jme3.collision.CollisionResults;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
 
 public class Collisions {
 	public Geometry closest;
 	CollisionResults results = new CollisionResults();
 	int n;
 
-	public Collisions(View view) {
-		if (view.targets == null) {
-			throw new PylosError("View.targets must not be null when creating Collisions");
-		} else if (view.targets.getChildren().size() == 0) {
-			throw new PylosError("View.targets must not be empty when creating Collisions");
+	public Collisions(View view, Node targets) {
+		if (targets == null) {
+			throw new PylosError("targets must not be null when creating Collisions");
+		} else if (targets.getChildren().size() == 0) {
+			Pylos.logger.warning("targets were empty when creating Collisions");
 		}
 
 		Vector3f origin = view.getCamera().getWorldCoordinates(view.getInputManager().getCursorPosition(), 0);
@@ -28,7 +30,7 @@ public class Collisions {
 
 		Ray ray = new Ray(origin, direction);
 
-		n = view.targets.collideWith(ray, results);
+		n = targets.collideWith(ray, results);
 		if (n > 0) {
 			closest = results.getClosestCollision().getGeometry();
 		}

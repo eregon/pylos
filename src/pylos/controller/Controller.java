@@ -38,4 +38,8 @@ public class Controller {
 		Model.currentPlayer = (Model.currentPlayer == Model.player1) ? Model.player2 : Model.player1;
 		updateView();
 	}
+
+	public void risePlayerBall(Position position) {
+		// TODO
+	}
 }

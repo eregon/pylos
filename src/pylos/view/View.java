@@ -19,8 +19,9 @@ import com.jme3.system.AppSettings;
 
 public class View extends SimpleApplication implements ActionListener {
 	static final int CheckTargetsEveryFrames = 30;
-	static final String pickBall = "PickBall";
-	static final String riseBall = "RiseBall";
+	static final String PickBall = "PickBall";
+	static final String RiseBall = "RiseBall";
+	static final int MaxRightClickTime = 250;// ms
 
 	public Model model;
 	public Controller controller;
@@ -29,12 +30,14 @@ public class View extends SimpleApplication implements ActionListener {
 	ChaseCamera chaseCam;
 	CameraTarget cameraTarget;
 
-	Node targets;
-
 	Node ballsOnBoard = new Node("Balls on Board");
 	Node positionBalls = new Node("Position Balls");
+	Node mountableBalls = new Node("Mountable Balls");
+
 	Node visible = new Node("Visible");
 	HighlightBallGraphics highlightBall = new HighlightBallGraphics();
+
+	private long lastRightClick;
 
 	public View(Model model) {
 		super();
@@ -72,7 +75,7 @@ public class View extends SimpleApplication implements ActionListener {
 	@Override
 	public void simpleUpdate(float tpf) {
 		if (!model.isWinner() && (int) (tpf) % CheckTargetsEveryFrames == 0) {
-			Collisions collisions = new Collisions(this);
+			Collisions collisions = new Collisions(this, positionBalls);
 			if (collisions.any()) {
 				Position position = collisions.getPosition();
 				highlightBall.setMaterial(Model.currentPlayer.graphics.ballMaterial);
@@ -85,9 +88,9 @@ public class View extends SimpleApplication implements ActionListener {
 	}
 
 	private void initKeys() {
-		inputManager.addMapping(pickBall, new MouseButtonTrigger(0)); // left-button click
-		inputManager.addMapping(riseBall, new MouseButtonTrigger(1)); // right-button click
-		inputManager.addListener(this, pickBall, riseBall);
+		inputManager.addMapping(PickBall, new MouseButtonTrigger(0)); // left-button click
+		inputManager.addMapping(RiseBall, new MouseButtonTrigger(1)); // right-button click
+		inputManager.addListener(this, PickBall, RiseBall);
 	}
 
 	public void initBalls() {
@@ -117,20 +120,27 @@ public class View extends SimpleApplication implements ActionListener {
 			board.place(graphics, position);
 			positionBalls.attachChild(graphics);
 		}
-
-		targets = positionBalls;
 	}
 
 	public void onAction(String action, boolean pressed, float tpf) {
-		if (action == pickBall) {
+		if (action == PickBall) {
 			if (!pressed && !model.isWinner()) {
-				Collisions collisions = new Collisions(Pylos.view);
-				if (collisions.any()) {
+				Collisions collisions = new Collisions(this, positionBalls);
+				if (collisions.any())
 					controller.placePlayerBall(collisions.getPosition());
+			}
+		} else if (action == RiseBall) {
+			long time = System.currentTimeMillis();
+			if (pressed) {
+				lastRightClick = time;
+			} else {
+				if (time - lastRightClick < MaxRightClickTime) {
+					System.out.println("rc");
+					Collisions collisions = new Collisions(this, mountableBalls);
+					if (collisions.any())
+						controller.risePlayerBall(collisions.getPosition());
 				}
 			}
-		} else if (action == riseBall) {
-			// right click
 		}
 	}
 }
