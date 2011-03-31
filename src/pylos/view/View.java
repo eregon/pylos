@@ -19,6 +19,8 @@ import com.jme3.system.AppSettings;
 
 public class View extends SimpleApplication implements ActionListener {
 	static final int CheckTargetsEveryFrames = 30;
+	static final String pickBall = "PickBall";
+	static final String riseBall = "RiseBall";
 
 	public Model model;
 	public Controller controller;
@@ -83,8 +85,9 @@ public class View extends SimpleApplication implements ActionListener {
 	}
 
 	private void initKeys() {
-		inputManager.addMapping("PickBall", new MouseButtonTrigger(0)); // left-button click
-		inputManager.addListener(this, "PickBall");
+		inputManager.addMapping(pickBall, new MouseButtonTrigger(0)); // left-button click
+		inputManager.addMapping(riseBall, new MouseButtonTrigger(1)); // right-button click
+		inputManager.addListener(this, pickBall, riseBall);
 	}
 
 	public void initBalls() {
@@ -118,12 +121,16 @@ public class View extends SimpleApplication implements ActionListener {
 		targets = positionBalls;
 	}
 
-	public void onAction(String name, boolean isPressed, float tpf) {
-		if (name.equals("PickBall") && !isPressed && !model.isWinner()) {
-			Collisions collisions = new Collisions(Pylos.view);
-			if (collisions.any()) {
-				controller.placePlayerBall(collisions.getPosition());
+	public void onAction(String action, boolean pressed, float tpf) {
+		if (action == pickBall) {
+			if (!pressed && !model.isWinner()) {
+				Collisions collisions = new Collisions(Pylos.view);
+				if (collisions.any()) {
+					controller.placePlayerBall(collisions.getPosition());
+				}
 			}
+		} else if (action == riseBall) {
+			// right click
 		}
 	}
 }
