@@ -135,7 +135,6 @@ public class View extends SimpleApplication implements ActionListener {
 				lastRightClick = time;
 			} else {
 				if (time - lastRightClick < MaxRightClickTime) {
-					System.out.println("rc");
 					Collisions collisions = new Collisions(this, mountableBalls);
 					if (collisions.any())
 						controller.risePlayerBall(collisions.getPosition());
