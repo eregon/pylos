@@ -21,7 +21,7 @@ public class BoardGraphics {
 	static final float HORIZONTAL_SCALE = 0.8f;
 	static final float VERTICAL_SCALE = 0.85f;
 	static final int BALLS_BY_SIDE = 9;
-	final float adjust = 0.15f;//0.335f;
+	final float adjust = 0;//.15f;//0.335f;
 	Spatial board;
 
 	public BoardGraphics(View view) {
