@@ -26,5 +26,5 @@ cd ..
 
 if [ ! -e junit-4.8.2.jar ]; then
   echo "Downloading jUnit ..."
-  curl https://github.com/downloads/KentBeck/junit/junit-4.8.2.jar -o junit-4.8.2.jar
+  curl -L https://github.com/downloads/KentBeck/junit/junit-4.8.2.jar -o junit-4.8.2.jar
 fi
