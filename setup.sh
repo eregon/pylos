@@ -5,7 +5,7 @@ fi
 cd lib
 
 # jMonkeyEngine 3
-if [ ! -e jME.zip -a ! -e jME ]; then
+if [ ! -e jME.zip -a ! -e jME/jMonkeyEngine3.jar ]; then
   echo "Downloading jME ..."
   curl http://eregon.me/pylos/jME-light.zip -o jME.zip
 fi
