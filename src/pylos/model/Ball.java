@@ -3,6 +3,10 @@ package pylos.model;
 import pylos.Pylos;
 import pylos.view.ball.PlayerBallGraphics;
 
+/**
+ * a player ball.
+ * position can be null if onBoard is false
+ */
 public class Ball {
 	public Position position;
 	public final Player owner;

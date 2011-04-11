@@ -4,7 +4,7 @@ import pylos.model.Ball;
 import pylos.view.View;
 
 public class PlayerBallGraphics extends BallGraphics {
-	Ball model;
+	public Ball model;
 
 	public PlayerBallGraphics(Ball model) {
 		super(model.toString());

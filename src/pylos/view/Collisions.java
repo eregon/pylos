@@ -3,6 +3,7 @@ package pylos.view;
 import pylos.Pylos;
 import pylos.exception.PylosError;
 import pylos.model.Position;
+import pylos.view.ball.PlayerBallGraphics;
 import pylos.view.ball.PositionBallGraphics;
 
 import com.jme3.collision.CollisionResult;
@@ -48,8 +49,10 @@ public class Collisions {
 		if (n > 0) {
 			if (closest instanceof PositionBallGraphics) {
 				return ((PositionBallGraphics) closest).position;
+			} else if (closest instanceof PlayerBallGraphics) {
+				return ((PlayerBallGraphics) closest).model.position;
 			} else {
-				throw new PylosError("Can not cast collision to PositionBall : " + closest.getClass());
+				throw new PylosError("Can not cast collision to Position : " + closest.getClass());
 			}
 		} else {
 			throw new PylosError("No collisions");
