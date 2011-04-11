@@ -27,9 +27,11 @@ public class Ball {
 	public void placeAt(Position position) {
 		onBoard = true;
 		this.position = position;
+		Pylos.logger.info(owner + " place a ball at " + position);
 	}
 
 	public void removeFromBoard() {
+		Pylos.logger.info(owner + " remove a ball at " + position);
 		onBoard = false;
 		position = null;
 	}

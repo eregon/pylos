@@ -41,7 +41,6 @@ public class Player {
 	public void putBallOnBoard(Position position) {
 		Ball last = lastBallOnSide();
 		last.placeAt(position);
-		Pylos.logger.info(this + " place a ball at " + position);
 	}
 
 	private Ball lastBallOnSide() {
