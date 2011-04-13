@@ -2,6 +2,7 @@ package pylos.view;
 
 import java.util.List;
 
+import pylos.Config;
 import pylos.Pylos;
 import pylos.controller.Controller;
 import pylos.model.Ball;
@@ -21,6 +22,7 @@ import com.jme3.system.AppSettings;
 
 public class View extends SimpleApplication implements ActionListener {
 	static final int CheckTargetsEveryFrames = 5;
+	static final int MinFPSForLowGraphics = 30;
 	static final String PickBall = "PickBall";
 	static final String RiseBall = "RiseBall";
 	static final int MaxRightClickTime = 250;// ms
@@ -82,6 +84,12 @@ public class View extends SimpleApplication implements ActionListener {
 	public void simpleUpdate(float tpf) {
 		++frame;
 		if (!model.isWinner() && frame % CheckTargetsEveryFrames == 0) {
+			if (!Config.LOW_GRAPHICS && (1 / tpf) < MinFPSForLowGraphics && timer.getTimeInSeconds() >= 3) {
+				Config.LOW_GRAPHICS = true;
+				lights.switchLightMode(Config.LOW_GRAPHICS);
+				Pylos.logger.info("Switching to low graphics because fps was " + (1 / tpf) + " at frame " + frame);
+			}
+
 			Collisions collisions = new Collisions(this, positionBalls);
 			if (collisions.any()) {
 				Position position = collisions.getPosition();
