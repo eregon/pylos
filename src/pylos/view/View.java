@@ -20,7 +20,7 @@ import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
 public class View extends SimpleApplication implements ActionListener {
-	static final int CheckTargetsEveryFrames = 30;
+	static final int CheckTargetsEveryFrames = 5;
 	static final String PickBall = "PickBall";
 	static final String RiseBall = "RiseBall";
 	static final int MaxRightClickTime = 250;// ms
@@ -40,6 +40,7 @@ public class View extends SimpleApplication implements ActionListener {
 	Node visible = new Node("Visible");
 	HighlightBallGraphics highlightBall = new HighlightBallGraphics();
 
+	private int frame = 0;
 	private long lastRightClick;
 
 	public View(Model model) {
@@ -79,7 +80,8 @@ public class View extends SimpleApplication implements ActionListener {
 
 	@Override
 	public void simpleUpdate(float tpf) {
-		if (!model.isWinner() && (int) (tpf) % CheckTargetsEveryFrames == 0) {
+		++frame;
+		if (!model.isWinner() && frame % CheckTargetsEveryFrames == 0) {
 			Collisions collisions = new Collisions(this, positionBalls);
 			if (collisions.any()) {
 				Position position = collisions.getPosition();
