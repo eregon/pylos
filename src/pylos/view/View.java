@@ -31,6 +31,7 @@ public class View extends SimpleApplication implements ActionListener {
 	public BoardGraphics board;
 	ChaseCamera chaseCam;
 	CameraTarget cameraTarget;
+	Lights lights;
 
 	Node ballsOnBoard = new Node("Balls on Board");
 	Node positionBalls = new Node("Position Balls");
@@ -65,7 +66,7 @@ public class View extends SimpleApplication implements ActionListener {
 		rootNode.attachChild(board.getSpatial());
 
 		// You must add a light to make the model visible
-		new Lights(this);
+		lights = new Lights(rootNode);
 
 		initFlyCam();
 
