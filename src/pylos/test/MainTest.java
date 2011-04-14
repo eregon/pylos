@@ -76,6 +76,23 @@ public class MainTest extends PylosTestCase {
 		assertTrue(model.isWinner());
 	}
 	
+	public void testPlaceAt(Position position)
+	{
+		ball.placeAt(Position.at(0, 0, 0));
+		ball.placeAt(Position.at(1, 2, 2));
+		assertFalse(Model.anyBallAt(Position.at(0, 0, 0)));
+		assertFalse(Model.anyBallAt(Position.at(1, 2, 2)));
+
+		gameSample(false);
+		ball.placeAt(Position.at(2, 2, 0));
+		assertFalse(Model.anyBallAt(Position.at(2, 2, 0)));
+	}
+
+	/**
+	 * The parametre error is to create a game were there is an error like one ball at z = 1 and no balls under.
+	 * No matter, i'll delete this if no need ... 
+	 * @param error
+	 */
 	public void gameSample(boolean error)
 	{
 		if(error)
