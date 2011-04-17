@@ -2,13 +2,13 @@ package pylos.view;
 
 import java.util.List;
 
-import pylos.Config;
 import pylos.Pylos;
 import pylos.controller.Controller;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
 import pylos.view.appstate.ActionManager;
+import pylos.view.appstate.LowGraphicsSwitcher;
 import pylos.view.ball.PositionBallGraphics;
 
 import com.jme3.app.SimpleApplication;
@@ -18,23 +18,20 @@ import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
+import com.jme3.system.Timer;
 
 public class View extends SimpleApplication {
-	static final int MinFPSForLowGraphics = 30;
-
 	Model model;
 	public Controller controller;
 
 	public BoardGraphics board;
 	ChaseCamera chaseCam;
 	CameraTarget cameraTarget;
-	Lights lights;
+	public Lights lights;
 
 	Node ballsOnBoard = new Node("Balls on Board");
 	public Node positionBalls = new Node("Position Balls");
 	public Node mountableBalls = new Node("Mountable Balls");
-
-	private int frame = 0;
 
 	public View(Model model) {
 		super();
@@ -63,21 +60,14 @@ public class View extends SimpleApplication {
 
 		initBalls();
 
-		ActionManager pickBallManager = new ActionManager();
-		stateManager.attach(pickBallManager);
+		// AppState
+		stateManager.attach(new ActionManager());
+		stateManager.attach(new LowGraphicsSwitcher());
 
 		controller.updateView();
 	}
 
-	@Override
-	public void simpleUpdate(float tpf) {
-		++frame;
-		if (!Config.LOW_GRAPHICS && (1 / tpf) < MinFPSForLowGraphics && timer.getTimeInSeconds() >= 3) {
-			Config.LOW_GRAPHICS = true;
-			lights.switchLightMode(Config.LOW_GRAPHICS);
-			Pylos.logger.info("Switching to low graphics because fps was " + (1 / tpf) + " at frame " + frame);
-		}
-	}
+	// simpleUpdate() is empty, everything is in AppState
 
 	public void initBalls() {
 		for (Ball ball : Model.balls) {
@@ -117,5 +107,9 @@ public class View extends SimpleApplication {
 			board.place(graphics, position);
 			node.attachChild(graphics);
 		}
+	}
+
+	public Timer getTimer() {
+		return timer;
 	}
 }
