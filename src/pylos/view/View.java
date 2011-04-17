@@ -8,26 +8,21 @@ import pylos.controller.Controller;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
-import pylos.view.ball.HighlightBallGraphics;
+import pylos.view.appstate.ActionManager;
 import pylos.view.ball.PositionBallGraphics;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.ChaseCamera;
 import com.jme3.input.MouseInput;
-import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
-public class View extends SimpleApplication implements ActionListener {
-	static final int CheckTargetsEveryFrames = 5;
+public class View extends SimpleApplication {
 	static final int MinFPSForLowGraphics = 30;
-	static final String PickBall = "PickBall";
-	static final String RiseBall = "RiseBall";
-	static final int MaxRightClickTime = 250;// ms
 
-	public Model model;
+	Model model;
 	public Controller controller;
 
 	public BoardGraphics board;
@@ -36,14 +31,10 @@ public class View extends SimpleApplication implements ActionListener {
 	Lights lights;
 
 	Node ballsOnBoard = new Node("Balls on Board");
-	Node positionBalls = new Node("Position Balls");
-	Node mountableBalls = new Node("Mountable Balls");
-
-	Node visible = new Node("Visible");
-	HighlightBallGraphics highlightBall = new HighlightBallGraphics();
+	public Node positionBalls = new Node("Position Balls");
+	public Node mountableBalls = new Node("Mountable Balls");
 
 	private int frame = 0;
-	private long lastRightClick;
 
 	public View(Model model) {
 		super();
@@ -58,8 +49,6 @@ public class View extends SimpleApplication implements ActionListener {
 	public void simpleInitApp() {
 		assetManager.registerLocator(Pylos.rootPath + "/assets", FileLocator.class);
 
-		rootNode.attachChild(visible);
-
 		rootNode.attachChild(mountableBalls);
 
 		cameraTarget = new CameraTarget(this);
@@ -68,14 +57,14 @@ public class View extends SimpleApplication implements ActionListener {
 		board = new BoardGraphics(this);
 		rootNode.attachChild(board.getSpatial());
 
-		// You must add a light to make the model visible
 		lights = new Lights(rootNode);
 
 		initFlyCam();
 
 		initBalls();
 
-		initKeys();
+		ActionManager pickBallManager = new ActionManager();
+		stateManager.attach(pickBallManager);
 
 		controller.updateView();
 	}
@@ -83,29 +72,11 @@ public class View extends SimpleApplication implements ActionListener {
 	@Override
 	public void simpleUpdate(float tpf) {
 		++frame;
-		if (!model.isWinner() && frame % CheckTargetsEveryFrames == 0) {
-			if (!Config.LOW_GRAPHICS && (1 / tpf) < MinFPSForLowGraphics && timer.getTimeInSeconds() >= 3) {
-				Config.LOW_GRAPHICS = true;
-				lights.switchLightMode(Config.LOW_GRAPHICS);
-				Pylos.logger.info("Switching to low graphics because fps was " + (1 / tpf) + " at frame " + frame);
-			}
-
-			Collisions collisions = new Collisions(this, positionBalls);
-			if (collisions.any()) {
-				Position position = collisions.getPosition();
-				highlightBall.setMaterial(Model.currentPlayer.graphics.ballMaterial);
-				board.place(highlightBall, position);
-				visible.attachChild(highlightBall);
-			} else {
-				visible.detachChild(highlightBall);
-			}
+		if (!Config.LOW_GRAPHICS && (1 / tpf) < MinFPSForLowGraphics && timer.getTimeInSeconds() >= 3) {
+			Config.LOW_GRAPHICS = true;
+			lights.switchLightMode(Config.LOW_GRAPHICS);
+			Pylos.logger.info("Switching to low graphics because fps was " + (1 / tpf) + " at frame " + frame);
 		}
-	}
-
-	private void initKeys() {
-		inputManager.addMapping(PickBall, new MouseButtonTrigger(0)); // left-button click
-		inputManager.addMapping(RiseBall, new MouseButtonTrigger(1)); // right-button click
-		inputManager.addListener(this, PickBall, RiseBall);
 	}
 
 	public void initBalls() {
@@ -136,28 +107,6 @@ public class View extends SimpleApplication implements ActionListener {
 
 		for (Ball ball : Model.currentPlayer.getMountableBalls()) {
 			mountableBalls.attachChild(ball.graphics);
-		}
-	}
-
-	public void onAction(String action, boolean pressed, float tpf) {
-		if (action == PickBall) {
-			if (!pressed && !model.isWinner()) {
-				Collisions collisions = new Collisions(this, positionBalls);
-				if (collisions.any())
-					controller.placePlayerBall(collisions.getPosition());
-			}
-		} else if (action == RiseBall) {
-			long time = System.currentTimeMillis();
-			if (pressed) {
-				lastRightClick = time;
-			} else {
-				if (time - lastRightClick < MaxRightClickTime) {
-					updateMountableBalls();
-					Collisions collisions = new Collisions(this, mountableBalls);
-					if (collisions.any())
-						controller.risePlayerBall(Model.ballAt(collisions.getPosition()));
-				}
-			}
 		}
 	}
 

@@ -1,6 +1,5 @@
 package pylos.view;
 
-import pylos.Pylos;
 import pylos.exception.PylosError;
 import pylos.model.Position;
 import pylos.view.ball.PlayerBallGraphics;
@@ -21,8 +20,6 @@ public class Collisions {
 	public Collisions(View view, Node targets) {
 		if (targets == null) {
 			throw new PylosError("targets must not be null when creating Collisions");
-		} else if (targets.getChildren().size() == 0) {
-			Pylos.logger.warning("targets were empty when creating Collisions");
 		}
 
 		Vector3f origin = view.getCamera().getWorldCoordinates(view.getInputManager().getCursorPosition(), 0);
