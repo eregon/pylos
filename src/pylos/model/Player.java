@@ -3,7 +3,6 @@ package pylos.model;
 import java.util.LinkedList;
 import java.util.List;
 
-import pylos.Pylos;
 import pylos.exception.PylosError;
 import pylos.view.PlayerGraphics;
 
