@@ -11,11 +11,9 @@ import pylos.view.View;
  * Implements the singleton pattern by having everything static and no instance (the object is the class).
  */
 public abstract class Controller {
-	static Model model;
 	static View view;
 
-	public static void initialize(Model model, View view) {
-		Controller.model = model;
+	public static void initialize(View view) {
 		Controller.view = view;
 	}
 
@@ -25,7 +23,7 @@ public abstract class Controller {
 	}
 
 	public static void finishTurn() {
-		if (model.isWinner()) {
+		if (Model.isWinner()) {
 			updateView();
 			Pylos.logger.info(Model.currentPlayer + " won");
 		} else {

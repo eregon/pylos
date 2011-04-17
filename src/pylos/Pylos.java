@@ -8,7 +8,6 @@ import pylos.model.Model;
 import pylos.view.View;
 
 public class Pylos {
-	public static Model model;
 	public static View view;
 
 	// Ugly hack to get root path: this is Java ...
@@ -21,9 +20,9 @@ public class Pylos {
 
 		Config.configureProject();
 
-		model = new Model();
-		view = new View(model);
-		Controller.initialize(model, view);
+		Model.initialize();
+		view = new View();
+		Controller.initialize(view);
 
 		view.show();
 	}

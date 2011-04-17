@@ -15,7 +15,7 @@ public class Ball {
 
 	public Ball(Player owner) {
 		this.owner = owner;
-		Model.balls.add(this);
+		Model.board.balls.add(this);
 		graphics = new PlayerBallGraphics(this);
 	}
 
@@ -42,7 +42,7 @@ public class Ball {
 		int[] isExternal = checkIfExternal(position);
 		for (int x = isExternal[0]; x < position.x; x++) {
 			for (int y = isExternal[1]; y < position.y; y++) {
-				if (Model.anyBallAt(Position.at(x, y, position.z + 1)))
+				if (Model.board.anyBallAt(Position.at(x, y, position.z + 1)))
 					return false;
 			}
 		}
@@ -53,7 +53,7 @@ public class Ball {
 	 * @return whether this ball can be mounted (so there is at least one place to mount it)
 	 */
 	public boolean isMountable() {
-		return !Pylos.model.getPositionsToRise(this).isEmpty();
+		return !Model.getPositionsToRise(this).isEmpty();
 	}
 
 	/**

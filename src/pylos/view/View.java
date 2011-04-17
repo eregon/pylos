@@ -21,8 +21,6 @@ import com.jme3.system.AppSettings;
 import com.jme3.system.Timer;
 
 public class View extends SimpleApplication {
-	Model model;
-
 	public BoardGraphics board;
 	public Lights lights;
 	ChaseCamera chaseCam;
@@ -31,9 +29,8 @@ public class View extends SimpleApplication {
 	public Node positionBalls = new Node("Position Balls");
 	public Node mountableBalls = new Node("Mountable Balls");
 
-	public View(Model model) {
+	public View() {
 		super();
-		this.model = model;
 		showSettings = false;
 		settings = new AppSettings(true);
 		settings.setResolution(800, 600);
@@ -68,7 +65,7 @@ public class View extends SimpleApplication {
 	// simpleUpdate() is empty, everything is in AppState
 
 	public void initBalls() {
-		for (Ball ball : Model.balls) {
+		for (Ball ball : Model.board.balls) {
 			ball.graphics.create(this);
 			rootNode.attachChild(ball.graphics);
 		}
@@ -87,7 +84,7 @@ public class View extends SimpleApplication {
 	}
 
 	public void updatePositionBalls() {
-		updateNodeFromPositions(positionBalls, model.getPositionBalls());
+		updateNodeFromPositions(positionBalls, Model.getPositionBalls());
 	}
 
 	public void updateMountableBalls() {

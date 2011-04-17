@@ -3,21 +3,54 @@ package pylos.model;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Model {
+/**
+ * The Pylos Model.
+ * Implements the singleton pattern by having everything static and no instance (the object is the class).
+ * Contains the global model logic and pointers to the board and players.
+ */
+public abstract class Model {
 	public static final int LEVELS = 4;
 	public static final int BALLS = 30;
-	public static final List<Ball> balls = new LinkedList<Ball>();
-	public static final Player player1 = new Player(+1);
-	public static final Player player2 = new Player(-1);
-	public static final Player[] players = { player1, player2 };
+	public static Board board;
+	public static Player player1;
+	public static Player player2;
+	public static Player[] players;
 
-	public static Player currentPlayer = player1;
+	public static Player currentPlayer;
 
-	public Model() {
+	public static void initialize() {
 		Position.createPositions();
+		board = new Board();
+		player1 = new Player(+1);
+		player2 = new Player(-1);
+		players = new Player[] { player1, player2 };
+		currentPlayer = player1;
 	}
 
-	public List<Position> getPositionBalls() {
+	public static boolean isWinner() {
+		return board.anyBallAt(Position.top);
+	}
+
+	/**
+	 * Checks if there are 4 balls under the position or if it is on the first level
+	 * and if there is no ball at that place
+	 * (so one can place a ball there)
+	 */
+	public static boolean canPlaceBallAt(Position position) {
+		if (board.anyBallAt(position))
+			return false;
+		if (position.z == 0)
+			return true;
+		for (int x = position.x; x < position.x + 2; x++) {
+			for (int y = position.y; y < position.y + 2; y++) {
+				if (!board.anyBallAt(Position.at(x, y, position.z - 1)))
+					return false;
+			}
+		}
+		return true;
+	}
+
+	public static List<Position> getPositionBalls() {
 		List<Position> list = new LinkedList<Position>();
 		for (int level = 0; level < LEVELS; level++) {
 			for (Position position : accessibleBalls(level)) {
@@ -27,53 +60,7 @@ public class Model {
 		return list;
 	}
 
-	public boolean isBoardEmpty() {
-		for (Ball ball : balls) {
-			if (ball.onBoard)
-				return false;
-		}
-		return true;
-	}
-
-	/**
-	 * @return whether there is a ball at position
-	 */
-	public static boolean anyBallAt(Position position) {
-		for (Ball ball : balls) {
-			if (ball.onBoard && ball.position == position)
-				return true;
-		}
-		return false;
-	}
-
-	public static Ball ballAt(Position position) {
-		for (Ball ball : balls) {
-			if (ball.onBoard && ball.position == position)
-				return ball;
-		}
-		return null;
-	}
-
-	/**
-	 * Checks if there are 4 balls under the position or if it is on the first level
-	 * and if there is no ball at that place
-	 * (so one can place a ball there)
-	 */
-	public boolean canPlaceBallAt(Position position) {
-		if (anyBallAt(position))
-			return false;
-		if (position.z == 0)
-			return true;
-		for (int x = position.x; x < position.x + 2; x++) {
-			for (int y = position.y; y < position.y + 2; y++) {
-				if (!anyBallAt(Position.at(x, y, position.z - 1)))
-					return false;
-			}
-		}
-		return true;
-	}
-
-	public List<Position> accessibleBalls(int level) {
+	public static List<Position> accessibleBalls(int level) {
 		List<Position> list = new LinkedList<Position>();
 		Position position;
 		for (int x = 0; x < LEVELS - level; x++) {
@@ -89,7 +76,7 @@ public class Model {
 	/**
 	 * this needs to change onBoard to true, when the ball is placed in his new position
 	 */
-	public List<Position> getPositionsToRise(Ball ball) {
+	public static List<Position> getPositionsToRise(Ball ball) {
 		List<Position> list = new LinkedList<Position>();
 		for (int z = ball.position.z + 1; z < LEVELS; z++) {
 			for (int x = 0; x < 4 - z; x++) {
@@ -127,9 +114,5 @@ public class Model {
 			}
 		}
 		return squares;
-	}
-
-	public boolean isWinner() {
-		return anyBallAt(Position.top);
 	}
 }
