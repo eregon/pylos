@@ -13,7 +13,6 @@ public class Controller {
 	public Controller(Model model, View view) {
 		this.model = model;
 		this.view = view;
-		view.controller = this;
 	}
 
 	public void updateView() {

@@ -3,7 +3,6 @@ package pylos.view;
 import java.util.List;
 
 import pylos.Pylos;
-import pylos.controller.Controller;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
@@ -22,14 +21,12 @@ import com.jme3.system.Timer;
 
 public class View extends SimpleApplication {
 	Model model;
-	public Controller controller;
 
 	public BoardGraphics board;
+	public Lights lights;
 	ChaseCamera chaseCam;
 	CameraTarget cameraTarget;
-	public Lights lights;
 
-	Node ballsOnBoard = new Node("Balls on Board");
 	public Node positionBalls = new Node("Position Balls");
 	public Node mountableBalls = new Node("Mountable Balls");
 
@@ -64,7 +61,7 @@ public class View extends SimpleApplication {
 		stateManager.attach(new ActionManager());
 		stateManager.attach(new LowGraphicsSwitcher());
 
-		controller.updateView();
+		Pylos.controller.updateView();
 	}
 
 	// simpleUpdate() is empty, everything is in AppState
