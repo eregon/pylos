@@ -6,21 +6,25 @@ import pylos.model.Model;
 import pylos.model.Position;
 import pylos.view.View;
 
-public class Controller {
-	protected Model model;
-	protected View view;
+/**
+ * The Pylos Controller.
+ * Implements the singleton pattern by having everything static and no instance (the object is the class).
+ */
+public abstract class Controller {
+	static Model model;
+	static View view;
 
-	public Controller(Model model, View view) {
-		this.model = model;
-		this.view = view;
+	public static void initialize(Model model, View view) {
+		Controller.model = model;
+		Controller.view = view;
 	}
 
-	public void updateView() {
+	public static void updateView() {
 		view.board.drawBalls();
 		view.updatePositionBalls();
 	}
 
-	public void finishTurn() {
+	public static void finishTurn() {
 		if (model.isWinner()) {
 			updateView();
 			Pylos.logger.info(Model.currentPlayer + " won");
@@ -29,17 +33,17 @@ public class Controller {
 		}
 	}
 
-	public void placePlayerBall(Position position) {
+	public static void placePlayerBall(Position position) {
 		Model.currentPlayer.putBallOnBoard(position);
 		finishTurn();
 	}
 
-	private void nextTurn() {
+	private static void nextTurn() {
 		Model.currentPlayer = (Model.currentPlayer == Model.player1) ? Model.player2 : Model.player1;
 		updateView();
 	}
 
-	public void risePlayerBall(Ball ball) {
+	public static void risePlayerBall(Ball ball) {
 		ball.removeFromBoard();
 		updateView();
 	}

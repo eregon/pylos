@@ -10,7 +10,6 @@ import pylos.view.View;
 public class Pylos {
 	public static Model model;
 	public static View view;
-	public static Controller controller;
 
 	// Ugly hack to get root path: this is Java ...
 	public static final File rootPath = new File(Pylos.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile();
@@ -24,7 +23,7 @@ public class Pylos {
 
 		model = new Model();
 		view = new View(model);
-		controller = new Controller(model, view);
+		Controller.initialize(model, view);
 
 		view.show();
 	}

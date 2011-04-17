@@ -21,7 +21,6 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 	static final String RiseBall = "RiseBall";
 
 	Model model;
-	Controller controller;
 	View view;
 
 	HighlightBallGraphics highlightBall = new HighlightBallGraphics();
@@ -33,7 +32,6 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 	public void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
 		model = Pylos.model;
-		controller = Pylos.controller;
 		view = Pylos.view;
 		view.getRootNode().attachChild(highlightBallNode);
 
@@ -65,7 +63,7 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 			if (!pressed && !model.isWinner()) {
 				Collisions collisions = new Collisions(view, view.positionBalls);
 				if (collisions.any())
-					controller.placePlayerBall(collisions.getPosition());
+					Controller.placePlayerBall(collisions.getPosition());
 			}
 		} else if (action == RiseBall) {
 			long time = System.currentTimeMillis();
@@ -76,7 +74,7 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 					view.updateMountableBalls();
 					Collisions collisions = new Collisions(view, view.mountableBalls);
 					if (collisions.any())
-						controller.risePlayerBall(Model.ballAt(collisions.getPosition()));
+						Controller.risePlayerBall(Model.ballAt(collisions.getPosition()));
 				}
 			}
 		}

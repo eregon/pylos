@@ -3,6 +3,7 @@ package pylos.view;
 import java.util.List;
 
 import pylos.Pylos;
+import pylos.controller.Controller;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
@@ -61,7 +62,7 @@ public class View extends SimpleApplication {
 		stateManager.attach(new ActionManager());
 		stateManager.attach(new LowGraphicsSwitcher());
 
-		Pylos.controller.updateView();
+		Controller.updateView();
 	}
 
 	// simpleUpdate() is empty, everything is in AppState
