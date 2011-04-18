@@ -40,10 +40,10 @@ public class Player {
 	public LinkedList<Ball> partitionBalls(LinkedList<Ball> ballsOnBoard) {
 		LinkedList<Ball> ballsOnSide = new LinkedList<Ball>();
 		for (Ball ball : balls) {
-			if (!ball.onBoard) {
-				ballsOnSide.add(ball);
-			} else {
+			if (ball.onBoard) {
 				ballsOnBoard.add(ball);
+			} else {
+				ballsOnSide.add(ball);
 			}
 		}
 		return ballsOnSide;
