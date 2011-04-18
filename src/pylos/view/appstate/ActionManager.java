@@ -64,6 +64,7 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 			break;
 		case RISE:
 			target = view.mountableBalls;
+			break;
 		default:
 			return null;
 		}
