@@ -33,7 +33,7 @@ public class Ball {
 	public void removeFromBoard() {
 		Pylos.logger.info(owner + " remove a ball at " + position);
 		onBoard = false;
-		position = null;
+		// position = null; // Keep the position as it might be useful (e.g.: to mount it)
 	}
 
 	public boolean isRemovable() {

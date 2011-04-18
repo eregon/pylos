@@ -15,11 +15,16 @@ public abstract class Controller {
 
 	public static void initialize(View view) {
 		Controller.view = view;
+		initTurn();
 	}
 
 	public static void updateView() {
 		view.board.drawBalls();
 		view.updatePositionBalls();
+	}
+
+	public static void initTurn() {
+		Model.currentPlayer.resetAction();
 	}
 
 	public static void finishTurn() {
@@ -38,12 +43,13 @@ public abstract class Controller {
 
 	private static void nextTurn() {
 		Model.currentPlayer = (Model.currentPlayer == Model.player1) ? Model.player2 : Model.player1;
+		initTurn();
 		updateView();
 	}
 
 	public static void risePlayerBall(Ball ball) {
-		view.updatePositionsToRise(ball);
 		Model.currentPlayer.riseBall(ball);
+		view.updatePositionsToRise(ball);
 		updateView();
 	}
 }
