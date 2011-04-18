@@ -38,8 +38,8 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 
 	@Override
 	public void update(float tpf) {
-		Collisions collisions = new Collisions(view, view.positionBalls);
-		if (collisions.any()) {
+		Collisions collisions = getPickCollisions();
+		if (collisions != null && collisions.any()) {
 			Position position = collisions.getPosition();
 			highlightBall.setMaterial(Model.currentPlayer.graphics.ballMaterial);
 			view.board.place(highlightBall, position);
@@ -56,11 +56,25 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 		view.getInputManager().addListener(this, PickBall, RiseBall);
 	}
 
+	public Collisions getPickCollisions() {
+		Node target;
+		switch (Model.currentPlayer.action) {
+		case PLACE:
+			target = view.positionBalls;
+			break;
+		case RISE:
+			target = view.mountableBalls;
+		default:
+			return null;
+		}
+		return new Collisions(view, target);
+	}
+
 	public void onAction(String action, boolean pressed, float tpf) {
 		if (action == PickBall) {
 			if (!pressed && !Model.isWinner()) {
-				Collisions collisions = new Collisions(view, view.positionBalls);
-				if (collisions.any())
+				Collisions collisions = getPickCollisions();
+				if (collisions != null && collisions.any())
 					Controller.placePlayerBall(collisions.getPosition());
 			}
 		} else if (action == RiseBall) {

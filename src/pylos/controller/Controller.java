@@ -42,7 +42,8 @@ public abstract class Controller {
 	}
 
 	public static void risePlayerBall(Ball ball) {
-		ball.removeFromBoard();
+		view.updatePositionsToRise(ball);
+		Model.currentPlayer.riseBall(ball);
 		updateView();
 	}
 }

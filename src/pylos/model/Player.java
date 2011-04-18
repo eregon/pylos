@@ -7,10 +7,22 @@ import pylos.exception.PylosError;
 import pylos.view.PlayerGraphics;
 
 public class Player {
+	public enum Action {
+		/** place a new ball or remove one to mount */
+		PLACE,
+		/** place the removed ball on a higher level */
+		RISE,
+		/** choose 1 or 2 balls to remove from board */
+		REMOVE,
+		/** Wait for other player */
+		WAIT
+	}
+
 	public static final int nbBalls = Model.BALLS / 2;
 	public final Ball[] balls = new Ball[nbBalls];
 	public final int side;
 	public PlayerGraphics graphics;
+	public Action action = Action.PLACE;
 
 	public Player(int side) {
 		this.side = side;
@@ -117,5 +129,15 @@ public class Player {
 				return true;
 		}
 		return false;
+	}
+
+	public void riseBall(Ball ball) {
+		ball.removeFromBoard();
+		action = Action.RISE;
+	}
+
+	// Action methods
+	public void resetAction() {
+		action = Action.PLACE;
 	}
 }

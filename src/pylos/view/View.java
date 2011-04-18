@@ -27,6 +27,7 @@ public class View extends SimpleApplication {
 	CameraTarget cameraTarget;
 
 	public Node positionBalls = new Node("Position Balls");
+	public Node positionsToRiseBall = new Node("Positions to rise Ball");
 	public Node mountableBalls = new Node("Mountable Balls");
 
 	public View() {
@@ -93,6 +94,10 @@ public class View extends SimpleApplication {
 		for (Ball ball : Model.currentPlayer.getMountableBalls()) {
 			mountableBalls.attachChild(ball.graphics);
 		}
+	}
+
+	public void updatePositionsToRise(Ball ball) {
+		updateNodeFromPositions(positionsToRiseBall, Model.getPositionsToRise(ball));
 	}
 
 	public void updateNodeFromPositions(Node node, List<Position> positions) {
