@@ -31,7 +31,7 @@ public class MainTest extends PylosTestCase {
 
 		assertEquals(10, Model.getPositionBalls().size());
 		for (Position actual : Model.getPositionBalls()) {
-				assertFalse(actual.isContained(expected));
+			assertFalse(actual.isContained(expected));
 		}
 	}
 
@@ -73,8 +73,8 @@ public class MainTest extends PylosTestCase {
 		Ball ball = Model.currentPlayer.getMountableBalls().get(0);
 
 		for (Ball actual : Model.currentPlayer.getMountableBalls()) {
-			if(actual.position.equals(Position.at(0,0,0)))
-					ball = actual;
+			if (actual.position.equals(Position.at(0, 0, 0)))
+				ball = actual;
 		}
 
 		assertTrue(ball.isMountable());
@@ -84,15 +84,15 @@ public class MainTest extends PylosTestCase {
 		Ball ball = Model.currentPlayer.getMountableBalls().get(0);
 
 		for (Ball actual : Model.currentPlayer.getMountableBalls()) {
-			if(actual.position.equals(Position.at(0,0,0)))
-					ball = actual;
+			if (actual.position.equals(Position.at(0, 0, 0)))
+				ball = actual;
 		}
 
 		assertEquals(1, Model.getPositionsToRise(ball).size());
 
 		for (Ball actual : Model.currentPlayer.getMountableBalls()) {
-			if(actual.position.equals(Position.at(2,2,0)))
-					ball = actual;
+			if (actual.position.equals(Position.at(2, 2, 0)))
+				ball = actual;
 		}
 
 		assertEquals(1, Model.getPositionsToRise(ball).size());
@@ -129,28 +129,28 @@ public class MainTest extends PylosTestCase {
 	}
 
 	/**
-	 * xxxx
-	 * xx0x	xxx
-	 * 000x	xxx
-	 * 000x	0xx
+	 * oooo
+	 * oo.o ooo
+	 * ...o ooo
+	 * ...o .oo
 	 */
 	public List<Position> gameSample() {
-		List<Position> pos= new LinkedList<Position>();
-		Model.currentPlayer.putBallOnBoard(Position.at(0, 0, 0));	// index 0
+		List<Position> pos = new LinkedList<Position>();
+		Model.currentPlayer.putBallOnBoard(Position.at(0, 0, 0)); // index 0
 		pos.add(Position.at(0, 0, 0));
-		Model.currentPlayer.putBallOnBoard(Position.at(0, 1, 0));	// index 1
+		Model.currentPlayer.putBallOnBoard(Position.at(0, 1, 0)); // index 1
 		pos.add(Position.at(0, 1, 0));
-		Model.currentPlayer.putBallOnBoard(Position.at(1, 1, 0));	// index 2
+		Model.currentPlayer.putBallOnBoard(Position.at(1, 1, 0)); // index 2
 		pos.add(Position.at(1, 1, 0));
-		Model.currentPlayer.putBallOnBoard(Position.at(1, 0, 0));	// index 3
+		Model.currentPlayer.putBallOnBoard(Position.at(1, 0, 0)); // index 3
 		pos.add(Position.at(1, 0, 0));
-		Model.currentPlayer.putBallOnBoard(Position.at(0, 0, 1));	// index 4
+		Model.currentPlayer.putBallOnBoard(Position.at(0, 0, 1)); // index 4
 		pos.add(Position.at(0, 0, 1));
-		Model.currentPlayer.putBallOnBoard(Position.at(2, 0, 0));	// index 5
+		Model.currentPlayer.putBallOnBoard(Position.at(2, 0, 0)); // index 5
 		pos.add(Position.at(2, 0, 0));
-		Model.currentPlayer.putBallOnBoard(Position.at(2, 2, 0));	// index 6
+		Model.currentPlayer.putBallOnBoard(Position.at(2, 2, 0)); // index 6
 		pos.add(Position.at(2, 2, 0));
-		Model.currentPlayer.putBallOnBoard(Position.at(2, 1, 0));	// index 7
+		Model.currentPlayer.putBallOnBoard(Position.at(2, 1, 0)); // index 7
 		pos.add(Position.at(2, 1, 0));
 		return pos;
 	}

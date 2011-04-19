@@ -13,10 +13,10 @@ public class RiseBallTest extends PylosTestCase {
 		assertTrue(p.getMountableBalls().isEmpty());
 
 		/*
-		 * xxx0
-		 * xx00
-		 * 0000
-		 * 0000
+		 * ooo.
+		 * oo..
+		 * ....
+		 * ....
 		 */
 		// We should alternate which player place a Ball, but it does not matter for this test
 		Model.currentPlayer.putBallOnBoard(Position.at(0, 0, 0));
