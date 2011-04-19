@@ -48,8 +48,12 @@ public abstract class Controller {
 	}
 
 	public static void risePlayerBall(Ball ball) {
-		Model.currentPlayer.riseBall(ball);
-		view.updatePositionsToRise(ball);
-		updateView();
+		if (Model.getPositionsToRise(ball).isEmpty()) {
+			System.err.println("Can not rise ball, there is no place to rise it.");
+		} else {
+			Model.currentPlayer.riseBall(ball);
+			view.updatePositionsToRise(ball);
+			updateView();
+		}
 	}
 }
