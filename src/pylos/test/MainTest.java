@@ -129,10 +129,10 @@ public class MainTest extends PylosTestCase {
 	}
 
 	/**
-	 * oooo
-	 * oo.o ooo
-	 * ...o ooo
-	 * ...o .oo
+	 * ooo.
+	 * ooo. o..
+	 * ..o. ...
+	 * .... ...
 	 */
 	public List<Position> gameSample() {
 		List<Position> pos = new LinkedList<Position>();
