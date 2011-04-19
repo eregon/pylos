@@ -31,7 +31,7 @@ public class MainTest extends PylosTestCase {
 
 		assertEquals(10, Model.getPositionBalls().size());
 		for (Position actual : Model.getPositionBalls()) {
-			assertFalse(actual.isContained(expected));
+			assertFalse(expected.contains(actual));
 		}
 	}
 
@@ -64,7 +64,7 @@ public class MainTest extends PylosTestCase {
 		assertEquals(5, Model.currentPlayer.getMountableBalls().size());
 
 		for (Ball actual : Model.currentPlayer.getMountableBalls()) {
-			assertTrue(actual.position.isContained(canRise));
+			assertTrue(canRise.contains(actual.position));
 		}
 	}
 

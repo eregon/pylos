@@ -1,6 +1,5 @@
 package pylos.model;
 
-import java.util.List;
 
 /**
  * Represent an (immutable) position on the Board.
@@ -38,16 +37,8 @@ public class Position {
 		return positions[z][y][x];
 	}
 
-	public boolean isContained(List<Position> pos) {
-		for (Position position : pos) {
-			if(this.x == position.x && this.y == position.y && this.z == position.z)
-				return true;
-		}
-		return false;
-	}
-
 	public boolean equals(Position position) {
-		if(this.x == position.x && this.y == position.y && this.z == position.z)
+		if (x == position.x && y == position.y && z == position.z)
 			return true;
 		return false;
 	}
