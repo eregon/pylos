@@ -6,6 +6,7 @@ package pylos.model;
  */
 public class Position {
 	public static final Position[][][] positions = new Position[Model.LEVELS][][];
+	public static final Position[] all = new Position[Model.BALLS];
 	public static Position top;
 	public final int x, y, z;
 
@@ -21,11 +22,15 @@ public class Position {
 	}
 
 	public static void createPositions() {
+		int all_index = 0;
+		Position pos;
 		for (int level = 0; level < Model.LEVELS; level++) {
 			positions[level] = new Position[Model.LEVELS - level][Model.LEVELS - level];
 			for (int y = 0; y < Model.LEVELS - level; y++) {
 				for (int x = 0; x < Model.LEVELS - level; x++) {
-					positions[level][y][x] = new Position(x, y, level);
+					pos = new Position(x, y, level);
+					positions[level][y][x] = pos;
+					all[all_index++] = pos;
 				}
 			}
 		}
