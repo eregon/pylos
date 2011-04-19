@@ -43,10 +43,13 @@ public class MainTest extends PylosTestCase {
 		assertTrue(Model.canPlaceBallAt(Position.at(0, 0, 0)));
 		assertFalse(Model.canPlaceBallAt(Position.at(0, 0, 1))); // plateau vide donc pas de sens placer boule z = 1
 
-		gameSample();
-		assertFalse(Model.canPlaceBallAt(Position.at(0, 0, 0)));
+		List<Position> balls = gameSample();
+		for (Position pos : balls) {
+			assertFalse(Model.canPlaceBallAt(pos));
+		}
 		assertFalse(Model.canPlaceBallAt(Position.at(0, 0, 1)));
-		assertFalse(Model.canPlaceBallAt(Position.at(1, 0, 0)));
+		assertFalse(Model.canPlaceBallAt(Position.at(0, 0, 2)));
+		assertFalse(Model.canPlaceBallAt(Position.at(0, 0, 3)));
 		assertTrue(Model.canPlaceBallAt(Position.at(1, 2, 0)));
 		assertTrue(Model.canPlaceBallAt(Position.at(1, 0, 1)));
 	}
