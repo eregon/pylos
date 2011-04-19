@@ -84,6 +84,7 @@ public abstract class Model {
 
 	/**
 	 * this needs to change onBoard to true, when the ball is placed in his new position
+	 * @return positions where referenced ball can be rising
 	 */
 	public static List<Position> getPositionsToRise(Ball ball) {
 		List<Position> list = new LinkedList<Position>();

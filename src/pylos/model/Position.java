@@ -45,4 +45,10 @@ public class Position {
 		}
 		return false;
 	}
+
+	public boolean equals(Position position) {
+		if(this.x == position.x && this.y == position.y && this.z == position.z)
+			return true;
+		return false;
+	}
 }
