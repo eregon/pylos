@@ -1,5 +1,8 @@
 package pylos.test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import pylos.model.Model;
 import pylos.model.Position;
 
@@ -23,6 +26,12 @@ public class MainTest extends PylosTestCase {
 	}
 
 	public void testGetPositionBalls() {
+		List<Position> expected = gameSample();
+
+		assertEquals(10, Model.getPositionBalls().size());
+		for (Position actual : Model.getPositionBalls()) {
+				assertFalse(actual.isContained(expected));
+		}
 	}
 
 	public void testBallAt() {
@@ -38,7 +47,7 @@ public class MainTest extends PylosTestCase {
 		assertFalse(Model.canPlaceBallAt(Position.at(0, 0, 1)));
 		assertFalse(Model.canPlaceBallAt(Position.at(1, 0, 0)));
 		assertTrue(Model.canPlaceBallAt(Position.at(1, 2, 0)));
-		assertFalse(Model.canPlaceBallAt(Position.at(1, 0, 1)));
+		assertTrue(Model.canPlaceBallAt(Position.at(1, 0, 1)));
 	}
 
 	public void testAccessibleBalls() {
@@ -82,16 +91,27 @@ public class MainTest extends PylosTestCase {
 	/**
 	 * xxxx
 	 * xx0x	xxx
-	 * 00xx	xxx
+	 * 000x	xxx
 	 * 000x	0xx
 	 */
-	public void gameSample() {
+	public List<Position> gameSample() {
+		List<Position> pos= new LinkedList<Position>();
 		Model.currentPlayer.putBallOnBoard(Position.at(0, 0, 0));
+		pos.add(Position.at(0, 0, 0));
 		Model.currentPlayer.putBallOnBoard(Position.at(0, 1, 0));
+		pos.add(Position.at(0, 1, 0));
 		Model.currentPlayer.putBallOnBoard(Position.at(1, 1, 0));
+		pos.add(Position.at(1, 1, 0));
 		Model.currentPlayer.putBallOnBoard(Position.at(1, 0, 0));
+		pos.add(Position.at(1, 0, 0));
 		Model.currentPlayer.putBallOnBoard(Position.at(0, 0, 1));
+		pos.add(Position.at(0, 0, 1));
 		Model.currentPlayer.putBallOnBoard(Position.at(2, 0, 0));
+		pos.add(Position.at(2, 0, 0));
 		Model.currentPlayer.putBallOnBoard(Position.at(2, 2, 0));
+		pos.add(Position.at(2, 2, 0));
+		Model.currentPlayer.putBallOnBoard(Position.at(2, 1, 0));
+		pos.add(Position.at(2, 1, 0));
+		return pos;
 	}
 }
