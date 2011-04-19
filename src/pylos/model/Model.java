@@ -50,6 +50,10 @@ public abstract class Model {
 		return true;
 	}
 
+	/**
+	 *
+	 * @return positions to place ball at any level
+	 */
 	public static List<Position> getPositionBalls() {
 		List<Position> list = new LinkedList<Position>();
 		for (int level = 0; level < LEVELS; level++) {
@@ -60,6 +64,11 @@ public abstract class Model {
 		return list;
 	}
 
+	/**
+	 *
+	 * @param level
+	 * @return positions to place a ball at referenced level
+	 */
 	public static List<Position> accessibleBalls(int level) {
 		List<Position> list = new LinkedList<Position>();
 		Position position;
@@ -93,6 +102,12 @@ public abstract class Model {
 		return LEVELS - level;
 	}
 
+	/**
+	 *
+	 * @param level
+	 * @param line
+	 * @return a list of the positions of the balls that form the referenced line at referenced level
+	 */
 	public static List<Position> getAllPositionsForLevelLineByLine(int level, int line) { // to check if any lines
 		List<Position> list = new LinkedList<Position>();
 		for (int x = 0; x < LEVELS - level; x++) {
@@ -101,6 +116,13 @@ public abstract class Model {
 		return list;
 	}
 
+	/**
+	 *
+	 * @param level
+	 * @return a list of every possibles squares formed by the balls at referenced level
+	 *
+	 * each square is a list of the positions of the balls that form a square at referenced level
+	 */
 	public static List<List<Position>> getAllPositionForLevelSquareBySquare(int level) { // to check if any squares
 		List<List<Position>> squares = new LinkedList<List<Position>>();
 		for (int line = 1; line < LEVELS - level; line++) {
