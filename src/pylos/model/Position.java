@@ -1,6 +1,5 @@
 package pylos.model;
 
-
 /**
  * Represent an (immutable) position on the Board.
  * x and y are horizontal coordinates, z is the level in the pyramid.
@@ -37,9 +36,5 @@ public class Position {
 		return positions[z][y][x];
 	}
 
-	public boolean equals(Position position) {
-		if (x == position.x && y == position.y && z == position.z)
-			return true;
-		return false;
-	}
+	// No equals(), Positions are unique and can be compared by identity
 }

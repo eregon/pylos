@@ -73,7 +73,7 @@ public class MainTest extends PylosTestCase {
 		Ball ball = Model.currentPlayer.getMountableBalls().get(0);
 
 		for (Ball actual : Model.currentPlayer.getMountableBalls()) {
-			if (actual.position.equals(Position.at(0, 0, 0)))
+			if (actual.position == Position.at(0, 0, 0))
 				ball = actual;
 		}
 
@@ -84,14 +84,14 @@ public class MainTest extends PylosTestCase {
 		Ball ball = Model.currentPlayer.getMountableBalls().get(0);
 
 		for (Ball actual : Model.currentPlayer.getMountableBalls()) {
-			if (actual.position.equals(Position.at(0, 0, 0)))
+			if (actual.position == Position.at(0, 0, 0))
 				ball = actual;
 		}
 
 		assertEquals(1, Model.getPositionsToRise(ball).size());
 
 		for (Ball actual : Model.currentPlayer.getMountableBalls()) {
-			if (actual.position.equals(Position.at(2, 2, 0)))
+			if (actual.position == Position.at(2, 2, 0))
 				ball = actual;
 		}
 
