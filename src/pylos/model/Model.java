@@ -19,7 +19,6 @@ public abstract class Model {
 	public static Player currentPlayer;
 
 	public static void initialize() {
-		Position.createPositions();
 		board = new Board();
 		player1 = new Player(+1);
 		player2 = new Player(-1);
@@ -51,7 +50,7 @@ public abstract class Model {
 	}
 
 	/**
-	 *
+	 * 
 	 * @return positions to place ball at any level
 	 */
 	public static List<Position> getPositionBalls() {
@@ -65,7 +64,7 @@ public abstract class Model {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param level
 	 * @return positions to place a ball at referenced level
 	 */
@@ -84,6 +83,7 @@ public abstract class Model {
 
 	/**
 	 * this needs to change onBoard to true, when the ball is placed in his new position
+	 * 
 	 * @return positions where referenced ball can be rising
 	 */
 	public static List<Position> getPositionsToRise(Ball ball) {
@@ -104,7 +104,7 @@ public abstract class Model {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param level
 	 * @param line
 	 * @return a list of the positions of the balls that form the referenced line at referenced level
@@ -118,11 +118,10 @@ public abstract class Model {
 	}
 
 	/**
-	 *
+	 * each square is a list of the positions of the balls that form a square at referenced level
+	 * 
 	 * @param level
 	 * @return a list of every possibles squares formed by the balls at referenced level
-	 *
-	 * each square is a list of the positions of the balls that form a square at referenced level
 	 */
 	public static List<List<Position>> getAllPositionForLevelSquareBySquare(int level) { // to check if any squares
 		List<List<Position>> squares = new LinkedList<List<Position>>();
