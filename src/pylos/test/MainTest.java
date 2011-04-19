@@ -14,10 +14,10 @@ public class MainTest extends PylosTestCase {
 	}
 
 	public void testAnyBallAt() {
-		assertFalse(Model.board.anyBallAt(Position.at(0, 0, 0)));
-
-		Model.currentPlayer.putBallOnBoard(Position.at(0, 0, 0));
-		assertTrue(Model.board.anyBallAt(Position.at(0, 0, 0)));
+		List<Position> balls = gameSample();
+		for (Position pos : Position.all) {
+			assertEquals(balls.contains(pos), Model.board.anyBallAt(pos));
+		}
 	}
 
 	public void testIsBoardEmpty() {
