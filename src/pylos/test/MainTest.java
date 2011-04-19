@@ -135,23 +135,22 @@ public class MainTest extends PylosTestCase {
 	 * .... ...
 	 */
 	public List<Position> gameSample() {
-		List<Position> pos = new LinkedList<Position>();
-		Model.currentPlayer.putBallOnBoard(Position.at(0, 0, 0)); // index 0
-		pos.add(Position.at(0, 0, 0));
-		Model.currentPlayer.putBallOnBoard(Position.at(0, 1, 0)); // index 1
-		pos.add(Position.at(0, 1, 0));
-		Model.currentPlayer.putBallOnBoard(Position.at(1, 1, 0)); // index 2
-		pos.add(Position.at(1, 1, 0));
-		Model.currentPlayer.putBallOnBoard(Position.at(1, 0, 0)); // index 3
-		pos.add(Position.at(1, 0, 0));
-		Model.currentPlayer.putBallOnBoard(Position.at(0, 0, 1)); // index 4
-		pos.add(Position.at(0, 0, 1));
-		Model.currentPlayer.putBallOnBoard(Position.at(2, 0, 0)); // index 5
-		pos.add(Position.at(2, 0, 0));
-		Model.currentPlayer.putBallOnBoard(Position.at(2, 2, 0)); // index 6
-		pos.add(Position.at(2, 2, 0));
-		Model.currentPlayer.putBallOnBoard(Position.at(2, 1, 0)); // index 7
-		pos.add(Position.at(2, 1, 0));
-		return pos;
+		int[][] positions = new int[][] {
+				{ 0, 0, 0 },
+				{ 0, 1, 0 },
+				{ 1, 1, 0 },
+				{ 1, 0, 0 },
+				{ 0, 0, 1 },
+				{ 2, 0, 0 },
+				{ 2, 2, 0 },
+				{ 2, 1, 0 }
+		};
+		List<Position> list = new LinkedList<Position>();
+		for (int[] coords : positions) {
+			Position pos = Position.at(coords[0], coords[1], coords[2]);
+			Model.currentPlayer.putBallOnBoard(pos);
+			list.add(pos);
+		}
+		return list;
 	}
 }
