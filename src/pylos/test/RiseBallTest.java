@@ -27,9 +27,9 @@ public class RiseBallTest extends PylosTestCase {
 
 		List<Ball> mountables = p.getMountableBalls();
 		assertEquals(1, mountables.size());
-		assertEquals(Model.board.ballAt(Position.at(2, 0, 0)), mountables.get(0));
-
 		Ball ball = mountables.get(0);
+		assertEquals(Model.board.ballAt(Position.at(2, 0, 0)), ball);
+
 		List<Position> positionsToRise = Model.getPositionsToRise(ball);
 
 		assertEquals(1, positionsToRise.size());
