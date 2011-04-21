@@ -11,12 +11,16 @@ import pylos.view.ball.HighlightBallGraphics;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.input.InputManager;
+import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.scene.Node;
 
 public class ActionManager extends AbstractAppState implements ActionListener {
 	static final int MaxRightClickTime = 250; // ms
+	static final String Quit = "Quit";
 	static final String PickBall = "PickBall";
 	static final String RiseBall = "RiseBall";
 
@@ -51,9 +55,11 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 
 	// Action Listener part: listen to clicks
 	private void initListener() {
-		view.getInputManager().addMapping(PickBall, new MouseButtonTrigger(0)); // left-button click
-		view.getInputManager().addMapping(RiseBall, new MouseButtonTrigger(1)); // right-button click
-		view.getInputManager().addListener(this, PickBall, RiseBall);
+		InputManager input = view.getInputManager();
+		input.addMapping(Quit, new KeyTrigger(KeyInput.KEY_Q));
+		input.addMapping(PickBall, new MouseButtonTrigger(0)); // left-button click
+		input.addMapping(RiseBall, new MouseButtonTrigger(1)); // right-button click
+		input.addListener(this, Quit, PickBall, RiseBall);
 	}
 
 	public Collisions getPickCollisions() {
@@ -72,7 +78,9 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 	}
 
 	public void onAction(String action, boolean pressed, float tpf) {
-		if (action == PickBall) {
+		if (action == Quit) {
+			view.stop();
+		} else if (action == PickBall) {
 			if (!pressed && !Model.isWinner()) {
 				Collisions collisions = getPickCollisions();
 				if (collisions != null && collisions.any())
