@@ -41,5 +41,9 @@ public class Position {
 		return positions[z][y][x];
 	}
 
+	public static boolean isValid(int x, int y, int z) {
+		return x >= 0 && y >= 0 && z >= 0 && x < Model.LEVELS - z && y < Model.LEVELS - z && z < Model.LEVELS;
+	}
+
 	// No equals(), Positions are unique and can be compared by identity
 }

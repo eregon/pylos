@@ -59,16 +59,22 @@ public class MainTest extends PylosTestCase {
 	}
 
 	public void testGetMountableBalls() {
-		List<Position> canRise = gameSample();
-		canRise.remove(2);
-		canRise.remove(3);
-		canRise.remove(4);
+		gameSample();
 
-		assertEquals(5, Model.currentPlayer.getMountableBalls().size());
+		/**
+		 * ooo.
+		 * ooo. o..
+		 * ..o. ...
+		 * .... ...
+		 */
 
-		for (Ball actual : Model.currentPlayer.getMountableBalls()) {
-			assertTrue(canRise.contains(actual.position));
+		for (Ball ball : Model.currentPlayer.getMountableBalls()) {
+			System.out.println(ball.position);
 		}
+
+		assertEquals(1, Model.currentPlayer.getMountableBalls().size());
+
+		assertEquals(Model.board.ballAt(Position.at(2, 2, 0)), Model.currentPlayer.getMountableBalls().get(0));
 	}
 
 	public void testIsMountable() {
@@ -84,21 +90,22 @@ public class MainTest extends PylosTestCase {
 	}
 
 	public void testGetPositionsToRise() {
-		Ball ball = Model.currentPlayer.getMountableBalls().get(0);
 
-		for (Ball actual : Model.currentPlayer.getMountableBalls()) {
-			if (actual.position == Position.at(0, 0, 0))
-				ball = actual;
-		}
+		gameSample();
 
-		assertEquals(1, Model.getPositionsToRise(ball).size());
+		/**
+		 * ooo.
+		 * ooo. o..
+		 * ..o. ...
+		 * .... ...
+		 */
 
-		for (Ball actual : Model.currentPlayer.getMountableBalls()) {
-			if (actual.position == Position.at(2, 2, 0))
-				ball = actual;
-		}
+		List<Position> positionToRise = Model.getPositionsToRise(Model.board.ballAt(Position.at(2, 2, 0)));
+		assertEquals(1, positionToRise.size());
 
-		assertEquals(1, Model.getPositionsToRise(ball).size());
+		assertEquals(Position.at(1, 0, 1), positionToRise.get(0));
+
+		assertEquals(0, Model.getPositionsToRise(Model.board.ballAt(Position.at(2, 0, 0))).size());
 	}
 
 	public void testBallsBySideAtLevel() {
@@ -138,16 +145,7 @@ public class MainTest extends PylosTestCase {
 	 * .... ...
 	 */
 	public List<Position> gameSample() {
-		int[][] positions = new int[][] {
-				{ 0, 0, 0 },
-				{ 0, 1, 0 },
-				{ 1, 1, 0 },
-				{ 1, 0, 0 },
-				{ 0, 0, 1 },
-				{ 2, 0, 0 },
-				{ 2, 2, 0 },
-				{ 2, 1, 0 }
-		};
+		int[][] positions = new int[][] { { 0, 0, 0 }, { 0, 1, 0 }, { 1, 1, 0 }, { 1, 0, 0 }, { 0, 0, 1 }, { 2, 0, 0 }, { 2, 2, 0 }, { 2, 1, 0 } };
 		List<Position> list = new LinkedList<Position>();
 		for (int[] coords : positions) {
 			Position pos = Position.at(coords[0], coords[1], coords[2]);

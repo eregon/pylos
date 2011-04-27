@@ -49,6 +49,21 @@ public abstract class Model {
 		return true;
 	}
 
+	public static boolean canPlaceBallAtIgnoring(Position position, Position ignored) {
+		if (board.anyBallAt(position))
+			return position == ignored;
+		if (position.z == 0)
+			return true;
+		for (int x = position.x; x < position.x + 2; x++) {
+			for (int y = position.y; y < position.y + 2; y++) {
+				Position pos = Position.at(x, y, position.z - 1);
+				if (!board.anyBallAt(pos) || pos == ignored)
+					return false;
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * 
 	 * @return positions to place ball at any level
@@ -91,7 +106,7 @@ public abstract class Model {
 		for (int z = ball.position.z + 1; z < LEVELS; z++) {
 			for (int x = 0; x < 4 - z; x++) {
 				for (int y = 0; y < 4 - z; y++) {
-					if (canPlaceBallAt(Position.at(x, y, z)))
+					if (canPlaceBallAtIgnoring(Position.at(x, y, z), ball.position))
 						list.add(Position.at(x, y, z));
 				}
 			}
