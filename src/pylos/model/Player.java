@@ -134,15 +134,6 @@ public class Player {
 		action = Action.RISE;
 	}
 
-	// Action methods
-	public void resetAction() {
-		action = Action.PLACE;
-	}
-
-	public boolean canRise() {
-		return action == Action.PLACE;
-	}
-
 	public boolean allBallsOnBoard() {
 		for (Ball ball : balls) {
 			if (!ball.onBoard)
@@ -151,4 +142,12 @@ public class Player {
 		return true;
 	}
 
+	// Action methods
+	public void resetAction() {
+		action = Action.PLACE;
+	}
+
+	public boolean canRise() {
+		return action == Action.PLACE;
+	}
 }
