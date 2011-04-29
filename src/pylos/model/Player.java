@@ -122,32 +122,25 @@ public class Player {
 	}
 
 	private boolean anyLine(Position position) {
-		boolean validLine = true;
-
-		for (int x = 0; x < Model.LEVELS - position.z; x++) {
-			Position pos = Position.at(x, position.y, position.z);
-			if (!Model.board.anyBallAt(pos) || Model.board.ballAt(pos).owner != Model.currentPlayer) {
-				validLine = false;
-				break;
+		if (position.z >= 2)
+			return false;
+		for (List<Position> line : position.lines()) {
+			boolean validLine = true;
+			for (Position pos : line) {
+				if (!Model.board.anyBallAt(pos) || Model.board.ballAt(pos).owner != this) {
+					validLine = false;
+					break;
+				}
 			}
 			if (validLine)
 				return true;
 		}
-
-		for (int y = 0; y < Model.LEVELS - position.z; y++) {
-			Position pos = Position.at(position.x, y, position.z);
-			if (!Model.board.anyBallAt(pos) || Model.board.ballAt(pos).owner != this) {
-				validLine = false;
-				break;
-			}
-			if (validLine)
-				return true;
-		}
-
 		return false;
 	}
 
 	private boolean anySquare(Position position) {
+		if (position.z >= 2)
+			return false;
 		for (List<Position> list : position.fourSquare()) {
 			boolean validSquare = true;
 			for (Position pos : list) {

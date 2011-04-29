@@ -74,5 +74,48 @@ public class Position {
 		return fourSquare;
 	}
 
+	public List<List<Position>> lines() {
+		List<List<Position>> lines = new LinkedList<List<Position>>();
+		List<Position> line;
+
+		line = new LinkedList<Position>();
+		for (int x = 0; x < Model.LEVELS - z; x++) {
+			line.add(at(x, y, z));
+		}
+		lines.add(line);
+
+		line = new LinkedList<Position>();
+		for (int y = 0; y < Model.LEVELS - z; y++) {
+			line.add(at(x, y, z));
+		}
+		lines.add(line);
+
+		if (onFirstDiagonal()) {
+			line = new LinkedList<Position>();
+			for (int xy = 0; xy < Model.LEVELS - z; xy++) {
+				line.add(at(xy, xy, z));
+			}
+			lines.add(line);
+		}
+
+		if (onSecondDiagonal()) {
+			line = new LinkedList<Position>();
+			for (int xy = 0; xy < Model.LEVELS - z; xy++) {
+				line.add(at(xy, Model.LEVELS - z - xy, z));
+			}
+			lines.add(line);
+		}
+
+		return lines;
+	}
+
+	private boolean onSecondDiagonal() {
+		return x + y == Model.LEVELS - 1;
+	}
+
+	private boolean onFirstDiagonal() {
+		return x == y;
+	}
+
 	// No equals(), Positions are unique and can be compared by identity
 }
