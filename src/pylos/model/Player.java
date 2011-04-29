@@ -85,11 +85,7 @@ public class Player {
 	}
 
 	public boolean checkIfAnyLineOrSquare(int level) {
-		if (checkIfAnyLine(level))
-			return true;
-		if (checkIfAnySquare(level))
-			return true;
-		return false;
+		return checkIfAnyLine(level) || checkIfAnySquare(level);
 	}
 
 	public boolean checkIfAnyLine(int level) { // Is there a point knowing which line is it ?

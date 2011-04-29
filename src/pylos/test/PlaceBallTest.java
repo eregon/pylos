@@ -7,10 +7,6 @@ import pylos.model.Model;
 import pylos.model.Position;
 
 public class PlaceBallTest extends PylosTestCase {
-
-	/**
-	 * Test
-	 */
 	public void testCanPlaceBallAt() {
 		assertTrue(Model.canPlaceBallAt(Position.at(0, 0, 0)));
 		assertFalse(Model.canPlaceBallAt(Position.at(0, 0, 1))); // plateau vide donc pas de sens placer boule z = 1
