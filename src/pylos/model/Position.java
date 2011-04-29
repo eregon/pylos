@@ -1,5 +1,8 @@
 package pylos.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Represent an (immutable) position on the Board.
  * x and y are horizontal coordinates, z is the level in the pyramid.
@@ -43,6 +46,32 @@ public class Position {
 
 	public static boolean isValid(int x, int y, int z) {
 		return x >= 0 && y >= 0 && z >= 0 && x < Model.LEVELS - z && y < Model.LEVELS - z && z < Model.LEVELS;
+	}
+
+	public List<Position> square() {
+		List<Position> square = new LinkedList<Position>();
+
+		for (int x = this.x; x <= this.x + 1; x++) {
+			for (int y = this.y; y <= this.y + 1; y++) {
+				if (!isValid(x, y, z))
+					return null;
+				square.add(Position.at(x, y, z));
+			}
+		}
+		return square;
+	}
+
+	public List<List<Position>> fourSquare() {
+		List<List<Position>> fourSquare = new LinkedList<List<Position>>();
+		List<Position> square;
+		for (int x = this.x - 1; x <= this.x; x++) {
+			for (int y = this.y - 1; y <= this.y; y++) {
+				square = at(x, y, z).square();
+				if (square != null)
+					fourSquare.add(square);
+			}
+		}
+		return fourSquare;
 	}
 
 	// No equals(), Positions are unique and can be compared by identity

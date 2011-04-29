@@ -117,6 +117,51 @@ public class Player {
 		return true;
 	}
 
+	public boolean anyLineOrSquare(Position position) {
+		return anyLine(position) || anySquare(position);
+	}
+
+	private boolean anyLine(Position position) {
+		boolean validLine = true;
+
+		for (int x = 0; x < Model.LEVELS - position.z; x++) {
+			Position pos = Position.at(x, position.y, position.z);
+			if (!Model.board.anyBallAt(pos) || Model.board.ballAt(pos).owner != Model.currentPlayer) {
+				validLine = false;
+				break;
+			}
+			if (validLine)
+				return true;
+		}
+
+		for (int y = 0; y < Model.LEVELS - position.z; y++) {
+			Position pos = Position.at(position.x, y, position.z);
+			if (!Model.board.anyBallAt(pos) || Model.board.ballAt(pos).owner != this) {
+				validLine = false;
+				break;
+			}
+			if (validLine)
+				return true;
+		}
+
+		return false;
+	}
+
+	private boolean anySquare(Position position) {
+		for (List<Position> list : position.fourSquare()) {
+			boolean validSquare = true;
+			for (Position pos : list) {
+				if (!Model.board.anyBallAt(pos) || Model.board.ballAt(pos).owner != this) {
+					validSquare = false;
+					break;
+				}
+			}
+			if (validSquare)
+				return true;
+		}
+		return false;
+	}
+
 	public boolean isBallOnThisPosition(Position position) { // does ball owned by this player be on this position ?
 		for (Ball ball : balls) {
 			if (ball.position == position)
