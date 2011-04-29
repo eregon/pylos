@@ -1,6 +1,7 @@
 package pylos.controller;
 
 import pylos.Pylos;
+import pylos.exception.PylosError;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
@@ -49,7 +50,7 @@ public abstract class Controller {
 
 	public static void risePlayerBall(Ball ball) {
 		if (Model.getPositionsToRise(ball).isEmpty()) {
-			System.err.println("Can not rise ball, there is no place to rise it.");
+			throw new PylosError("Can not rise ball, there is no place to rise it.");
 		} else {
 			Model.currentPlayer.riseBall(ball);
 			view.updatePositionsToRise(ball);
