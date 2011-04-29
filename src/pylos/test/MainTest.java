@@ -3,7 +3,6 @@ package pylos.test;
 import java.util.LinkedList;
 import java.util.List;
 
-import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
 
@@ -39,27 +38,8 @@ public class MainTest extends PylosTestCase {
 
 	}
 
-	public void testCanPlaceBallAt() {
-		assertTrue(Model.canPlaceBallAt(Position.at(0, 0, 0)));
-		assertFalse(Model.canPlaceBallAt(Position.at(0, 0, 1))); // plateau vide donc pas de sens placer boule z = 1
-
-		List<Position> balls = gameSample();
-		for (Position pos : balls) {
-			assertFalse(Model.canPlaceBallAt(pos));
-		}
-		assertFalse(Model.canPlaceBallAt(Position.at(0, 0, 1)));
-		assertFalse(Model.canPlaceBallAt(Position.at(0, 0, 2)));
-		assertFalse(Model.canPlaceBallAt(Position.at(0, 0, 3)));
-		assertTrue(Model.canPlaceBallAt(Position.at(1, 2, 0)));
-		assertTrue(Model.canPlaceBallAt(Position.at(1, 0, 1)));
-	}
-
 	public void testAccessibleBalls() {
-
-	}
-
-	public void testGetMountableBalls() {
-		gameSample();
+		List<Position> balls = gameSample();
 
 		/**
 		 * ooo.
@@ -68,44 +48,16 @@ public class MainTest extends PylosTestCase {
 		 * .... ...
 		 */
 
-		for (Ball ball : Model.currentPlayer.getMountableBalls()) {
-			System.out.println(ball.position);
+		List<List<Position>> accessibleBalls = new LinkedList<List<Position>>();
+		for (int i = 0; i < Model.LEVELS; i++) {
+			accessibleBalls.add(Model.accessibleBalls(i));
 		}
 
-		assertEquals(1, Model.currentPlayer.getMountableBalls().size());
-
-		assertEquals(Model.board.ballAt(Position.at(2, 2, 0)), Model.currentPlayer.getMountableBalls().get(0));
-	}
-
-	public void testIsMountable() {
-		gameSample();
-		Ball ball = Model.currentPlayer.getMountableBalls().get(0);
-
-		for (Ball actual : Model.currentPlayer.getMountableBalls()) {
-			if (actual.position == Position.at(0, 0, 0))
-				ball = actual;
+		for (List<Position> list : accessibleBalls) {
+			for (Position accessible : list) {
+				assertFalse(balls.contains(accessible));
+			}
 		}
-
-		assertTrue(ball.isMountable());
-	}
-
-	public void testGetPositionsToRise() {
-
-		gameSample();
-
-		/**
-		 * ooo.
-		 * ooo. o..
-		 * ..o. ...
-		 * .... ...
-		 */
-
-		List<Position> positionToRise = Model.getPositionsToRise(Model.board.ballAt(Position.at(2, 2, 0)));
-		assertEquals(1, positionToRise.size());
-
-		assertEquals(Position.at(1, 0, 1), positionToRise.get(0));
-
-		assertEquals(0, Model.getPositionsToRise(Model.board.ballAt(Position.at(2, 0, 0))).size());
 	}
 
 	public void testBallsBySideAtLevel() {
@@ -144,8 +96,26 @@ public class MainTest extends PylosTestCase {
 	 * ..o. ...
 	 * .... ...
 	 */
-	public List<Position> gameSample() {
+	public static List<Position> gameSample() {
 		int[][] positions = new int[][] { { 0, 0, 0 }, { 0, 1, 0 }, { 1, 1, 0 }, { 1, 0, 0 }, { 0, 0, 1 }, { 2, 0, 0 }, { 2, 2, 0 }, { 2, 1, 0 } };
+		List<Position> list = new LinkedList<Position>();
+		for (int[] coords : positions) {
+			Position pos = Position.at(coords[0], coords[1], coords[2]);
+			Model.currentPlayer.putBallOnBoard(pos);
+			list.add(pos);
+		}
+		return list;
+	}
+
+	/**
+	 * o.oo
+	 * oooo ...
+	 * ooo. oo. ..
+	 * ooo. oo. o. .
+	 */
+	public static List<Position> complexGameSample() {
+		int[][] positions = new int[][] { { 0, 0, 0 }, { 2, 0, 0 }, { 3, 0, 0 }, { 0, 1, 0 }, { 1, 1, 0 }, { 2, 1, 0 }, { 3, 1, 0 }, { 0, 2, 0 }, { 1, 2, 0 }, { 2, 2, 0 }, { 0, 3, 0 }, { 1, 3, 0 },
+				{ 2, 3, 0 }, { 0, 1, 1 }, { 1, 1, 1 }, { 0, 2, 1 }, { 1, 2, 1 } };
 		List<Position> list = new LinkedList<Position>();
 		for (int[] coords : positions) {
 			Position pos = Position.at(coords[0], coords[1], coords[2]);
