@@ -21,7 +21,7 @@ public class Ball {
 
 	@Override
 	public String toString() {
-		return "Ball (" + owner.side + ")";
+		return "Ball (" + owner.side + ", " + position + ")";
 	}
 
 	public void placeAt(Position position) {
