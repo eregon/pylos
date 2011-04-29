@@ -2,6 +2,7 @@ package pylos.view.appstate;
 
 import pylos.Pylos;
 import pylos.controller.Controller;
+import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
 import pylos.view.Collisions;
@@ -92,10 +93,13 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 				lastRightClick = time;
 			} else {
 				if (time - lastRightClick < MaxRightClickTime) {
-					view.updateMountableBalls();
-					Collisions collisions = new Collisions(view, view.mountableBalls);
-					if (collisions.any())
-						Controller.risePlayerBall(Model.board.ballAt(collisions.getPosition()));
+					Collisions collisions = new Collisions(view, view.balls);
+					if (collisions.any()) {
+						Ball ball = Model.board.ballAt(collisions.getPosition());
+						if (ball.onBoard && ball.isMountableByCurrentPlayer()) {
+							Controller.risePlayerBall(ball);
+						}
+					}
 				}
 			}
 		}

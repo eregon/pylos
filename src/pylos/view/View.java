@@ -26,9 +26,9 @@ public class View extends SimpleApplication {
 	ChaseCamera chaseCam;
 	CameraTarget cameraTarget;
 
+	public Node balls = new Node("Balls");
 	public Node positionBalls = new Node("Position Balls");
 	public Node positionsToRiseBall = new Node("Positions to rise Ball");
-	public Node mountableBalls = new Node("Mountable Balls");
 
 	public View() {
 		super();
@@ -42,7 +42,7 @@ public class View extends SimpleApplication {
 	public void simpleInitApp() {
 		assetManager.registerLocator(Pylos.rootPath + "/assets", FileLocator.class);
 
-		rootNode.attachChild(mountableBalls);
+		rootNode.attachChild(balls);
 
 		cameraTarget = new CameraTarget(this);
 		rootNode.attachChild(cameraTarget.geometry);
@@ -68,7 +68,7 @@ public class View extends SimpleApplication {
 	public void initBalls() {
 		for (Ball ball : Model.board.balls) {
 			ball.graphics.create(this);
-			rootNode.attachChild(ball.graphics);
+			balls.attachChild(ball.graphics);
 		}
 		board.drawBalls();
 	}
@@ -86,14 +86,6 @@ public class View extends SimpleApplication {
 
 	public void updatePositionBalls() {
 		updateNodeFromPositions(positionBalls, Model.getPositionBalls());
-	}
-
-	public void updateMountableBalls() {
-		mountableBalls.detachAllChildren();
-
-		for (Ball ball : Model.currentPlayer.getMountableBalls()) {
-			mountableBalls.attachChild(ball.graphics);
-		}
 	}
 
 	public void updatePositionsToRise(Ball ball) {
