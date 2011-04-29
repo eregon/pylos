@@ -26,6 +26,8 @@ public abstract class Controller {
 
 	public static void initTurn() {
 		Model.currentPlayer.resetAction();
+		if (Model.currentPlayer.allBallsOnBoard())
+			nextTurn();
 	}
 
 	public static void finishTurn() {

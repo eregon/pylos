@@ -138,4 +138,17 @@ public class Player {
 	public void resetAction() {
 		action = Action.PLACE;
 	}
+
+	public boolean canRise() {
+		return action == Action.PLACE;
+	}
+
+	public boolean allBallsOnBoard() {
+		for (Ball ball : balls) {
+			if (!ball.onBoard)
+				return false;
+		}
+		return true;
+	}
+
 }

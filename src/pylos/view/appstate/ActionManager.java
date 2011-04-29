@@ -92,7 +92,7 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 			if (pressed) {
 				lastRightClick = time;
 			} else {
-				if (time - lastRightClick < MaxRightClickTime) {
+				if (time - lastRightClick < MaxRightClickTime && Model.currentPlayer.canRise()) {
 					Collisions collisions = new Collisions(view, view.balls);
 					if (collisions.any()) {
 						Ball ball = Model.board.ballAt(collisions.getPosition());
