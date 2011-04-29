@@ -78,7 +78,7 @@ public class Player {
 	public List<Ball> getMountableBalls() {
 		List<Ball> list = new LinkedList<Ball>();
 		for (Ball ball : balls) {
-			if (ball.isRemovable() && ball.isMountable())
+			if (ball.isMountable())
 				list.add(ball);
 		}
 		return list;
