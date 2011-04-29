@@ -8,5 +8,6 @@ public class Config {
 
 	public static void configureProject() {
 		Logger.getLogger("com.jme3").setLevel(Level.WARNING);
+		Logger.getLogger("de.lessvoid.nifty").setLevel(Level.WARNING);
 	}
 }

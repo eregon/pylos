@@ -16,9 +16,12 @@ import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.ChaseCamera;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseButtonTrigger;
+import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import com.jme3.system.Timer;
+
+import de.lessvoid.nifty.Nifty;
 
 public class View extends SimpleApplication {
 	public BoardGraphics board;
@@ -30,6 +33,8 @@ public class View extends SimpleApplication {
 	public Node positionBalls = new Node("Position Balls");
 	public Node positionsToRiseBall = new Node("Positions to rise Ball");
 
+	MainScreenController screenController;
+
 	public View() {
 		super();
 		showSettings = false;
@@ -40,7 +45,7 @@ public class View extends SimpleApplication {
 
 	@Override
 	public void simpleInitApp() {
-		assetManager.registerLocator(Pylos.rootPath + "/assets", FileLocator.class);
+		assetManager.registerLocator(Pylos.assetsPath, FileLocator.class);
 
 		rootNode.attachChild(balls);
 
@@ -60,6 +65,10 @@ public class View extends SimpleApplication {
 		stateManager.attach(new ActionManager());
 		stateManager.attach(new LowGraphicsSwitcher());
 
+		startNifty();
+
+		setStatus("Welcome to Pylos !");
+
 		Controller.updateView();
 	}
 
@@ -78,6 +87,18 @@ public class View extends SimpleApplication {
 		chaseCam = new ChaseCamera(cam, cameraTarget.geometry, inputManager);
 		chaseCam.setInvertVerticalAxis(true);
 		chaseCam.setToggleRotationTrigger(new MouseButtonTrigger(MouseInput.BUTTON_RIGHT));
+	}
+
+	private void startNifty() {
+		guiNode.detachAllChildren();
+		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+		Nifty nifty = niftyDisplay.getNifty();
+		try {
+			nifty.fromXml(Pylos.assetsPath + "/Interface/MainScreen.xml", "main_screen");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		guiViewPort.addProcessor(niftyDisplay);
 	}
 
 	public void show() {
@@ -103,5 +124,13 @@ public class View extends SimpleApplication {
 
 	public Timer getTimer() {
 		return timer;
+	}
+
+	public void registerScreenController(MainScreenController screenController) {
+		this.screenController = screenController;
+	}
+
+	public void setStatus(String status) {
+		screenController.setStatus(status);
 	}
 }

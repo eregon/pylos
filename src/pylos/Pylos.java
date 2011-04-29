@@ -12,7 +12,8 @@ public class Pylos {
 	public static View view;
 
 	// Ugly hack to get root path: this is Java ...
-	public static final File rootPath = new File(Pylos.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile();
+	public static final String rootPath = new File(Pylos.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
+	public static final String assetsPath = rootPath + "/assets";
 	public static final Logger logger = Logger.getLogger(Pylos.class.getName());
 
 	/**
