@@ -20,7 +20,7 @@ import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.scene.Node;
 
 public class ActionManager extends AbstractAppState implements ActionListener {
-	static final int MaxRightClickTime = 250; // ms
+	static final int MaxClickTime = 250; // ms
 	static final String Quit = "Quit";
 	static final String PickBall = "PickBall";
 	static final String RiseBall = "RiseBall";
@@ -30,7 +30,7 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 	HighlightBallGraphics highlightBall = new HighlightBallGraphics();
 	Node highlightBallNode = new Node("Highlight Ball");
 
-	private long lastRightClick;
+	private long lastLeftClick, lastRightClick;
 
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
@@ -82,7 +82,10 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 		if (action == Quit) {
 			view.stop();
 		} else if (action == PickBall) {
-			if (!pressed && !Model.isWinner()) {
+			long time = System.currentTimeMillis();
+			if (pressed) {
+				lastLeftClick = time;
+			} else if (time - lastLeftClick < MaxClickTime) {
 				Collisions collisions = getPickCollisions();
 				if (collisions != null && collisions.any())
 					Controller.placePlayerBall(collisions.getPosition());
@@ -91,14 +94,12 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 			long time = System.currentTimeMillis();
 			if (pressed) {
 				lastRightClick = time;
-			} else {
-				if (time - lastRightClick < MaxRightClickTime && Model.currentPlayer.canRise()) {
-					Collisions collisions = new Collisions(view, view.balls);
-					if (collisions.any()) {
-						Ball ball = Model.board.ballAt(collisions.getPosition());
-						if (ball.onBoard && ball.isMountableByCurrentPlayer()) {
-							Controller.risePlayerBall(ball);
-						}
+			} else if (time - lastRightClick < MaxClickTime && Model.currentPlayer.canRise()) {
+				Collisions collisions = new Collisions(view, view.balls);
+				if (collisions.any()) {
+					Ball ball = Model.board.ballAt(collisions.getPosition());
+					if (ball.onBoard && ball.isMountableByCurrentPlayer()) {
+						Controller.risePlayerBall(ball);
 					}
 				}
 			}
