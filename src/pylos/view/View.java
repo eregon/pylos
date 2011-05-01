@@ -86,7 +86,6 @@ public class View extends SimpleApplication {
 		flyCam.setEnabled(false);
 		chaseCam = new ChaseCamera(cam, cameraTarget.geometry, inputManager);
 		chaseCam.setInvertVerticalAxis(true);
-		chaseCam.setToggleRotationTrigger(new MouseButtonTrigger(MouseInput.BUTTON_RIGHT));
 	}
 
 	private void startNifty() {
