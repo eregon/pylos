@@ -14,8 +14,6 @@ import pylos.view.ball.PositionBallGraphics;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.ChaseCamera;
-import com.jme3.input.MouseInput;
-import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
@@ -72,7 +70,14 @@ public class View extends SimpleApplication {
 		Controller.updateView();
 	}
 
-	// simpleUpdate() is empty, everything is in AppState
+	@Override
+	public void simpleUpdate(float tpf) {
+		super.simpleUpdate(tpf);
+		// most is in AppState
+
+		// Set FPS, code from SimpleApplication.simpleUpdate()
+		screenController.setFPS((int) timer.getFrameRate());
+	}
 
 	public void initBalls() {
 		for (Ball ball : Model.board.balls) {
