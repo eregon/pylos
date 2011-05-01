@@ -9,7 +9,9 @@
 /liblwjgl.jnilib
 /libjinput-osx.jnilib
 /liblwjgl.so
+/liblwjgl64.so
 /libopenal.so
+/libopenal64.so
 
 # OS,editor
 .DS_Store
