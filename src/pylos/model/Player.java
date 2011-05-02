@@ -84,39 +84,6 @@ public class Player {
 		return list;
 	}
 
-	public boolean checkIfAnyLineOrSquare(int level) {
-		return checkIfAnyLine(level) || checkIfAnySquare(level);
-	}
-
-	public boolean checkIfAnyLine(int level) { // Is there a point knowing which line is it ?
-		List<List<Position>> lines = new LinkedList<List<Position>>();
-		for (int i = 0; i < Model.LEVELS - level; i++) {
-			lines.add(Model.getAllPositionsForLevelLineByLine(level, i));
-		}
-		for (List<Position> line : lines) {
-			if (checkIfThisLineOrSquare(line))
-				return true;
-		}
-		return false;
-	}
-
-	public boolean checkIfAnySquare(int level) {
-		List<List<Position>> squares = Model.getAllPositionForLevelSquareBySquare(level);
-		for (List<Position> square : squares) {
-			if (checkIfThisLineOrSquare(square))
-				return true;
-		}
-		return false;
-	}
-
-	public boolean checkIfThisLineOrSquare(List<Position> lineOrSquare) {
-		for (Position position : lineOrSquare) {
-			if (!isBallOnThisPosition(position))
-				return false;
-		}
-		return true;
-	}
-
 	public boolean anyLineOrSquare(Position position) {
 		return anyLine(position) || anySquare(position);
 	}
@@ -150,14 +117,6 @@ public class Player {
 				}
 			}
 			if (validSquare)
-				return true;
-		}
-		return false;
-	}
-
-	public boolean isBallOnThisPosition(Position position) { // does ball owned by this player be on this position ?
-		for (Ball ball : balls) {
-			if (ball.position == position)
 				return true;
 		}
 		return false;
