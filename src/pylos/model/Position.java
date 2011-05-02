@@ -114,7 +114,7 @@ public class Position {
 	}
 
 	private boolean onSecondDiagonal() {
-		return x + y == Model.LEVELS - 1;
+		return x + y == Model.LEVELS - 1 - z;
 	}
 
 	private boolean onFirstDiagonal() {
