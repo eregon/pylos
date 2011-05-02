@@ -127,6 +127,10 @@ public class Player {
 		action = Action.RISE;
 	}
 
+	public void removeBall(Ball ball) {
+		ball.removeFromBoard();
+	}
+
 	public boolean allBallsOnBoard() {
 		for (Ball ball : balls) {
 			if (!ball.onBoard)
@@ -142,5 +146,17 @@ public class Player {
 
 	public boolean canRise() {
 		return action == Action.PLACE;
+	}
+
+	public boolean isPlacing() {
+		return action == Action.PLACE || action == Action.RISE;
+	}
+
+	public boolean isRemoving() {
+		return action == Action.REMOVE;
+	}
+
+	public void removeBalls() {
+		action = Action.REMOVE;
 	}
 }

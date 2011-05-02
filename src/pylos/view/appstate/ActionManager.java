@@ -4,7 +4,6 @@ import pylos.Pylos;
 import pylos.controller.Controller;
 import pylos.model.Ball;
 import pylos.model.Model;
-import pylos.model.Position;
 import pylos.view.Collisions;
 import pylos.view.View;
 import pylos.view.ball.HighlightBallGraphics;
@@ -32,6 +31,8 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 
 	private long lastLeftClick, lastRightClick;
 
+	Collisions collisions;
+
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
@@ -39,19 +40,6 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 		view.getRootNode().attachChild(highlightBallNode);
 
 		initListener();
-	}
-
-	@Override
-	public void update(float tpf) {
-		Collisions collisions = getPickCollisions();
-		if (collisions != null && collisions.any()) {
-			Position position = collisions.getPosition();
-			highlightBall.setMaterial(Model.currentPlayer.graphics.ballMaterial);
-			view.board.place(highlightBall, position);
-			highlightBallNode.attachChild(highlightBall);
-		} else {
-			highlightBallNode.detachChild(highlightBall);
-		}
 	}
 
 	// Action Listener part: listen to clicks
@@ -63,7 +51,12 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 		input.addListener(this, Quit, PickBall, RiseBall);
 	}
 
-	public Collisions getPickCollisions() {
+	public boolean getCollisions(Node target) {
+		collisions = new Collisions(view, target);
+		return collisions.any();
+	}
+
+	public boolean getCollisions() {
 		Node target;
 		switch (Model.currentPlayer.action) {
 		case PLACE:
@@ -72,10 +65,24 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 		case RISE:
 			target = view.positionsToRiseBall;
 			break;
+		case REMOVE:
+			target = view.balls;
+			break;
 		default:
-			return null;
+			return false;
 		}
-		return new Collisions(view, target);
+		return getCollisions(target);
+	}
+
+	@Override
+	public void update(float tpf) {
+		if (Model.currentPlayer.isPlacing() && getCollisions()) {
+			highlightBall.setMaterial(Model.currentPlayer.graphics.ballMaterial);
+			view.board.place(highlightBall, collisions.getPosition());
+			highlightBallNode.attachChild(highlightBall);
+		} else {
+			highlightBallNode.detachChild(highlightBall);
+		}
 	}
 
 	public void onAction(String action, boolean pressed, float tpf) {
@@ -86,21 +93,25 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 			if (pressed) {
 				lastLeftClick = time;
 			} else if (time - lastLeftClick < MaxClickTime) {
-				Collisions collisions = getPickCollisions();
-				if (collisions != null && collisions.any())
-					Controller.placePlayerBall(collisions.getPosition());
+				if (getCollisions()) {
+					if (Model.currentPlayer.isPlacing()) {
+						Controller.placePlayerBall(collisions.getPosition());
+					} else if (Model.currentPlayer.isRemoving()) {
+						Ball ball = Model.board.ballAt(collisions.getPosition());
+						if (ball.isRemovableByCurrentPlayer())
+							Controller.removePlayerBall(ball);
+					}
+				}
 			}
 		} else if (action == RiseBall) {
 			long time = System.currentTimeMillis();
 			if (pressed) {
 				lastRightClick = time;
 			} else if (time - lastRightClick < MaxClickTime && Model.currentPlayer.canRise()) {
-				Collisions collisions = new Collisions(view, view.balls);
-				if (collisions.any()) {
+				if (getCollisions(view.balls)) {
 					Ball ball = Model.board.ballAt(collisions.getPosition());
-					if (ball.onBoard && ball.isMountableByCurrentPlayer()) {
+					if (ball.isMountableByCurrentPlayer())
 						Controller.risePlayerBall(ball);
-					}
 				}
 			}
 		}

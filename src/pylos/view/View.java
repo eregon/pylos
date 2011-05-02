@@ -128,6 +128,7 @@ public class View extends SimpleApplication {
 	}
 
 	public void setStatus(String status) {
-		screenController.setStatus(status);
+		if (screenController != null)
+			screenController.setStatus(status);
 	}
 }

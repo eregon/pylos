@@ -60,4 +60,8 @@ public class Ball {
 	public boolean isMountableByCurrentPlayer() {
 		return owner == Model.currentPlayer && isMountable();
 	}
+
+	public boolean isRemovableByCurrentPlayer() {
+		return owner == Model.currentPlayer && isRemovable();
+	}
 }
