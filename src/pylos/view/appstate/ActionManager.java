@@ -42,8 +42,8 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 	// Action Listener part: listen to clicks
 	private void initListener() {
 		InputManager input = view.getInputManager();
-		input.addMapping(LeftClick, new MouseButtonTrigger(0)); // left-button click
-		input.addMapping(RightClick, new MouseButtonTrigger(1)); // right-button click
+		input.addMapping(LeftClick, new MouseButtonTrigger(0));
+		input.addMapping(RightClick, new MouseButtonTrigger(1));
 		input.addListener(this, LeftClick, RightClick);
 	}
 
