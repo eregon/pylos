@@ -66,9 +66,11 @@ public class Position {
 		List<Position> square;
 		for (int x = this.x - 1; x <= this.x; x++) {
 			for (int y = this.y - 1; y <= this.y; y++) {
-				square = at(x, y, z).square();
-				if (square != null)
-					fourSquare.add(square);
+				if (isValid(x, y, z)) {
+					square = at(x, y, z).square();
+					if (square != null)
+						fourSquare.add(square);
+				}
 			}
 		}
 		return fourSquare;
@@ -101,7 +103,9 @@ public class Position {
 		if (onSecondDiagonal()) {
 			line = new LinkedList<Position>();
 			for (int xy = 0; xy < Model.LEVELS - z; xy++) {
-				line.add(at(xy, Model.LEVELS - z - xy, z));
+				if (isValid(xy, Model.LEVELS - z - xy, z)) {
+					line.add(at(xy, Model.LEVELS - z - xy, z));
+				}
 			}
 			lines.add(line);
 		}
