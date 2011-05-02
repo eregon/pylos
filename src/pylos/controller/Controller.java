@@ -28,6 +28,8 @@ public abstract class Controller {
 		Model.currentPlayer.resetAction();
 		if (Model.currentPlayer.allBallsOnBoard())
 			nextTurn();
+		else
+			view.setStatus("Place or mount a ball (right click)");
 	}
 
 	public static void finishTurn() {
@@ -41,7 +43,17 @@ public abstract class Controller {
 
 	public static void placePlayerBall(Position position) {
 		Model.currentPlayer.putBallOnBoard(position);
-		finishTurn();
+		updateView();
+
+		if (Model.currentPlayer.anyLineOrSquare(position))
+			removeBalls();
+		else
+			finishTurn();
+	}
+
+	private static void removeBalls() {
+		Model.currentPlayer.removeBalls();
+		view.setStatus("Remove 1 or 2 balls");
 	}
 
 	private static void nextTurn() {
@@ -57,6 +69,13 @@ public abstract class Controller {
 			Model.currentPlayer.riseBall(ball);
 			view.updatePositionsToRise(ball);
 			updateView();
+			view.setStatus("Choose where to place the ball");
 		}
+	}
+
+	public static void removePlayerBall(Ball ball) {
+		Model.currentPlayer.removeBall(ball);
+		updateView();
+		// TODO
 	}
 }
