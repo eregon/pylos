@@ -30,11 +30,11 @@ public class AnyLineOrSquareTest extends PylosTestCase {
 		 * ooo. oo. .. .
 		 */
 
-		assertTrue(Model.currentPlayer.anyLineOrSquare(Position.at(2, 1, 0)));
-		assertTrue(Model.currentPlayer.anyLineOrSquare(Position.at(1, 1, 1)));
-		assertTrue(Model.currentPlayer.anyLineOrSquare(Position.at(0, 2, 1)));
-		assertTrue(Model.currentPlayer.anyLineOrSquare(Position.at(0, 0, 0)));
-		assertTrue(Model.currentPlayer.anyLineOrSquare(Position.at(3, 0, 0)));
+		assertTrue(Model.player1.anyLineOrSquare(Position.at(2, 1, 0)));
+		assertTrue(Model.player1.anyLineOrSquare(Position.at(1, 1, 1)));
+		assertTrue(Model.player1.anyLineOrSquare(Position.at(0, 2, 1)));
+		assertTrue(Model.player1.anyLineOrSquare(Position.at(0, 0, 0)));
+		assertTrue(Model.player1.anyLineOrSquare(Position.at(3, 0, 0)));
 
 		Model.player2.putBallOnBoard(Position.at(0, 0, 2));
 		Model.player2.putBallOnBoard(Position.at(0, 1, 2));
