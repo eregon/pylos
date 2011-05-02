@@ -56,7 +56,7 @@ public abstract class Controller {
 
 	private static void removeBalls() {
 		Model.currentPlayer.removeBalls();
-		view.setStatus("Remove 1 or 2 balls");
+		view.setStatus("Remove 1 or 2 balls (remove the last by a right click)");
 	}
 
 	private static void nextTurn() {
