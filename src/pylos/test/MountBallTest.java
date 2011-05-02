@@ -7,8 +7,8 @@ import pylos.model.Model;
 import pylos.model.Player;
 import pylos.model.Position;
 
-public class RiseBallTest extends PylosTestCase {
-	public void testRiseBall() {
+public class MountBallTest extends PylosTestCase {
+	public void testMountBall() {
 		Player p = Model.currentPlayer;
 		assertTrue(p.getMountableBalls().isEmpty());
 
@@ -30,10 +30,10 @@ public class RiseBallTest extends PylosTestCase {
 		Ball ball = mountables.get(0);
 		assertEquals(Model.board.ballAt(Position.at(2, 0, 0)), ball);
 
-		List<Position> positionsToRise = Model.getPositionsToRise(ball);
+		List<Position> positionsToMount = Model.getPositionsToMount(ball);
 
-		assertEquals(1, positionsToRise.size());
-		assertEquals(Position.at(0, 0, 1), positionsToRise.get(0));
+		assertEquals(1, positionsToMount.size());
+		assertEquals(Position.at(0, 0, 1), positionsToMount.get(0));
 	}
 
 	public void testIsMountable() {
@@ -67,7 +67,7 @@ public class RiseBallTest extends PylosTestCase {
 		assertEquals(Model.board.ballAt(Position.at(2, 2, 0)), Model.currentPlayer.getMountableBalls().get(0));
 	}
 
-	public void testGetPositionsToRise() {
+	public void testGetPositionsToMount() {
 
 		MainTest.gameSample();
 
@@ -78,12 +78,12 @@ public class RiseBallTest extends PylosTestCase {
 		 * .... ...
 		 */
 
-		List<Position> positionToRise = Model.getPositionsToRise(Model.board.ballAt(Position.at(2, 2, 0)));
-		assertEquals(1, positionToRise.size());
+		List<Position> positionToMount = Model.getPositionsToMount(Model.board.ballAt(Position.at(2, 2, 0)));
+		assertEquals(1, positionToMount.size());
 
-		assertEquals(Position.at(1, 0, 1), positionToRise.get(0));
+		assertEquals(Position.at(1, 0, 1), positionToMount.get(0));
 
-		assertEquals(0, Model.getPositionsToRise(Model.board.ballAt(Position.at(2, 0, 0))).size());
+		assertEquals(0, Model.getPositionsToMount(Model.board.ballAt(Position.at(2, 0, 0))).size());
 	}
 
 }

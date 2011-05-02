@@ -65,12 +65,12 @@ public abstract class Controller {
 		updateView();
 	}
 
-	public static void risePlayerBall(Ball ball) {
-		if (Model.getPositionsToRise(ball).isEmpty()) {
-			throw new PylosError("Can not rise ball, there is no place to rise it.");
+	public static void mountPlayerBall(Ball ball) {
+		if (Model.getPositionsToMount(ball).isEmpty()) {
+			throw new PylosError("Can not mount ball, there is no place to mount it.");
 		} else {
-			Model.currentPlayer.riseBall(ball);
-			view.updatePositionsToRise(ball);
+			Model.currentPlayer.mountBall(ball);
+			view.updatePositionsToMount(ball);
 			updateView();
 			view.setStatus("Choose where to place the ball");
 		}

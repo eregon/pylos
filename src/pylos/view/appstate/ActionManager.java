@@ -58,8 +58,8 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 		case PLACE:
 			target = view.positionBalls;
 			break;
-		case RISE:
-			target = view.positionsToRiseBall;
+		case MOUNT:
+			target = view.positionsToMountBall;
 			break;
 		case REMOVE:
 			target = view.balls;
@@ -100,9 +100,9 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 				lastRightClick = time;
 			} else if (time - lastRightClick < MaxClickTime && getCollisions(view.balls)) {
 				Ball ball = collisions.getBall();
-				if (Model.currentPlayer.canRise()) { // Mount a ball
+				if (Model.currentPlayer.isMounting()) { // Mount a ball
 					if (ball.isMountableByCurrentPlayer())
-						Controller.risePlayerBall(ball);
+						Controller.mountPlayerBall(ball);
 				} else if (Model.currentPlayer.isRemoving()) { // Remove the last ball to remove
 					if (ball.isRemovableByCurrentPlayer())
 						Controller.removePlayerBall(ball, true);

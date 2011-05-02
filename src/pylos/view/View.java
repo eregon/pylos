@@ -30,7 +30,7 @@ public class View extends SimpleApplication {
 
 	public Node balls = new Node("Balls");
 	public Node positionBalls = new Node("Position Balls");
-	public Node positionsToRiseBall = new Node("Positions to rise Ball");
+	public Node positionsToMountBall = new Node("Positions to mount Ball");
 
 	public MainScreenController screenController;
 
@@ -108,8 +108,8 @@ public class View extends SimpleApplication {
 		updateNodeFromPositions(positionBalls, Model.getPositionBalls());
 	}
 
-	public void updatePositionsToRise(Ball ball) {
-		updateNodeFromPositions(positionsToRiseBall, Model.getPositionsToRise(ball));
+	public void updatePositionsToMount(Ball ball) {
+		updateNodeFromPositions(positionsToMountBall, Model.getPositionsToMount(ball));
 	}
 
 	public void updateNodeFromPositions(Node node, List<Position> positions) {

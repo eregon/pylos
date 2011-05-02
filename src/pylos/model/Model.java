@@ -101,7 +101,7 @@ public abstract class Model {
 	 * 
 	 * @return positions where referenced ball can be rising
 	 */
-	public static List<Position> getPositionsToRise(Ball ball) {
+	public static List<Position> getPositionsToMount(Ball ball) {
 		List<Position> list = new LinkedList<Position>();
 		for (int z = ball.position.z + 1; z < LEVELS; z++) {
 			for (int x = 0; x < 4 - z; x++) {

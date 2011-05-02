@@ -54,7 +54,7 @@ public class Ball {
 	 *         to mount it)
 	 */
 	public boolean isMountable() {
-		return isRemovable() && !Model.getPositionsToRise(this).isEmpty();
+		return isRemovable() && !Model.getPositionsToMount(this).isEmpty();
 	}
 
 	public boolean isMountableByCurrentPlayer() {

@@ -11,7 +11,7 @@ public class Player {
 		/** place a new ball or remove one to mount */
 		PLACE,
 		/** place the removed ball on a higher level */
-		RISE,
+		MOUNT,
 		/** choose 1 or 2 balls to remove from board */
 		REMOVE,
 		/** Wait for other player */
@@ -122,9 +122,9 @@ public class Player {
 		return false;
 	}
 
-	public void riseBall(Ball ball) {
+	public void mountBall(Ball ball) {
 		ball.removeFromBoard();
-		action = Action.RISE;
+		action = Action.MOUNT;
 	}
 
 	public void removeBall(Ball ball) {
@@ -144,12 +144,12 @@ public class Player {
 		action = Action.PLACE;
 	}
 
-	public boolean canRise() {
+	public boolean isMounting() {
 		return action == Action.PLACE;
 	}
 
 	public boolean isPlacing() {
-		return action == Action.PLACE || action == Action.RISE;
+		return action == Action.PLACE || action == Action.MOUNT;
 	}
 
 	public boolean isRemoving() {
