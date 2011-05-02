@@ -18,8 +18,8 @@ import com.jme3.scene.Node;
 
 public class ActionManager extends AbstractAppState implements ActionListener {
 	static final int MaxClickTime = 250; // ms
-	static final String PickBall = "PickBall";
-	static final String RiseBall = "RiseBall";
+	static final String LeftClick = "LeftClick";
+	static final String RightClick = "RightClick";
 
 	View view;
 
@@ -42,9 +42,9 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 	// Action Listener part: listen to clicks
 	private void initListener() {
 		InputManager input = view.getInputManager();
-		input.addMapping(PickBall, new MouseButtonTrigger(0)); // left-button click
-		input.addMapping(RiseBall, new MouseButtonTrigger(1)); // right-button click
-		input.addListener(this, PickBall, RiseBall);
+		input.addMapping(LeftClick, new MouseButtonTrigger(0)); // left-button click
+		input.addMapping(RightClick, new MouseButtonTrigger(1)); // right-button click
+		input.addListener(this, LeftClick, RightClick);
 	}
 
 	public boolean getCollisions(Node target) {
@@ -83,7 +83,7 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 
 	public void onAction(String action, boolean pressed, float tpf) {
 		long time = System.currentTimeMillis();
-		if (action == PickBall) {
+		if (action == LeftClick) {
 			if (pressed) {
 				lastLeftClick = time;
 			} else if (time - lastLeftClick < MaxClickTime) {
@@ -97,7 +97,7 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 					}
 				}
 			}
-		} else if (action == RiseBall) {
+		} else if (action == RightClick) {
 			if (pressed) {
 				lastRightClick = time;
 			} else if (time - lastRightClick < MaxClickTime && Model.currentPlayer.canRise()) {
