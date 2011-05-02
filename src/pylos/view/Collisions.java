@@ -1,6 +1,7 @@
 package pylos.view;
 
 import pylos.exception.PylosError;
+import pylos.model.Ball;
 import pylos.model.Position;
 import pylos.view.ball.PlayerBallGraphics;
 import pylos.view.ball.PositionBallGraphics;
@@ -18,9 +19,8 @@ public class Collisions {
 	int n;
 
 	public Collisions(View view, Node targets) {
-		if (targets == null) {
+		if (targets == null)
 			throw new PylosError("targets must not be null when creating Collisions");
-		}
 
 		Vector3f origin = view.getCamera().getWorldCoordinates(view.getInputManager().getCursorPosition(), 0);
 		Vector3f direction = view.getCamera().getWorldCoordinates(view.getInputManager().getCursorPosition(), 1);
@@ -29,9 +29,8 @@ public class Collisions {
 		Ray ray = new Ray(origin, direction);
 
 		n = targets.collideWith(ray, results);
-		if (n > 0) {
+		if (n > 0)
 			closest = results.getClosestCollision().getGeometry();
-		}
 	}
 
 	public void show() {
@@ -44,16 +43,24 @@ public class Collisions {
 
 	public Position getPosition() {
 		if (n > 0) {
-			if (closest instanceof PositionBallGraphics) {
+			if (closest instanceof PositionBallGraphics)
 				return ((PositionBallGraphics) closest).position;
-			} else if (closest instanceof PlayerBallGraphics) {
+			else if (closest instanceof PlayerBallGraphics)
 				return ((PlayerBallGraphics) closest).model.position;
-			} else {
+			else
 				throw new PylosError("Can not cast collision to Position : " + closest.getClass());
-			}
-		} else {
+		} else
 			throw new PylosError("No collisions");
-		}
+	}
+
+	public Ball getBall() {
+		if (n > 0) {
+			if (closest instanceof PlayerBallGraphics)
+				return ((PlayerBallGraphics) closest).model;
+			else
+				throw new PylosError("Can not cast collision to Ball : " + closest.getClass());
+		} else
+			throw new PylosError("No collisions");
 	}
 
 	public boolean any() {
