@@ -56,7 +56,7 @@ public abstract class Controller {
 
 	private static void removeBalls() {
 		Model.currentPlayer.removeBalls();
-		view.setStatus("Remove 1 or 2 balls (remove the last by a right click)");
+		view.setStatus("Remove 1 or 2 balls (remove only one by a right click)");
 	}
 
 	private static void nextTurn() {
@@ -76,12 +76,11 @@ public abstract class Controller {
 		}
 	}
 
-	public static void removePlayerBall(Ball ball) {
+	public static void removePlayerBall(Ball ball, boolean lastRemoved) {
 		Model.currentPlayer.removeBall(ball);
 		updateView();
 		ballRemoved += 1;
-		if (ballRemoved == 1) { // FIXME for 2
+		if (lastRemoved || ballRemoved == 2) // finished removing
 			finishTurn();
-		}
 	}
 }

@@ -86,31 +86,26 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 		if (action == LeftClick) {
 			if (pressed) {
 				lastLeftClick = time;
-			} else if (time - lastLeftClick < MaxClickTime) {
-				if (getCollisions()) {
-					if (Model.currentPlayer.isPlacing()) { // Place a ball
-						Controller.placePlayerBall(collisions.getPosition());
-					} else if (Model.currentPlayer.isRemoving()) { // Remove the first ball
-						Ball ball = collisions.getBall();
-						if (ball.isRemovableByCurrentPlayer())
-							Controller.removePlayerBall(ball);
-					}
+			} else if (time - lastLeftClick < MaxClickTime && getCollisions()) {
+				if (Model.currentPlayer.isPlacing()) { // Place a ball
+					Controller.placePlayerBall(collisions.getPosition());
+				} else if (Model.currentPlayer.isRemoving()) { // Remove the first ball
+					Ball ball = collisions.getBall();
+					if (ball.isRemovableByCurrentPlayer())
+						Controller.removePlayerBall(ball, false);
 				}
 			}
 		} else if (action == RightClick) {
 			if (pressed) {
 				lastRightClick = time;
-			} else if (time - lastRightClick < MaxClickTime) {
+			} else if (time - lastRightClick < MaxClickTime && getCollisions(view.balls)) {
+				Ball ball = collisions.getBall();
 				if (Model.currentPlayer.canRise()) { // Mount a ball
-					if (getCollisions(view.balls)) {
-						Ball ball = collisions.getBall();
-						if (ball.isMountableByCurrentPlayer())
-							Controller.risePlayerBall(ball);
-					}
+					if (ball.isMountableByCurrentPlayer())
+						Controller.risePlayerBall(ball);
 				} else if (Model.currentPlayer.isRemoving()) { // Remove the last ball to remove
-					Ball ball = collisions.getBall();
 					if (ball.isRemovableByCurrentPlayer())
-						Controller.removePlayerBall(ball);
+						Controller.removePlayerBall(ball, true);
 				}
 			}
 		}
