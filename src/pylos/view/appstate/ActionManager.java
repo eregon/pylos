@@ -12,15 +12,12 @@ import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
-import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
-import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.scene.Node;
 
 public class ActionManager extends AbstractAppState implements ActionListener {
 	static final int MaxClickTime = 250; // ms
-	static final String Quit = "Quit";
 	static final String PickBall = "PickBall";
 	static final String RiseBall = "RiseBall";
 
@@ -45,10 +42,9 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 	// Action Listener part: listen to clicks
 	private void initListener() {
 		InputManager input = view.getInputManager();
-		input.addMapping(Quit, new KeyTrigger(KeyInput.KEY_Q));
 		input.addMapping(PickBall, new MouseButtonTrigger(0)); // left-button click
 		input.addMapping(RiseBall, new MouseButtonTrigger(1)); // right-button click
-		input.addListener(this, Quit, PickBall, RiseBall);
+		input.addListener(this, PickBall, RiseBall);
 	}
 
 	public boolean getCollisions(Node target) {
@@ -86,10 +82,8 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 	}
 
 	public void onAction(String action, boolean pressed, float tpf) {
-		if (action == Quit) {
-			view.stop();
-		} else if (action == PickBall) {
-			long time = System.currentTimeMillis();
+		long time = System.currentTimeMillis();
+		if (action == PickBall) {
 			if (pressed) {
 				lastLeftClick = time;
 			} else if (time - lastLeftClick < MaxClickTime) {
@@ -104,7 +98,6 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 				}
 			}
 		} else if (action == RiseBall) {
-			long time = System.currentTimeMillis();
 			if (pressed) {
 				lastRightClick = time;
 			} else if (time - lastRightClick < MaxClickTime && Model.currentPlayer.canRise()) {

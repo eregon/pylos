@@ -9,6 +9,7 @@ import pylos.model.Model;
 import pylos.model.Position;
 import pylos.view.appstate.ActionManager;
 import pylos.view.appstate.FPSDisplayer;
+import pylos.view.appstate.KeysManager;
 import pylos.view.ball.PositionBallGraphics;
 
 import com.jme3.app.SimpleApplication;
@@ -62,6 +63,7 @@ public class View extends SimpleApplication {
 		// AppState
 		stateManager.attach(new ActionManager());
 		stateManager.attach(new FPSDisplayer());
+		stateManager.attach(new KeysManager());
 
 		startNifty();
 
