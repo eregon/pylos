@@ -33,6 +33,6 @@ public class MainScreenController implements ScreenController {
 	}
 
 	public void setFPS(int fps) {
-		fpsText.changeText("FPS: "+fps);
+		fpsText.changeText("FPS: " + fps);
 	}
 }
