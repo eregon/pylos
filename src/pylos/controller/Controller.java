@@ -14,6 +14,8 @@ import pylos.view.View;
 public abstract class Controller {
 	static View view;
 
+	static int ballRemoved = 0;
+
 	public static void initialize(View view) {
 		Controller.view = view;
 		initTurn();
@@ -26,6 +28,7 @@ public abstract class Controller {
 
 	public static void initTurn() {
 		Model.currentPlayer.resetAction();
+		ballRemoved = 0;
 		if (Model.currentPlayer.allBallsOnBoard())
 			nextTurn();
 		else
@@ -76,6 +79,9 @@ public abstract class Controller {
 	public static void removePlayerBall(Ball ball) {
 		Model.currentPlayer.removeBall(ball);
 		updateView();
-		// TODO
+		ballRemoved += 1;
+		if (ballRemoved == 1) { // FIXME for 2
+			finishTurn();
+		}
 	}
 }
