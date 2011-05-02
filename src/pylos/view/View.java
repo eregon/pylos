@@ -8,6 +8,7 @@ import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
 import pylos.view.appstate.ActionManager;
+import pylos.view.appstate.FPSDisplayer;
 import pylos.view.ball.PositionBallGraphics;
 
 import com.jme3.app.SimpleApplication;
@@ -30,7 +31,7 @@ public class View extends SimpleApplication {
 	public Node positionBalls = new Node("Position Balls");
 	public Node positionsToRiseBall = new Node("Positions to rise Ball");
 
-	MainScreenController screenController;
+	public MainScreenController screenController;
 
 	public View() {
 		super();
@@ -60,6 +61,7 @@ public class View extends SimpleApplication {
 
 		// AppState
 		stateManager.attach(new ActionManager());
+		stateManager.attach(new FPSDisplayer());
 
 		startNifty();
 
@@ -68,14 +70,7 @@ public class View extends SimpleApplication {
 		Controller.updateView();
 	}
 
-	@Override
-	public void simpleUpdate(float tpf) {
-		super.simpleUpdate(tpf);
-		// most is in AppState
-
-		// Set FPS, code from SimpleApplication.simpleUpdate()
-		screenController.setFPS((int) timer.getFrameRate());
-	}
+	// simpleUpdate() is empty, everything is in AppState
 
 	public void initBalls() {
 		for (Ball ball : Model.board.balls) {
