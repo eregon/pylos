@@ -88,9 +88,9 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 				lastLeftClick = time;
 			} else if (time - lastLeftClick < MaxClickTime) {
 				if (getCollisions()) {
-					if (Model.currentPlayer.isPlacing()) {
+					if (Model.currentPlayer.isPlacing()) { // Place a ball
 						Controller.placePlayerBall(collisions.getPosition());
-					} else if (Model.currentPlayer.isRemoving()) {
+					} else if (Model.currentPlayer.isRemoving()) { // Remove the first ball
 						Ball ball = Model.board.ballAt(collisions.getPosition());
 						if (ball.isRemovableByCurrentPlayer())
 							Controller.removePlayerBall(ball);
@@ -100,11 +100,17 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 		} else if (action == RightClick) {
 			if (pressed) {
 				lastRightClick = time;
-			} else if (time - lastRightClick < MaxClickTime && Model.currentPlayer.canRise()) {
-				if (getCollisions(view.balls)) {
+			} else if (time - lastRightClick < MaxClickTime) {
+				if (Model.currentPlayer.canRise()) { // Mount a ball
+					if (getCollisions(view.balls)) {
+						Ball ball = Model.board.ballAt(collisions.getPosition());
+						if (ball.isMountableByCurrentPlayer())
+							Controller.risePlayerBall(ball);
+					}
+				} else if (Model.currentPlayer.isRemoving()) { // Remove the last ball to remove
 					Ball ball = Model.board.ballAt(collisions.getPosition());
-					if (ball.isMountableByCurrentPlayer())
-						Controller.risePlayerBall(ball);
+					if (ball.isRemovableByCurrentPlayer())
+						Controller.removePlayerBall(ball);
 				}
 			}
 		}
