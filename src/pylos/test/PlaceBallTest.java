@@ -23,12 +23,12 @@ public class PlaceBallTest extends PylosTestCase {
 		assertTrue(Model.canPlaceBallAt(Position.at(1, 0, 1)));
 	}
 
-	public void complexTestCanPlaceBallAt() {
+	public void testCanPlaceBallAt2() {
 		List<Position> balls = MainTest.complexGameSample();
 
 		/**
-		 * o.oo
-		 * oooo ...
+		 * o..o
+		 * ooo. ...
 		 * ooo. oo. ..
 		 * ooo. oo. .. .
 		 */
@@ -39,10 +39,11 @@ public class PlaceBallTest extends PylosTestCase {
 
 		List<Position> accessible = new LinkedList<Position>();
 		accessible.add(Position.at(1, 0, 0));
+		accessible.add(Position.at(2, 0, 0));
+		accessible.add(Position.at(3, 1, 0));
 		accessible.add(Position.at(3, 2, 0));
 		accessible.add(Position.at(3, 3, 0));
-		accessible.add(Position.at(2, 0, 1));
-		accessible.add(Position.at(0, 0, 2));
+		accessible.add(Position.at(0, 1, 2));
 
 		for (Position position : accessible) {
 			assertTrue(Model.canPlaceBallAt(position));

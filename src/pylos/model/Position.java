@@ -95,17 +95,17 @@ public class Position {
 		if (onFirstDiagonal()) {
 			line = new LinkedList<Position>();
 			for (int xy = 0; xy < Model.LEVELS - z; xy++) {
-				line.add(at(xy, xy, z));
+				if (isValid(xy, xy, z))
+					line.add(at(xy, xy, z));
 			}
 			lines.add(line);
 		}
 
 		if (onSecondDiagonal()) {
 			line = new LinkedList<Position>();
-			for (int xy = 0; xy < Model.LEVELS - z; xy++) {
-				if (isValid(xy, Model.LEVELS - z - xy, z)) {
-					line.add(at(xy, Model.LEVELS - z - xy, z));
-				}
+			for (int xy = 0; xy < Model.LEVELS - 1 - z; xy++) {
+				if (isValid(xy, Model.LEVELS - 1 - z - xy, z))
+					line.add(at(xy, Model.LEVELS - 1 - z - xy, z));
 			}
 			lines.add(line);
 		}

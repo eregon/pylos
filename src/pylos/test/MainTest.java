@@ -108,14 +108,14 @@ public class MainTest extends PylosTestCase {
 	}
 
 	/**
-	 * o.oo
-	 * oooo ...
+	 * o..o
+	 * ooo. ...
 	 * ooo. oo. ..
-	 * ooo. oo. o. .
+	 * ooo. oo. .. .
 	 */
 	public static List<Position> complexGameSample() {
-		int[][] positions = new int[][] { { 0, 0, 0 }, { 2, 0, 0 }, { 3, 0, 0 }, { 0, 1, 0 }, { 1, 1, 0 }, { 2, 1, 0 }, { 3, 1, 0 }, { 0, 2, 0 }, { 1, 2, 0 }, { 2, 2, 0 }, { 0, 3, 0 }, { 1, 3, 0 },
-				{ 2, 3, 0 }, { 0, 1, 1 }, { 1, 1, 1 }, { 0, 2, 1 }, { 1, 2, 1 } };
+		int[][] positions = new int[][] { { 0, 0, 0 }, { 3, 0, 0 }, { 0, 1, 0 }, { 1, 1, 0 }, { 2, 1, 0 }, { 0, 2, 0 }, { 1, 2, 0 }, { 2, 2, 0 }, { 0, 3, 0 }, { 1, 3, 0 }, { 2, 3, 0 }, { 0, 1, 1 },
+				{ 1, 1, 1 }, { 0, 2, 1 }, { 1, 2, 1 } };
 		List<Position> list = new LinkedList<Position>();
 		for (int[] coords : positions) {
 			Position pos = Position.at(coords[0], coords[1], coords[2]);
