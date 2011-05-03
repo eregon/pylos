@@ -7,9 +7,11 @@ import pylos.model.Model;
 import pylos.model.Player;
 import pylos.model.Position;
 
+import com.jme3.material.Material;
 import com.jme3.math.FastMath;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
+import com.jme3.texture.Texture;
 
 public class BoardGraphics {
 	public static final int BALL_SAMPLES = 32;
@@ -26,10 +28,10 @@ public class BoardGraphics {
 
 	public BoardGraphics(View view) {
 		board = view.getAssetManager().loadModel("Models/Board/Board.mesh.xml");
-		// Material mat_stl = new Material(view.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
-		// Texture tex_ml = view.getAssetManager().loadTexture("Models/Board/Texture/bois4.jpg");
-		// mat_stl.setTexture("ColorMap", tex_ml);
-		// board.setMaterial(mat_stl);
+		Material mat_stl = new Material(view.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		Texture tex_ml = view.getAssetManager().loadTexture("Models/Board/Texture/marbre.jpg");
+		mat_stl.setTexture("ColorMap", tex_ml);
+		board.setMaterial(mat_stl);
 		board.scale(HORIZONTAL_SCALE, VERTICAL_SCALE, HORIZONTAL_SCALE);
 	}
 
