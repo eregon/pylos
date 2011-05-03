@@ -22,13 +22,10 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 	static final String RightClick = "RightClick";
 
 	View view;
-
+	Collisions collisions;
 	HighlightBallGraphics highlightBall = new HighlightBallGraphics();
 	Node highlightBallNode = new Node("Highlight Ball");
-
 	private long lastLeftClick, lastRightClick;
-
-	Collisions collisions;
 
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
