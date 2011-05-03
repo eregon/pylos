@@ -16,7 +16,7 @@ import com.jme3.texture.Texture;
 public class BoardGraphics {
 	public static final int BALL_SAMPLES = 32;
 
-	public static final float BOARD_SIDE_HEIGHT = 1f;
+	public static final float BOARD_SIDE_HEIGHT = 1.22f;
 	public static final float BOARD_HEIGHT = 1.185f;
 	public static final float BALL_DIAMETER = 1.38f;
 	public static final float HALF_SQRT_2 = FastMath.sqrt(2) / 2;
