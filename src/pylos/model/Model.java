@@ -10,7 +10,7 @@ import java.util.List;
  */
 public abstract class Model {
 	public static final int LEVELS = 4;
-	public static final int LEVELS_1 = 4;
+	public static final int LEVELS_1 = LEVELS - 1;
 	public static final int BALLS = 30;
 	public static Board board;
 	public static Player player1;
