@@ -41,11 +41,13 @@ public class BoardGraphics {
 
 	/*
 	 * The balls on the board must be placed this way (to look like natural moves)
-	 * 13 14
-	 * 11 12
-	 * 9 10
-	 * 7 5 3 1 0 2 4 6 8
+	 * @formatter:off
+	 * 13                      14
+	 * 11                      12
+	 *  9                      10
+	 *  7  5  3  1  0  2  4  6  8
 	 */
+	// @formatter:on
 	public void drawBalls() {
 		float distanceCenterSide = BALL_DIAMETER * (BALLS_BY_SIDE / 2);
 
@@ -58,15 +60,27 @@ public class BoardGraphics {
 
 			// 0-8 front line
 			for (int i = 0; i < limitFront; i++) {
-				ballsOnSide.pop().graphics.center().move(distanceCenterSide * player.side, BOARD_SIDE_HEIGHT, ((i + 1) / 2) * BALL_DIAMETER * (i % 2 == 1 ? 1 : -1));
+				ballsOnSide.pop().graphics.center().move(
+						distanceCenterSide * player.side,
+						BOARD_SIDE_HEIGHT,
+						((i + 1) / 2) * BALL_DIAMETER * (i % 2 == 1 ? 1 : -1)
+						);
 			}
 
 			// 9-14 sides
 			final int offset = BALLS_BY_SIDE / 2 - 1;
 			for (int i = 0; i < limitZPos; i++) {
-				ballsOnSide.pop().graphics.center().move((offset - i) * BALL_DIAMETER * player.side, BOARD_SIDE_HEIGHT, distanceCenterSide);
+				ballsOnSide.pop().graphics.center().move(
+						(offset - i) * BALL_DIAMETER * player.side,
+						BOARD_SIDE_HEIGHT,
+						distanceCenterSide
+						);
 				if (i < limitZNeg) {
-					ballsOnSide.pop().graphics.center().move((offset - i) * BALL_DIAMETER * player.side, BOARD_SIDE_HEIGHT, -distanceCenterSide);
+					ballsOnSide.pop().graphics.center().move(
+							(offset - i) * BALL_DIAMETER * player.side,
+							BOARD_SIDE_HEIGHT,
+							-distanceCenterSide
+							);
 				}
 			}
 
@@ -78,6 +92,10 @@ public class BoardGraphics {
 
 	public void place(Geometry ball, Position pos) {
 		float offset = (Model.ballsBySideAtLevel(pos.z) - 1) * BALL_DIAMETER / 2;
-		ball.center().move(pos.x * BALL_DIAMETER - offset, BoardGraphics.BOARD_HEIGHT + pos.z * BALL_DIAMETER * HALF_SQRT_2 + adjust, pos.y * BALL_DIAMETER - offset);
+		ball.center().move(
+				pos.x * BALL_DIAMETER - offset,
+				BoardGraphics.BOARD_HEIGHT + pos.z * BALL_DIAMETER * HALF_SQRT_2 + adjust,
+				pos.y * BALL_DIAMETER - offset
+				);
 	}
 }
