@@ -19,4 +19,5 @@
 *.blend1
 
 # Logs
+/log
 /hs_err_pid*.log
