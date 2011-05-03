@@ -37,7 +37,7 @@ public class Position {
 				}
 			}
 		}
-		top = Position.at(0, 0, Model.LEVELS - 1);
+		top = Position.at(0, 0, Model.LEVELS_1);
 	}
 
 	public static Position at(int x, int y, int z) {
@@ -114,7 +114,7 @@ public class Position {
 	}
 
 	private boolean onSecondDiagonal() {
-		return x + y == Model.LEVELS - 1 - z;
+		return x + y == Model.LEVELS_1 - z;
 	}
 
 	private boolean onFirstDiagonal() {
