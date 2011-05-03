@@ -43,4 +43,20 @@ public class AnyLineOrSquareTest extends PylosTestCase {
 
 		assertFalse(Model.player2.anyLineOrSquare(Position.at(0, 0, 2)));
 	}
+
+	public void testDiagonal() {
+		Model.player2.putBallOnBoard(Position.at(0, 2, 1));
+		Model.player2.putBallOnBoard(Position.at(1, 1, 1));
+
+		// Model.player1.putBallOnBoard(Position.at(1, 0, 1));
+
+		/**
+		 * ...
+		 * .o.
+		 * o..
+		 */
+		assertFalse(Model.player2.anyLineOrSquare(Position.at(1, 1, 1)));
+		assertFalse(Model.player2.anyLineOrSquare(Position.at(0, 2, 1)));
+
+	}
 }

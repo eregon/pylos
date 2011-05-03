@@ -103,9 +103,9 @@ public class Position {
 
 		if (onSecondDiagonal()) {
 			line = new LinkedList<Position>();
-			for (int xy = 0; xy < Model.LEVELS - 1 - z; xy++) {
-				if (isValid(xy, Model.LEVELS - 1 - z - xy, z))
-					line.add(at(xy, Model.LEVELS - 1 - z - xy, z));
+			for (int xy = 0; xy < Model.LEVELS - z; xy++) {
+				if (isValid(xy, Model.LEVELS_1 - z - xy, z))
+					line.add(at(xy, Model.LEVELS_1 - z - xy, z));
 			}
 			lines.add(line);
 		}
