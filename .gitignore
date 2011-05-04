@@ -19,5 +19,6 @@
 *.blend1
 
 # Logs
-/log
+/log/*
+!/log/.gitkeep
 /hs_err_pid*.log
