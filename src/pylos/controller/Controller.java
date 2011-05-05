@@ -79,6 +79,10 @@ public abstract class Controller {
 	public static void removePlayerBall(Ball ball, boolean lastRemoved) {
 		Model.currentPlayer.removeBall(ball);
 		updateView();
+
+		if (Model.currentPlayer.getRemovableBalls().isEmpty())
+			finishTurn();
+
 		ballRemoved += 1;
 		if (lastRemoved || ballRemoved == 2) // finished removing
 			finishTurn();
