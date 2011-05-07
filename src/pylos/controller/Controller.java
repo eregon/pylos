@@ -60,7 +60,7 @@ public abstract class Controller {
 	}
 
 	private static void nextTurn() {
-		Model.currentPlayer = (Model.currentPlayer == Model.player1) ? Model.player2 : Model.player1;
+		Model.currentPlayer = Model.otherPlayer();
 		initTurn();
 		updateView();
 	}
