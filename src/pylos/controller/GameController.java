@@ -27,7 +27,7 @@ public class GameController {
 		Controller.mountPlayerBall(ball);
 		if (Config.NETWORK && Pylos.network.isPaired()) {
 			try {
-				Pylos.network.remoteGame.mountPlayerBall(ball);
+				Pylos.network.remoteGame.mountPlayerBall(ball.position);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
@@ -38,7 +38,7 @@ public class GameController {
 		Controller.removePlayerBall(ball, lastRemoved);
 		if (Config.NETWORK && Pylos.network.isPaired()) {
 			try {
-				Pylos.network.remoteGame.removePlayerBall(ball, lastRemoved);
+				Pylos.network.remoteGame.removePlayerBall(ball.position, lastRemoved);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
