@@ -1,5 +1,6 @@
 package pylos.model;
 
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +19,15 @@ public class Position implements Serializable {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+
+	/**
+	 * Get local instance when deserializing.
+	 *
+	 * @throws ObjectStreamException
+	 */
+	public Object readResolve() throws ObjectStreamException {
+		return positions[z][y][x];
 	}
 
 	@Override
