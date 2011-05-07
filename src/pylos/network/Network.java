@@ -1,22 +1,25 @@
 package pylos.network;
 
 import java.lang.management.ManagementFactory;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.util.LinkedList;
-import java.util.List;
 
 import pylos.model.Position;
 
 public class Network {
-	static final String localhost = "rmi://localhost";
+	static final String rmiScheme = "rmi://";
+	static final String localhost = "localhost";
 	static final String remoteObjectBaseName = "/RemotePylos";
 	static String remoteObjectName;
 	static final int port = 1099; // default rmiregistry port
+
+	RemoteGameInterface remoteGame = null;
 
 	public void createConnections() {
 
@@ -24,13 +27,13 @@ public class Network {
 		remoteObjectName = remoteObjectBaseName + uID;
 
 		launchServer();
-		launchClient();
+		scanForRemote(localhost);
 	}
 
 	private void launchServer() {
 		try {
 			LocateRegistry.getRegistry(port);
-			Naming.list(localhost);
+			Naming.list(rmiScheme + localhost);
 		} catch (RemoteException e1) {
 			try {
 				LocateRegistry.createRegistry(port);
@@ -44,42 +47,43 @@ public class Network {
 		try {
 			RemoteGame remoteGame = new RemoteGame();
 			Naming.rebind(remoteObjectName, remoteGame);
-			System.out.println("Server is ready : " + localhost + remoteObjectName);
+			System.out.println("Server is ready: " + localhost + remoteObjectName);
 		} catch (Exception e) {
 			System.out.println("Server failed: " + e);
 		}
 	}
 
-	private void launchClient() {
-		String host = "localhost";
-		String uri = "rmi://" + host;
+	public void scanForRemote(String host) {
+		if (remoteGame != null)
+			return;
 
-		RemoteGameInterface remoteGame = null;
-		Remote remote = null;
-		List<String> otherRemoteNames = new LinkedList<String>();
-
+		String base = rmiScheme + host;
 		try {
-			String[] remoteNames = Naming.list(host);
-
-			for (String remoteName : remoteNames) {
+			for (String remoteName : Naming.list(host)) {
 				URI remoteURI = new URI(remoteName);
 				String path = remoteURI.getPath();
 				if (!path.equals(remoteObjectName)) {
-					otherRemoteNames.add(path);
+					Remote remote = Naming.lookup(base + path);
+					remoteGame = (RemoteGameInterface) remote;
+					System.out.println("Paired with " + base + path);
+
+					remoteGame.scanForRemote(getIP());
+
+					remoteGame.placePlayerBall(Position.at(0, 0, 0));
 				}
 			}
 
-			for (String remoteName : otherRemoteNames) {
-				System.out.println(uri + remoteName);
-
-				remote = Naming.lookup(uri + remoteName);
-				remoteGame = (RemoteGameInterface) remote;
-
-				System.out.println(remoteGame);
-				remoteGame.placePlayerBall(Position.at(0, 0, 0));
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	private String getIP() {
+		try {
+			return InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			System.err.println("Could not get ip: " + e);
+			return null;
 		}
 	}
 }
