@@ -6,10 +6,12 @@ import java.util.logging.Logger;
 import pylos.controller.Controller;
 import pylos.model.Model;
 import pylos.model.Position;
+import pylos.network.Network;
 import pylos.view.View;
 
 public class Pylos {
 	public static View view;
+	public static Network network;
 
 	// Ugly hack to get root path: this is Java ...
 	public static final String rootPath = new File(Pylos.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
@@ -35,9 +37,14 @@ public class Pylos {
 		Config.configureProject();
 
 		Model.initialize();
+
 		view = new View();
 		Controller.initialize(view);
-
 		view.show();
+
+		if (Config.NETWORK) {
+			network = new Network();
+			network.createConnections();
+		}
 	}
 }
