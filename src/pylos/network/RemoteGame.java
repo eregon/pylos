@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import pylos.Pylos;
 import pylos.controller.Controller;
+import pylos.model.Ball;
 import pylos.model.Position;
 
 public class RemoteGame extends UnicastRemoteObject implements RemoteGameInterface {
@@ -16,6 +17,14 @@ public class RemoteGame extends UnicastRemoteObject implements RemoteGameInterfa
 
 	public void placePlayerBall(Position position) {
 		Controller.placePlayerBall(position);
+	}
+
+	public void mountPlayerBall(Ball ball) throws RemoteException {
+		Controller.mountPlayerBall(ball);
+	}
+
+	public void removePlayerBall(Ball ball, boolean lastRemoved) throws RemoteException {
+		Controller.removePlayerBall(ball, lastRemoved);
 	}
 
 	public void scanForRemote(String host) throws RemoteException {
