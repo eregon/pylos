@@ -1,7 +1,7 @@
 package pylos.ai;
 
 public class AlphabetaAi {
-	public void AI(GameState gs, int depth) {
+	public void AI(GameScore gs, int depth) {
 		/**
 		 * get player
 		 * if(depht != 0 || !endGame)

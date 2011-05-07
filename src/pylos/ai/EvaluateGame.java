@@ -4,13 +4,13 @@ import pylos.model.Ball;
 
 
 public class EvaluateGame {
-	public void evaluate(GameState gs) {
+	public void evaluate(GameScore gs) {
 		countBallInHandPoint(gs);
 		countRemovableBallsPoint(gs);
 		countRawsPoint(gs);
 	}
 
-	private void countRawsPoint(GameState gs) {
+	private void countRawsPoint(GameScore gs) {
 		/**
 		 * recup list des boules du joueur sur le plateau
 		 * récup list des lignes/carré que forment chaque boules
@@ -23,14 +23,14 @@ public class EvaluateGame {
 //		}
 	}
 
-	private void countRemovableBallsPoint(GameState gs) {
+	private void countRemovableBallsPoint(GameScore gs) {
 		for (Ball ball : gs.onBoard) {
 			if(ball.isRemovable())
 				gs.add(1);
 		}
 	}
 
-	private void countBallInHandPoint(GameState gs) {
+	private void countBallInHandPoint(GameScore gs) {
 		gs.add(gs.onBoard.size() * 5);
 	}
 }

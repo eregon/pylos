@@ -6,7 +6,7 @@ import pylos.model.Ball;
 
 public class IterateGameSolution {
 	public IterateGameSolution(List<Ball> balls, int depth) {
-		new GameState(balls);
+		new GameScore(balls);
 		
 	}
 }
