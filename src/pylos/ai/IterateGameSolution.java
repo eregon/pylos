@@ -1,5 +1,12 @@
 package pylos.ai;
 
-public class IterateGameSolution {
+import java.util.List;
 
+import pylos.model.Ball;
+
+public class IterateGameSolution {
+	public IterateGameSolution(List<Ball> balls, int depth) {
+		new GameState(balls);
+		
+	}
 }

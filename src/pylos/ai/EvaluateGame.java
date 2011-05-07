@@ -1,7 +1,5 @@
 package pylos.ai;
 
-import java.util.List;
-
 import pylos.model.Ball;
 
 
@@ -13,7 +11,16 @@ public class EvaluateGame {
 	}
 
 	private void countRawsPoint(GameState gs) {
-		
+		/**
+		 * recup list des boules du joueur sur le plateau
+		 * récup list des lignes/carré que forment chaque boules
+		 * test si carré ou lignes partiel ! pas compter 2 fois le mm carré, et pas compté si carré occupé par autre joueur
+		 */
+//		List<Ball> balls = gs.onBoard;
+//		List<List<Position>> lines;
+//		for (Ball ball : balls) {
+//			lines = ball.position.lines();
+//		}
 	}
 
 	private void countRemovableBallsPoint(GameState gs) {
@@ -24,11 +31,6 @@ public class EvaluateGame {
 	}
 
 	private void countBallInHandPoint(GameState gs) {
-		for (Ball ball : gs.onBoard) {
-			if(!ball.onBoard) {
-				gs.add(5);
-				gs.onBoard.remove(ball);
-			}
-		}
+		gs.add(gs.onBoard.size() * 5);
 	}
 }
