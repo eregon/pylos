@@ -48,7 +48,7 @@ public abstract class Controller {
 		Model.currentPlayer.putBallOnBoard(position);
 		updateView();
 
-		if (Model.currentPlayer.anyLineOrSquare(position))
+		if (Model.currentPlayer.anyLineOrSquare(position) && !Model.otherPlayer().allBallsOnBoard())
 			removeBalls();
 		else
 			finishTurn();
