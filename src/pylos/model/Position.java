@@ -1,5 +1,6 @@
 package pylos.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,8 +8,8 @@ import java.util.List;
  * Represent an (immutable) position on the Board.
  * x and y are horizontal coordinates, z is the level in the pyramid.
  */
-public class Position {
-	public static final Position[][][] positions = new Position[Model.LEVELS][][];
+public class Position implements Serializable {
+	private static final Position[][][] positions = new Position[Model.LEVELS][][];
 	public static final Position[] all = new Position[Model.BALLS];
 	public static Position top;
 	public final int x, y, z;
