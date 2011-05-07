@@ -122,39 +122,4 @@ public abstract class Model {
 	public static int ballsBySideAtLevel(int level) {
 		return LEVELS - level;
 	}
-
-	/**
-	 * 
-	 * @param level
-	 * @param line
-	 * @return a list of the positions of the balls that form the referenced line at referenced level
-	 */
-	public static List<Position> getAllPositionsForLevelLineByLine(int level, int line) { // to check if any lines
-		List<Position> list = new LinkedList<Position>();
-		for (int x = 0; x < LEVELS - level; x++) {
-			list.add(Position.at(x, line, level));
-		}
-		return list;
-	}
-
-	/**
-	 * each square is a list of the positions of the balls that form a square at referenced level
-	 * 
-	 * @param level
-	 * @return a list of every possibles squares formed by the balls at referenced level
-	 */
-	public static List<List<Position>> getAllPositionForLevelSquareBySquare(int level) { // to check if any squares
-		List<List<Position>> squares = new LinkedList<List<Position>>();
-		for (int line = 1; line < LEVELS - level; line++) {
-			for (int column = 1; column < LEVELS - level; column++) {
-				List<Position> square = new LinkedList<Position>();
-				square.add(Position.at(line, column, level));
-				square.add(Position.at(line - 1, column, level));
-				square.add(Position.at(line, column - 1, level));
-				square.add(Position.at(line - 1, column - 1, level));
-				squares.add(square);
-			}
-		}
-		return squares;
-	}
 }
