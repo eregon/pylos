@@ -15,6 +15,7 @@ import pylos.view.ball.PositionBallGraphics;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.ChaseCamera;
+import com.jme3.math.FastMath;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
@@ -86,6 +87,8 @@ public class View extends SimpleApplication {
 		flyCam.setEnabled(false);
 		chaseCam = new ChaseCamera(cam, cameraTarget.geometry, inputManager);
 		chaseCam.setInvertVerticalAxis(true);
+		chaseCam.setDefaultHorizontalRotation(-FastMath.PI / 6);
+		chaseCam.setDefaultVerticalRotation(FastMath.PI / 4);
 	}
 
 	private void startNifty() {
