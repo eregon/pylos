@@ -4,10 +4,6 @@
 		<fileset dir="lib" includes="**/*.jar"/>
 	</path>
 
-	<target name="clean">
-		<delete dir="bin"/>
-	</target>
-
 	<target name="compile">
 		<mkdir dir="bin"/>
 		<javac srcdir="src" destdir="bin" classpathref="classpath" includeantruntime="false"/>
@@ -20,5 +16,18 @@
 				<pathelement path="bin"/>
 			</classpath>
 		</java>
+	</target>
+
+	<target name="clean">
+		<delete dir="bin"/>
+	</target>
+
+	<target name="clean-logs">
+		<delete>
+			<fileset dir="log">
+				<include name="*"/>
+				<exclude name=".gitkeep"/>
+			</fileset>
+		</delete>
 	</target>
 </project>
