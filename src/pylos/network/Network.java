@@ -6,21 +6,23 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.UnknownHostException;
 import java.rmi.Naming;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Network {
 	static final String rmiScheme = "rmi://";
 	static final String localhost = "localhost";
 	static final String remoteObjectBaseName = "/RemotePylos";
 	static String remoteObjectName;
-	static final int port = 1099; // default rmiregistry port
 
-	public RemoteGameInterface remoteGame = null;
+	public List<RemoteGameInterface> remoteGames = new LinkedList<RemoteGameInterface>();
+	List<String> remoteObjectsNames = new LinkedList<String>();
 
 	public boolean isPaired() {
-		return remoteGame != null;
+		return !remoteGames.isEmpty();
 	}
 
 	public void createConnections() {
@@ -34,11 +36,11 @@ public class Network {
 
 	private void launchServer() {
 		try {
-			LocateRegistry.getRegistry(port);
+			LocateRegistry.getRegistry(Registry.REGISTRY_PORT);
 			Naming.list(rmiScheme + localhost);
 		} catch (RemoteException e1) {
 			try {
-				LocateRegistry.createRegistry(port);
+				LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
 			} catch (RemoteException e) {
 				System.err.println("Could not launch rmiregistry");
 			}
@@ -56,23 +58,23 @@ public class Network {
 	}
 
 	public void scanForRemote(String host) {
-		if (isPaired())
-			return;
-
 		String base = rmiScheme + host;
 		try {
 			for (String remoteName : Naming.list(host)) {
-				URI remoteURI = new URI(remoteName);
-				String path = remoteURI.getPath();
-				if (!path.equals(remoteObjectName)) {
-					Remote remote = Naming.lookup(base + path);
-					remoteGame = (RemoteGameInterface) remote;
-					System.out.println("Paired with " + base + path);
+				String path = (new URI(remoteName)).getPath();
+				try {
+					if (!path.equals(remoteObjectName) && !remoteObjectsNames.contains(path)) {
+						RemoteGameInterface remoteGame = (RemoteGameInterface) Naming.lookup(base + path);
+						remoteGames.add(remoteGame);
+						remoteObjectsNames.add(path);
+						System.out.println("Paired with " + base + path);
 
-					remoteGame.scanForRemote(getIP());
+						remoteGame.scanForRemote(getIP());
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

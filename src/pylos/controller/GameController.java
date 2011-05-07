@@ -6,6 +6,7 @@ import pylos.Config;
 import pylos.Pylos;
 import pylos.model.Ball;
 import pylos.model.Position;
+import pylos.network.RemoteGameInterface;
 
 /**
  * The Game Controller.
@@ -16,7 +17,9 @@ public class GameController {
 		Controller.placePlayerBall(position);
 		if (Config.NETWORK && Pylos.network.isPaired()) {
 			try {
-				Pylos.network.remoteGame.placePlayerBall(position);
+				for (RemoteGameInterface remoteGame : Pylos.network.remoteGames) {
+					remoteGame.placePlayerBall(position);
+				}
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
@@ -27,7 +30,9 @@ public class GameController {
 		Controller.mountPlayerBall(ball);
 		if (Config.NETWORK && Pylos.network.isPaired()) {
 			try {
-				Pylos.network.remoteGame.mountPlayerBall(ball.position);
+				for (RemoteGameInterface remoteGame : Pylos.network.remoteGames) {
+					remoteGame.mountPlayerBall(ball.position);
+				}
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
@@ -38,7 +43,9 @@ public class GameController {
 		Controller.removePlayerBall(ball, lastRemoved);
 		if (Config.NETWORK && Pylos.network.isPaired()) {
 			try {
-				Pylos.network.remoteGame.removePlayerBall(ball.position, lastRemoved);
+				for (RemoteGameInterface remoteGame : Pylos.network.remoteGames) {
+					remoteGame.removePlayerBall(ball.position, lastRemoved);
+				}
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
