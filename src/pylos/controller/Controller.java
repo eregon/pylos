@@ -48,7 +48,7 @@ public abstract class Controller {
 		Model.currentPlayer.putBallOnBoard(position);
 		updateView();
 
-		if (Model.currentPlayer.anyLineOrSquare(position))
+		if (Model.currentPlayer.anyLineOrSquare(position) && !Model.otherPlayer().allBallsOnBoard())
 			removeBalls();
 		else
 			finishTurn();
@@ -60,7 +60,7 @@ public abstract class Controller {
 	}
 
 	private static void nextTurn() {
-		Model.currentPlayer = (Model.currentPlayer == Model.player1) ? Model.player2 : Model.player1;
+		Model.currentPlayer = Model.otherPlayer();
 		initTurn();
 		updateView();
 	}

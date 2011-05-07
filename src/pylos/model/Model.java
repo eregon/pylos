@@ -27,6 +27,10 @@ public abstract class Model {
 		currentPlayer = player1;
 	}
 
+	public static Player otherPlayer() {
+		return currentPlayer == player1 ? player2 : player1;
+	}
+
 	public static boolean isWinner() {
 		return board.anyBallAt(Position.top);
 	}
