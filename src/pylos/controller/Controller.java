@@ -22,8 +22,10 @@ public abstract class Controller {
 	}
 
 	public static void updateView() {
-		view.board.drawBalls();
-		view.updatePositionBalls();
+		if (view.board != null) {
+			view.board.drawBalls();
+			view.updatePositionBalls();
+		}
 	}
 
 	public static void initTurn() {
