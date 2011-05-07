@@ -1,7 +1,7 @@
 package pylos.view.appstate;
 
 import pylos.Pylos;
-import pylos.controller.Controller;
+import pylos.controller.GameController;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
@@ -88,11 +88,11 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 				if (Model.currentPlayer.isPlacing()) { // Place a ball
 					Position pos = collisions.getPosition();
 					if (Model.canPlaceBallAt(pos))
-						Controller.placePlayerBall(collisions.getPosition());
+						GameController.placePlayerBall(collisions.getPosition());
 				} else if (Model.currentPlayer.isRemoving()) { // Remove the first ball
 					Ball ball = collisions.getBall();
 					if (ball.isRemovableByCurrentPlayer())
-						Controller.removePlayerBall(ball, false);
+						GameController.removePlayerBall(ball, false);
 				}
 			}
 		} else if (action == RightClick) {
@@ -102,10 +102,10 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 				Ball ball = collisions.getBall();
 				if (Model.currentPlayer.isMounting()) { // Mount a ball
 					if (ball.isMountableByCurrentPlayer())
-						Controller.mountPlayerBall(ball);
+						GameController.mountPlayerBall(ball);
 				} else if (Model.currentPlayer.isRemoving()) { // Remove the last ball to remove
 					if (ball.isRemovableByCurrentPlayer())
-						Controller.removePlayerBall(ball, true);
+						GameController.removePlayerBall(ball, true);
 				}
 			}
 		}

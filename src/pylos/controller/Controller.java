@@ -23,8 +23,8 @@ public abstract class Controller {
 
 	public static void updateView() {
 		if (view.board != null) {
-			view.board.drawBalls();
 			view.updatePositionBalls();
+			view.board.drawBalls();
 		}
 	}
 

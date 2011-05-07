@@ -10,8 +10,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
-import pylos.model.Position;
-
 public class Network {
 	static final String rmiScheme = "rmi://";
 	static final String localhost = "localhost";
@@ -19,7 +17,11 @@ public class Network {
 	static String remoteObjectName;
 	static final int port = 1099; // default rmiregistry port
 
-	RemoteGameInterface remoteGame = null;
+	public RemoteGameInterface remoteGame = null;
+
+	public boolean isPaired() {
+		return remoteGame != null;
+	}
 
 	public void createConnections() {
 
@@ -27,7 +29,7 @@ public class Network {
 		remoteObjectName = remoteObjectBaseName + uID;
 
 		launchServer();
-		scanForRemote(localhost);
+		scanForRemote(localhost); // TODO: ask the host
 	}
 
 	private void launchServer() {
@@ -54,7 +56,7 @@ public class Network {
 	}
 
 	public void scanForRemote(String host) {
-		if (remoteGame != null)
+		if (isPaired())
 			return;
 
 		String base = rmiScheme + host;
@@ -68,8 +70,6 @@ public class Network {
 					System.out.println("Paired with " + base + path);
 
 					remoteGame.scanForRemote(getIP());
-
-					remoteGame.placePlayerBall(Position.at(0, 0, 0));
 				}
 			}
 
