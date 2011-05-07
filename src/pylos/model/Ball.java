@@ -24,6 +24,10 @@ public class Ball {
 		return "Ball (" + owner.side + ", " + position + ")";
 	}
 
+	/**
+	 * need another way to insert the log as we dont want the AI to spam log when testing his moves
+	 * @param position
+	 */
 	public void placeAt(Position position) {
 		onBoard = true;
 		this.position = position;
