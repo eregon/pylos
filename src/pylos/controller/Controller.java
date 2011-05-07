@@ -46,6 +46,17 @@ public abstract class Controller {
 		}
 	}
 
+	private static void nextTurn() {
+		Model.currentPlayer = Model.otherPlayer();
+		initTurn();
+		updateView();
+	}
+
+	private static void removeBalls() {
+		Model.currentPlayer.removeBalls();
+		view.setStatus("Remove 1 or 2 balls (remove only one by a right click)");
+	}
+
 	public static void placePlayerBall(Position position) {
 		Model.currentPlayer.putBallOnBoard(position);
 		updateView();
@@ -54,17 +65,6 @@ public abstract class Controller {
 			removeBalls();
 		else
 			finishTurn();
-	}
-
-	private static void removeBalls() {
-		Model.currentPlayer.removeBalls();
-		view.setStatus("Remove 1 or 2 balls (remove only one by a right click)");
-	}
-
-	private static void nextTurn() {
-		Model.currentPlayer = Model.otherPlayer();
-		initTurn();
-		updateView();
 	}
 
 	public static void mountPlayerBall(Ball ball) {
