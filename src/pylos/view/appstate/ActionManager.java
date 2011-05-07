@@ -4,6 +4,7 @@ import pylos.Pylos;
 import pylos.controller.Controller;
 import pylos.model.Ball;
 import pylos.model.Model;
+import pylos.model.Position;
 import pylos.view.Collisions;
 import pylos.view.View;
 import pylos.view.ball.HighlightBallGraphics;
@@ -85,7 +86,9 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 				lastLeftClick = time;
 			} else if (time - lastLeftClick < MaxClickTime && getCollisions()) {
 				if (Model.currentPlayer.isPlacing()) { // Place a ball
-					Controller.placePlayerBall(collisions.getPosition());
+					Position pos = collisions.getPosition();
+					if (Model.canPlaceBallAt(pos))
+						Controller.placePlayerBall(collisions.getPosition());
 				} else if (Model.currentPlayer.isRemoving()) { // Remove the first ball
 					Ball ball = collisions.getBall();
 					if (ball.isRemovableByCurrentPlayer())
