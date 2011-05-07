@@ -78,13 +78,15 @@ public class GameState implements Enumeration {
 		List<Ball> oS = balls;
 		List<Ball> oB = onBoard;
 		Move move = moves.get(0);
+		if(move.removeStep) {
+			
+		}
 		moves.remove(0);
 		move.ball.position = move.position;
 		if(!move.ball.onBoard) {
 			oS.remove(move.ball);
 			oB.add(move.ball);
 		}
-		
 		return new GameState(oB, oS);
 	}
 }
