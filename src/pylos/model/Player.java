@@ -32,9 +32,13 @@ public class Player {
 		graphics = new PlayerGraphics(this);
 	}
 
+	public byte toByte() {
+		return (byte) (this == Model.player1 ? 1 : 2);
+	}
+
 	@Override
 	public String toString() {
-		return "Player " + (this == Model.player1 ? 1 : 2);
+		return "Player " + toByte();
 	}
 
 	public LinkedList<Ball> partitionBalls(LinkedList<Ball> ballsOnBoard) {
