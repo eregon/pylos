@@ -109,16 +109,4 @@ public class Move {
 		}
 		return false;
 	}
-
-
-//	public boolean anyLineOrSquareForMove() {
-//		ball.placeAt(position);
-//		if(Model.currentPlayer.anyLineOrSquare(position)) {
-//			ball.removeFromBoard();
-//			removeStep = true;
-//			return removeStep;
-//		}
-//		ball.removeFromBoard();
-//		return removeStep;
-//	}
 }

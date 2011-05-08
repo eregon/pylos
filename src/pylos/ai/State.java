@@ -150,6 +150,26 @@ public class State {
 		return lines;
 	}
 	
+	public List<List<int[]>> linesNoDiagonales(int[] pos) {
+		List<List<int[]>> lines = new LinkedList<List<int[]>>();
+		List<int[]> line;
+		
+		line = new LinkedList<int[]>();
+		for (int x = 0; x < Model.LEVELS - pos[2]; x++) {
+			int [] p = {x, pos[1], pos[2]};
+			line.add(p);
+		}
+		lines.add(line);
+		
+		line = new LinkedList<int[]>();
+		for (int y = 0; y < Model.LEVELS - pos[2]; y++) {
+			int[] p = {pos[0], y, pos[2]};
+			line.add(p);
+		}
+		lines.add(line);
+		return lines;
+	}
+	
 	private boolean onSecondDiagonal(int[] pos) {
 		return pos[0] + pos [1] == Model.LEVELS_1 - pos[2];
 	}
@@ -171,7 +191,7 @@ public class State {
 		return fourSquare;
 	}
 
-	private List<int[]> square(int x, int y, int z) {
+	public List<int[]> square(int x, int y, int z) {
 		List<int[]> square = new LinkedList<int[]>();
 
 		for (int ix = x; ix <= valid(x, z)[1] + 1; ix++) {
@@ -183,5 +203,19 @@ public class State {
 			if(square.size() != 4)
 				return null;
 		return square;
+	}
+
+	public List<List<int[]>> getDiagonales(int z) {
+		List<List<int[]>> diagonals = new LinkedList<List<int[]>>();
+		List<int[]> line = new LinkedList<int[]>();
+		for (int xy = 0; xy < Model.LEVELS - z; xy++) {
+			int[] p = {xy, xy, z};
+			line.add(p);
+		}
+		for (int xy = 0; xy < Model.LEVELS - z; xy++) {
+			int[] p = {xy, Model.LEVELS_1 - z, z};
+			line.add(p);
+		}
+		return diagonals;
 	}
 }

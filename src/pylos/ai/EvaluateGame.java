@@ -1,45 +1,84 @@
 package pylos.ai;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import pylos.model.Model;
+
 
 
 public class EvaluateGame {
 
-	public static int evaluate(State state) {
-		// TODO Auto-generated method stub
-		return 0;
+	public static int evaluate(State s) {
+		return countBallInHandPoint(s) + countRemovableBallsPoint(s) + countRawsPoint(s);
+		
 	}
-//	public static void evaluate(GameState gs) {
-//		countBallInHandPoint(gs);
-//		countRemovableBallsPoint(gs);
-//		countRawsPoint(gs);
-//	}
-//
-//	private void countRawsPoint(GameState gs) {
-//		/**
-//		 * recup list des boules du joueur sur le plateau
-//		 * récup list des lignes/carré que forment chaque boules
-//		 * test si carré ou lignes partiel ! pas compter 2 fois le mm carré, et pas compté si carré occupé par autre joueur
-//		 */
-////		List<Ball> balls = gs.onBoard;
-////		List<List<Position>> lines;
-////		for (Ball ball : balls) {
-////			lines = ball.position.lines();
-////		}
-//	}
-//
-//	private void countRemovableBallsPoint(GameState gs) {
-//		for (int z = 0; z < Model.LEVELS; z++) {
-//			for (int y = 0; y < Model.LEVELS - z; y++) {
-//				for (int x = 0; x < Model.LEVELS - z; x++) {
-//					if(gs.state.state[z][y][x] == gs.state.currentPlayer && gs.state.isRemovable(x, y, z))
-//						gs.addScore(1);
-//				}
-//				
-//			}
-//		}
-//	}
-//
-//	private void countBallInHandPoint(GameState gs) {
-//		gs.addScore(gs.state.ballOnSide * 5);
-//	}
+
+	public static int countRawsPoint(State s) {
+		int score = 0;
+		int scoreTmp = 0;
+		List<List<int[]>> lines = new LinkedList<List<int[]>>();
+		for (int z = 0; z < Model.LEVELS - 2; z++) {
+			for (int xy = 0; xy < Model.LEVELS - z; xy++) {
+				int[] pos = {xy, xy, z};
+				for (List<int[]> line : s.linesNoDiagonales(pos)) {
+					lines.add(line);
+				}
+				for(List<int[]> line : s.getDiagonales(z)) {
+					lines.add(line);
+				}
+			}
+			for (int x = 0; x < Model.LEVELS_1 - z; x++) {
+				for (int y = 0; y < Model.LEVELS_1 - z; y++) {
+					lines.add(s.square(x, y, z));
+				}
+			}
+		}
+		for (List<int[]> list : lines) {
+			scoreTmp = 0;
+			for (int[] p : list) {
+				int ball = s.state[p[2]][p[1]][p[0]];
+				if(ball != 0) {
+					if(ball == s.currentPlayer) {
+						scoreTmp ++;
+					} else {
+						scoreTmp = 0;
+						break;
+					}
+				}
+			}
+			switch (scoreTmp) {
+			case 2:
+				score += 4;
+				break;
+				
+			case 3:
+				score += 8;
+				break;
+				
+			default:
+				break;
+			}
+			
+		}
+		return score;
+	}
+
+	public static int countRemovableBallsPoint(State s) {
+		int score = 0;
+		for (int z = 0; z < Model.LEVELS; z++) {
+			for (int y = 0; y < Model.LEVELS - z; y++) {
+				for (int x = 0; x < Model.LEVELS - z; x++) {
+					if(s.state[z][y][x] == s.currentPlayer && s.isRemovable(x, y, z))
+						score ++;
+				}
+				
+			}
+		}
+		return score;
+	}
+
+	public static int countBallInHandPoint(State s) {
+		return s.ballOnSide[s.currentPlayer - 1] * 10;
+	}
 }
