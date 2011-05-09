@@ -106,37 +106,48 @@ public class AiTest extends PylosTestCase{
 		assertEquals(32, m.removables.size());
 	}
 	
-//	public void testGenerateMove() {
-//		Model.currentPlayer.putBallOnBoard(Position.at(0, 0, 0));
-//		/**
-//		 * o...
-//		 * .... ...
-//		 * .... ...
-//		 * .... ...
-//		 */
-//		GameState gs = new GameState();
-//		gs.generatePosibleMoves();
-//		assertEquals(15, gs.possibleMoves.size());
+	public void testGenerateMove() {
+		Model.currentPlayer.putBallOnBoard(Position.at(0, 0, 0));
+		/**
+		 * o...
+		 * .... ...
+		 * .... ...
+		 * .... ...
+		 */
+		GameState gs = new GameState();
+		gs.generatePosibleMoves();
+		assertEquals(15, gs.possibleMoves.size());
 //		for (Move m : gs.possibleMoves) {
 //			System.out.println(m.toString());
 //		}
-//	}
+	}
 	
-//	public void testGenerateMove2() {
-//		MainTest.gameSample();
-//		/**					7 moves normal - 1 mount
-//		 * ooo.				3.0.0 > 5 + 10 + 4 
-//		 * ooo. o..			3.1.0 > 19
-//		 * ..o. ...			2.3.0 > 19
-//		 * .... ...
-//		 */
-//		GameState gs = new GameState();
-//		gs.generatePosibleMoves();
+	public void testGenerateMove2() {
+		MainTest.gameSample();
+		/**					7 moves normal - 1 mount
+		 * ooo.				3.0.0 > 5 + 10 + 4 
+		 * ooo. o..			3.1.0 > 19
+		 * ..o. ...			2.3.0 > 19
+		 * .... ...
+		 */
+		GameState gs = new GameState();
+		
+		gs.generatePosibleMoves();
+		for (int z = 0; z < Model.LEVELS; z++) {		// print state
+		System.out.println();
+		for (int x = 0; x < Model.LEVELS - z; x++) {
+			System.out.println();
+			for (int y = 0; y < Model.LEVELS - z; y++) {
+				System.out.print(gs.state.state[z][x][y]);
+			}
+			
+		}	
+	}
 //		assertEquals(65, gs.possibleMoves.size());
-//		for (Move m : gs.possibleMoves) {
-//			System.out.println(m.toString());
-//		}
-//	}
+		for (Move m : gs.possibleMoves) {
+			System.out.println(m.toString());
+		}
+	}
 //	public void testIterator() {
 //		Model.currentPlayer.putBallOnBoard(Position.at(0, 0, 0));
 //		/**

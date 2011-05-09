@@ -40,34 +40,23 @@ public class GameState implements Iterable<GameState> {
 			for (int y = 0; y < Model.LEVELS - z; y++) {
 				for (int x = 0; x < Model.LEVELS - z; x++) {
 					int ball = state.state[z][y][x];
-					if(ball == 0 && state.accessible(x, y, z))
-				}
-			}
-			
-		}
-	}
-	
-//	public void generatePosibleMoves() {
-//		for (int z = 0; z < Model.LEVELS; z++) {
-//			for (int y = 0; y < Model.LEVELS - z; y++) {
-//				for (int x = 0; x < Model.LEVELS - z; x++) {
-//					int ball = state.state[z][y][x];
-//					if(ball == state.currentPlayer && state.isMountable(x, y, z))
+					if(ball == 0 && state.accessible(x, y, z)) {
+						Move move = new Move(x, y, z);
+						move.hasRemoveStep(state);
+						possibleMoves.add(move);
+					}
+//					if(ball == state.currentPlayer && state.isMountable(x, y, z)) {
 //						for (Mount toMount : state.addPositionToMount(x, y, z)) {
 //							toMount.hasRemoveStep(state);
 //							possibleMoves.add(move);
 //						}
-//					if(ball == 0 && state.accessible(x, y, z)) {
-//						Move move = new Move(x, y, z);
-//						move.hasRemoveStep(state);
-//						possibleMoves.add(move);
 //					}
-//				}
-//			}
-//		}
-//	}
+				}
+			}
 
-
+		}
+	}
+	
 	public Iterator<GameState> iterator() {
 		List<GameState> list = new LinkedList<GameState>();
 //		State s;
