@@ -1,4 +1,4 @@
 [gource]
-auto-skip-seconds=1
-seconds-per-day=1
+auto-skip-seconds=0.1
+seconds-per-day=0.5
 
