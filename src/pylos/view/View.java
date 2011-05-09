@@ -4,17 +4,20 @@ import java.util.List;
 
 import pylos.Pylos;
 import pylos.controller.Controller;
+import pylos.controller.screen.MainScreenController;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
 import pylos.view.appstate.ActionManager;
 import pylos.view.appstate.FPSDisplayer;
-import pylos.view.appstate.KeysManager;
 import pylos.view.ball.PositionBallGraphics;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.ChaseCamera;
+import com.jme3.input.KeyInput;
+import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.FastMath;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
@@ -23,7 +26,9 @@ import com.jme3.system.Timer;
 
 import de.lessvoid.nifty.Nifty;
 
-public class View extends SimpleApplication {
+public class View extends SimpleApplication implements ActionListener {
+	static final String Quit = "Quit";
+
 	public BoardGraphics board;
 	public Lights lights;
 	ChaseCamera chaseCam;
@@ -33,6 +38,7 @@ public class View extends SimpleApplication {
 	public Node positionBalls = new Node("Position Balls");
 	public Node positionsToMountBall = new Node("Positions to mount Ball");
 
+	Nifty nifty;
 	public MainScreenController screenController;
 
 	public View() {
@@ -47,35 +53,50 @@ public class View extends SimpleApplication {
 	public void simpleInitApp() {
 		assetManager.registerLocator(Pylos.assetsPath, FileLocator.class);
 
-		rootNode.attachChild(balls);
-
-		cameraTarget = new CameraTarget(this);
-		rootNode.attachChild(cameraTarget.geometry);
-
-		board = new BoardGraphics(this);
-		rootNode.attachChild(board.getSpatial());
-
-		lights = new Lights(rootNode);
-
-		initFlyCam();
-
-		initBalls();
-
-		// AppState
-		stateManager.attach(new ActionManager());
-		stateManager.attach(new FPSDisplayer());
-		stateManager.attach(new KeysManager());
-
+		initCamera();
+		initKeys();
 		startNifty();
 
-		setStatus("Welcome to Pylos !");
-
-		Controller.updateView();
+		// initGame();
 	}
 
 	// simpleUpdate() is empty, everything is in AppState
 
-	public void initBalls() {
+	void initKeys() {
+		try {
+			inputManager.deleteMapping("SIMPLEAPP_Exit");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		inputManager.addMapping(Quit, new KeyTrigger(KeyInput.KEY_Q), new KeyTrigger(KeyInput.KEY_ESCAPE));
+		inputManager.addListener(this, Quit);
+	}
+
+	void initCamera() {
+		flyCam.setEnabled(false);
+
+		cameraTarget = new CameraTarget(this);
+		rootNode.attachChild(cameraTarget.geometry);
+
+		chaseCam = new ChaseCamera(cam, cameraTarget.geometry, inputManager);
+		chaseCam.setInvertVerticalAxis(true);
+		chaseCam.setDefaultHorizontalRotation(-FastMath.PI / 6);
+		chaseCam.setDefaultVerticalRotation(FastMath.PI / 4);
+	}
+
+	void startNifty() {
+		guiNode.detachAllChildren();
+		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+		nifty = niftyDisplay.getNifty();
+		try {
+			nifty.fromXml(Pylos.assetsPath + "/Interface/NiftyUI.xml", "start_screen");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		guiViewPort.addProcessor(niftyDisplay);
+	}
+
+	void initBalls() {
 		for (Ball ball : Model.board.balls) {
 			ball.graphics.create(this);
 			balls.attachChild(ball.graphics);
@@ -83,25 +104,28 @@ public class View extends SimpleApplication {
 		board.drawBalls();
 	}
 
-	public void initFlyCam() {
-		flyCam.setEnabled(false);
-		chaseCam = new ChaseCamera(cam, cameraTarget.geometry, inputManager);
-		chaseCam.setInvertVerticalAxis(true);
-		chaseCam.setDefaultHorizontalRotation(-FastMath.PI / 6);
-		chaseCam.setDefaultVerticalRotation(FastMath.PI / 4);
+	public void initGame() {
+		nifty.gotoScreen("main_screen");
+
+		rootNode.attachChild(balls);
+
+		board = new BoardGraphics(this);
+		rootNode.attachChild(board.getSpatial());
+
+		lights = new Lights(rootNode);
+
+		initBalls();
+
+		// AppState
+		stateManager.attach(new ActionManager());
+		stateManager.attach(new FPSDisplayer());
+
+		setStatus("Welcome to Pylos !");
+
+		Controller.updateView();
 	}
 
-	private void startNifty() {
-		guiNode.detachAllChildren();
-		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-		Nifty nifty = niftyDisplay.getNifty();
-		try {
-			nifty.fromXml(Pylos.assetsPath + "/Interface/MainScreen.xml", "main_screen");
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		guiViewPort.addProcessor(niftyDisplay);
-	}
+	// simpleUpdate() is empty, everything is in AppState
 
 	public void show() {
 		start();
@@ -135,5 +159,10 @@ public class View extends SimpleApplication {
 	public void setStatus(String status) {
 		if (screenController != null)
 			screenController.setStatus(status);
+	}
+
+	public void onAction(String action, boolean isPressed, float tpf) {
+		if (action == Quit)
+			Pylos.stop();
 	}
 }

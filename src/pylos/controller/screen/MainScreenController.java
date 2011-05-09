@@ -1,4 +1,4 @@
-package pylos.view;
+package pylos.controller.screen;
 
 import pylos.Pylos;
 import de.lessvoid.nifty.Nifty;
