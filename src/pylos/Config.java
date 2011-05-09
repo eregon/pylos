@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class Config {
+	public static final long CREATE_RMI_REGISTRY_TIMEOUT = 5000; // ms
 	public static boolean NETWORK = true;
 	public static boolean LOW_GRAPHICS = false; // Set this to true if it is too slow
 

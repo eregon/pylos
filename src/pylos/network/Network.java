@@ -2,16 +2,20 @@ package pylos.network;
 
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.UnknownHostException;
 import java.rmi.Naming;
-import java.rmi.RemoteException;
+import java.rmi.NoSuchObjectException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
+
+import pylos.Config;
 
 public class Network {
 	static final String rmiScheme = "rmi://";
@@ -38,16 +42,16 @@ public class Network {
 
 	private void launchServer() {
 		try {
-			LocateRegistry.getRegistry(Registry.REGISTRY_PORT);
-			Naming.list(rmiScheme + localhost);
-		} catch (RemoteException e1) {
-			try {
-				LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-			} catch (RemoteException e) {
-				System.err.println("Could not launch rmiregistry");
-			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			FutureTask<?> startRegistry = new FutureTask<Void>(new Callable<Void>() {
+				public Void call() throws Exception {
+					LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
+					return null;
+				}
+			});
+			new Thread(startRegistry).start();
+			startRegistry.get(Config.CREATE_RMI_REGISTRY_TIMEOUT, TimeUnit.MILLISECONDS);
+		} catch (Exception e) {
+			// Already Running
 		}
 
 		try {
@@ -96,10 +100,14 @@ public class Network {
 		if (localGame != null) {
 			try {
 				Naming.unbind(remoteObjectName);
-				UnicastRemoteObject.unexportObject(localGame, true);
 			} catch (Exception e) {
-				e.printStackTrace();
 			}
+
+			try {
+				UnicastRemoteObject.unexportObject(localGame, true);
+			} catch (NoSuchObjectException e) {
+			}
+
 		}
 	}
 }
