@@ -4,6 +4,7 @@ import java.util.List;
 
 import pylos.Pylos;
 import pylos.controller.Controller;
+import pylos.controller.screen.MainScreenController;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
@@ -56,7 +57,7 @@ public class View extends SimpleApplication implements ActionListener {
 		initKeys();
 		startNifty();
 
-		initGame();
+		// initGame();
 	}
 
 	// simpleUpdate() is empty, everything is in AppState
@@ -103,7 +104,7 @@ public class View extends SimpleApplication implements ActionListener {
 		board.drawBalls();
 	}
 
-	void initGame() {
+	public void initGame() {
 		nifty.gotoScreen("main_screen");
 
 		rootNode.attachChild(balls);

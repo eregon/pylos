@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nifty xmlns="http://nifty-gui.sourceforge.net/nifty.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://nifty-gui.sourceforge.net/nifty.xsd http://nifty-gui.sourceforge.net/nifty.xsd">
+  <useStyles filename="nifty-default-styles.xml"/>
+  <useControls filename="nifty-default-controls.xml"/>
 
-  <screen id="start_screen">
+
+  <screen id="start_screen" controller="pylos.controller.screen.StartScreenController">
     <layer id="layer" childLayout="vertical">
-      <panel id="panel" width="100%" height="100%" childLayout="center">
-        <label text="pylos" color="#ffff" font="aurulent-sans-36-bold-with-shadow.fnt"/>
+      <panel id="title" width="100%" height="50%" childLayout="vertical">
+        <panel height="*"/>
+        <label text="Pylos" color="#ffff" font="aurulent-sans-36-bold-with-shadow.fnt"/>
+      </panel>
+      <panel height="10%"/>
+      <panel childLayout="horizontal">
+        <panel width="*"/>
+        <panel id="buttons" width="320px" childLayout="horizontal" align="center">
+          <control id="singlePlayer" type="button" label="Single Player" width="150px">
+            <interact onClick="singlePlayer()"/>
+          </control>
+          <panel width="20px"/>
+          <control id="multiPlayer" type="button" label="Multi Player" width="150px">
+            <interact onClick="multiPlayer()"/>
+          </control>
+        </panel>
+        <panel width="*"/>
       </panel>
     </layer>
   </screen>
 
-  <screen id="main_screen" controller="pylos.view.MainScreenController">
+  <screen id="main_screen" controller="pylos.controller.screen.MainScreenController">
     <layer id="layer" childLayout="vertical">
-      <panel id="fill" height="*" />
+      <panel height="*"/>
       <panel id="panel" height="24px" align="left" valign="bottom" backgroundColor="#ff000077" childLayout="horizontal">
-        <label id="status" text="Status Text" width="75%" color="#ffff" font="aurulent-sans-17.fnt" align="left" valign="center" />
-        <label width="*" />
-        <label id="fps" text="FPS: " width="80px" color="#ffff" font="aurulent-sans-17.fnt" align="left" valign="center" />
+        <label id="status" text="Status Text" width="75%" color="#ffff" font="aurulent-sans-17.fnt" align="left" valign="center"/>
+        <panel width="*"/>
+        <label id="fps" text="FPS: " width="80px" color="#ffff" font="aurulent-sans-17.fnt" align="left" valign="center"/>
       </panel>
     </layer>
   </screen>
