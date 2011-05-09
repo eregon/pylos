@@ -96,9 +96,9 @@ public class View extends SimpleApplication {
 		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
 		Nifty nifty = niftyDisplay.getNifty();
 		try {
-			nifty.fromXml(Pylos.assetsPath + "/Interface/MainScreen.xml", "main_screen");
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			nifty.fromXml(Pylos.assetsPath + "/Interface/NiftyUI.xml", "main_screen");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		guiViewPort.addProcessor(niftyDisplay);
 	}
