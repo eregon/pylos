@@ -12,20 +12,20 @@
         <label text="Pylos" color="#ffff" font="aurulent-sans-36-bold-with-shadow.fnt" />
       </panel>
       <panel height="10%" />
-      <panel childLayout="horizontal">
+      <panel id="center" childLayout="horizontal">
         <panel width="*" />
         <panel id="buttons" width="320px" childLayout="horizontal" align="center">
           <control id="singlePlayer" type="button" label="Single Player" width="150px">
             <interact onClick="singlePlayer()" />
             <effect>
-              <onStartScreen name="move" mode="in" direction="left" length="1000" />
+              <onStartScreen name="move" mode="in" direction="left" length="1000" inherit="true" />
             </effect>
           </control>
           <panel width="20px" />
           <control id="multiPlayer" type="button" label="Multi Player" width="150px">
             <interact onClick="multiPlayer()" />
             <effect>
-              <onStartScreen name="move" mode="in" direction="right" length="1000" />
+              <onStartScreen name="move" mode="in" direction="right" length="1000" inherit="true" />
             </effect>
           </control>
         </panel>
