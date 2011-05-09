@@ -47,4 +47,10 @@ public class Pylos {
 			network.createConnections();
 		}
 	}
+
+	public static void stop() {
+		view.stop();
+		if (Config.NETWORK)
+			network.stop();
+	}
 }

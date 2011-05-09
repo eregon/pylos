@@ -2,6 +2,14 @@
 <nifty xmlns="http://nifty-gui.sourceforge.net/nifty.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://nifty-gui.sourceforge.net/nifty.xsd http://nifty-gui.sourceforge.net/nifty.xsd">
 
+  <screen id="start_screen">
+    <layer id="layer" childLayout="vertical">
+      <panel id="panel" width="100%" height="100%" childLayout="center">
+        <label text="pylos" color="#ffff" font="aurulent-sans-36-bold-with-shadow.fnt"/>
+      </panel>
+    </layer>
+  </screen>
+
   <screen id="main_screen" controller="pylos.view.MainScreenController">
     <layer id="layer" childLayout="vertical">
       <panel id="fill" height="*" />

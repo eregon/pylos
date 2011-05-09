@@ -9,6 +9,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Network {
 	static final String remoteObjectBaseName = "/RemotePylos";
 	static String remoteObjectName;
 
+	RemoteGameInterface localGame;
 	public List<RemoteGameInterface> remoteGames = new LinkedList<RemoteGameInterface>();
 	List<String> remoteObjectsNames = new LinkedList<String>();
 
@@ -49,8 +51,9 @@ public class Network {
 		}
 
 		try {
-			RemoteGame remoteGame = new RemoteGame();
-			Naming.rebind(remoteObjectName, remoteGame);
+			RemoteGameInterface localGame = new RemoteGame();
+			Naming.rebind(remoteObjectName, localGame);
+			this.localGame = localGame;
 			System.out.println("Server is ready: " + localhost + remoteObjectName);
 		} catch (Exception e) {
 			System.out.println("Server failed: " + e);
@@ -86,6 +89,17 @@ public class Network {
 		} catch (UnknownHostException e) {
 			System.err.println("Could not get ip: " + e);
 			return null;
+		}
+	}
+
+	public void stop() {
+		if (localGame != null) {
+			try {
+				Naming.unbind(remoteObjectName);
+				UnicastRemoteObject.unexportObject(localGame, true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
