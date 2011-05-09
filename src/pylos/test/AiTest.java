@@ -30,6 +30,17 @@ public class AiTest extends PylosTestCase{
 		assertEquals(4, EvaluateGame.countRemovableBallsPoint(s));
 		assertEquals(70, EvaluateGame.countBallInHandPoint(s));
 	}
+	public void testAccessible() {
+		MainTest.gameSample();
+		/**
+		 * ooo.
+		 * ooo. o..
+		 * ..o. ...
+		 * .... ...
+		 */
+		State s = new State();
+		assertTrue(s.accessible(3, 0, 0));
+	}
 	
 	public void testMount() {
 		MainTest.gameSample();

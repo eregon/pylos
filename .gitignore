@@ -12,6 +12,8 @@
 /liblwjgl64.so
 /libopenal.so
 /libopenal64.so
+/OpenAL64.dll
+/lwjgl64.dll
 
 # OS,editor
 .DS_Store

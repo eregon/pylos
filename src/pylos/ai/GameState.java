@@ -35,6 +35,18 @@ public class GameState implements Iterable<GameState> {
 		score += a;
 	}
 
+	public void generatePosibleMoves() {
+		for (int z = 0; z < Model.LEVELS; z++) {
+			for (int y = 0; y < Model.LEVELS - z; y++) {
+				for (int x = 0; x < Model.LEVELS - z; x++) {
+					int ball = state.state[z][y][x];
+					if(ball == 0 && state.accessible(x, y, z))
+				}
+			}
+			
+		}
+	}
+	
 //	public void generatePosibleMoves() {
 //		for (int z = 0; z < Model.LEVELS; z++) {
 //			for (int y = 0; y < Model.LEVELS - z; y++) {
