@@ -6,7 +6,7 @@ Launch:
 
 Install / Dependencies:
 - jMonkeyEngine: http://jmonkeyengine.org/
-  Download last JME3 nightly from http://jmonkeyengine.com/nightly/ (like jME3_02-14-2011.zip)
+  Download last JME3 nightly from http://jmonkeyengine.com/nightly/ (like jME3_2011-05-09.zip)
   Uncompress and import in Eclipse. It should automatically add all the needed libraries.
 
 - jUnit 4.8.2: http://www.junit.org/
