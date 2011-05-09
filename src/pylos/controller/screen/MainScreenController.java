@@ -29,10 +29,10 @@ public class MainScreenController implements ScreenController {
 	}
 
 	public void setStatus(String status) {
-		statusText.changeText(status);
+		statusText.setText(status);
 	}
 
 	public void setFPS(int fps) {
-		fpsText.changeText("FPS: " + fps);
+		fpsText.setText("FPS: " + fps);
 	}
 }
