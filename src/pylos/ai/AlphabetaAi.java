@@ -15,8 +15,8 @@ public class AlphabetaAi {
 		 */
 		GameState gs = new GameState();	// crée un gameState à partir de la situation actuelle et en calcule le score
 		if(depth == 0) {
-			gs.generatePosibleMoves();
-			gs.possibleMoves.iterator().next().makeMove();
+//			gs.generatePosibleMoves();
+//			gs.possibleMoves.iterator().next().makeMove();
 			return;
 		}
 		

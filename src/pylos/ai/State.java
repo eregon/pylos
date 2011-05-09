@@ -3,6 +3,8 @@ package pylos.ai;
 import java.util.LinkedList;
 import java.util.List;
 
+import pylos.ai.move.Mount;
+import pylos.ai.move.Remove;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
@@ -17,6 +19,12 @@ public class State {
 		ballOnSide[0] = 15;
 		ballOnSide[1] = 15;
 		updateFromModel();
+	}
+	
+	public State(State s) {
+		state = s.state;
+		ballOnSide = s.ballOnSide;
+		currentPlayer = s.currentPlayer;
 	}
 	
 	public void updateFromModel() {
@@ -35,11 +43,30 @@ public class State {
 		}
 	}
 	
+	public boolean isAlreadyRemoved(int x, int y, int z, int ix, int iy, int iz) {
+		return x == ix && y == iy && z == iz;
+	}
+	
+	
+	public boolean isRemovableByCurrentPlayerIgnoring(int axeX, int axeY, int axeZ, int[] ignore) {
+		if(state[axeZ][axeY][axeX] == 0)
+			return false;
+		for(int x = valid(axeX, axeZ)[0]; x <= valid(axeX, axeZ)[1]; x ++) {
+			for (int y = valid(axeY, axeZ)[0]; y <= valid(axeY, axeZ)[1]; y++) {
+				if(state[axeZ + 1][y][x] != 0 && !isAlreadyRemoved(x, y, axeZ +1, ignore[0], ignore[1], ignore[2]))
+					return false;
+			}
+		}
+		return true;
+	}
+	
 	public boolean isRemovableByCurrentPlayer(int axeX, int axeY, int axeZ) {
 		return isRemovable(axeX, axeY, axeZ) && state[axeZ][axeY][axeX] == currentPlayer;
 	}
 	
 	public boolean isRemovable(int axeX, int axeY, int axeZ) {
+		if(state[axeZ][axeY][axeX] == 0)
+			return false;
 		for(int x = valid(axeX, axeZ)[0]; x <= valid(axeX, axeZ)[1]; x ++) {
 			for (int y = valid(axeY, axeZ)[0]; y <= valid(axeY, axeZ)[1]; y++) {
 				if(state[axeZ + 1][y][x] != 0)
@@ -67,13 +94,13 @@ public class State {
 	 * on sait que la boule est montable, on veut toutes les positions 
 	 * ou elle peut aller (faire attention aux removables)
 	 */
-	public List<Move> addPositionToMount(int x, int y, int z) {
-		List<Move> list = new LinkedList<Move>();
+	public List<Mount> addPositionToMount(int x, int y, int z) {
+		List<Mount> list = new LinkedList<Mount>();
 		for (int iz = z + 1; iz < Model.LEVELS; iz++) {
 			for (int ix = 0; ix < Model.LEVELS - iz; ix++) {
 				for (int iy = 0; iy < Model.LEVELS - iz; iy++) {
 					if(accessibleIgnoring(ix, iy, iz, x, y, z)) {
-						list.add(new Move(x, y, z, ix, iy, iz));
+						list.add(new Mount(ix, iy, iz, x, y, z));
 					}
 				}
 
@@ -98,14 +125,14 @@ public class State {
 	}
 	
 	public boolean accessibleIgnoring(int x, int y, int z, int x2, int y2, int z2) {
-		if(state[x][y][z] != 0)
+		if(state[z][y][x] != 0)
 			return x == x2 && y == y2 && z == z2;
 		if(z == 0)
 			return true;
 		for (int ix = x; ix <= x + 1; ix++) {
 			for (int iy = y; iy <= y + 1; iy++) {
 				boolean equals = x == x2 && y == y2 && z == z2;
-				if(state[x][y][z] == 0 || equals)
+				if(state[z][y][x] == 0 || equals)
 					return false;
 			}
 		}
@@ -175,7 +202,7 @@ public class State {
 	}
 
 	private boolean onFirstDiagonal(int[] pos) {
-		return pos[0] == pos[2];
+		return pos[0] == pos[1];
 	}
 
 	public List<List<int[]>> fourSquare(int[] pos) {
@@ -217,5 +244,29 @@ public class State {
 			line.add(p);
 		}
 		return diagonals;
+	}
+	
+	public void switchPlayer() {
+		currentPlayer = currentPlayer == 1 ? 2 : 1;
+	}
+
+	public List<Remove> copyList(List<Remove> removables) {
+		List<Remove> copy = new LinkedList<Remove>();
+		for (Remove remove : removables) {
+			copy.add(remove);
+		}
+		return copy;
+	}
+	
+	public boolean isConteined(List<Remove> ignore, int x, int y, int z) {
+		for (Remove remove : ignore) {
+			if(remove.position[0] == x && remove.position[1] == y && remove.position[2] == z)
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean hasAlreadyBeenRemoved(Remove r, int x, int y, int z) {
+		return r.position[0] == x && r.position[1] == y && r.position[2] == z;
 	}
 }
