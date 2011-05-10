@@ -116,7 +116,7 @@ public class State {
 		if(z == 0)
 			return true;
 		for (int ix = x; ix <= x + 1; ix++) {
-			for (int iy = y; iy < y + 1; iy++) {
+			for (int iy = y; iy <= y + 1; iy++) {
 				if(state[z - 1][iy][ix] == 0)
 					return false;
 			}
