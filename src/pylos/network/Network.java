@@ -84,7 +84,7 @@ public class Network {
 							if (player != 0) {
 								Player me = Player.fromByte(player);
 								me.isLocal();
-								Model.otherPlayer(me).isRemote();
+								me.other().isRemote();
 							}
 						}
 

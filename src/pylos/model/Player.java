@@ -63,6 +63,10 @@ public class Player {
 		return "Player " + toByte() + " (" + location + ")";
 	}
 
+	public Player other() {
+		return Model.player1 == this ? Model.player2 : Model.player1;
+	}
+
 	public LinkedList<Ball> partitionBalls(LinkedList<Ball> ballsOnBoard) {
 		LinkedList<Ball> ballsOnSide = new LinkedList<Ball>();
 		for (Ball ball : balls) {
