@@ -44,6 +44,7 @@ public class Network {
 		try {
 			FutureTask<?> startRegistry = new FutureTask<Void>(new Callable<Void>() {
 				public Void call() throws Exception {
+					System.out.println("Searching or creating the rmiregistry ...");
 					LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
 					return null;
 				}
