@@ -27,8 +27,12 @@ public abstract class Model {
 		currentPlayer = player1;
 	}
 
+	public static Player otherPlayer(Player player) {
+		return player == player1 ? player2 : player1;
+	}
+
 	public static Player otherPlayer() {
-		return currentPlayer == player1 ? player2 : player1;
+		return otherPlayer(currentPlayer);
 	}
 
 	public static boolean isWinner() {
