@@ -291,4 +291,9 @@ public class State {
 		
 	}
 	}
+
+	public boolean gameFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

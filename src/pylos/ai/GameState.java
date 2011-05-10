@@ -14,14 +14,14 @@ public class GameState implements Iterable<GameState> {
 
 	public State state;
 	GameState parent;	// etat avant le move
-	Move move;			// move effectuer depuis parent
+	public Move move;			// move effectuer depuis parent
 	public List<Move> possibleMoves;
-	private int score;
+	public int score;
 
 	public GameState() {	
 		state = new State();
 		possibleMoves = new LinkedList<Move>();
-		score = EvaluateGame.evaluate(state);
+		EvaluateGame.evaluate(this);
 	}
 	
 	public GameState(GameState p, State s, Move m) {
@@ -29,11 +29,7 @@ public class GameState implements Iterable<GameState> {
 		parent = p;
 		move = m;
 		possibleMoves = new LinkedList<Move>();
-		score = EvaluateGame.evaluate(state);
-	}
-
-	public void addScore(int a) {
-		score += a;
+		EvaluateGame.evaluate(this);
 	}
 
 	public void generatePosibleMoves() {

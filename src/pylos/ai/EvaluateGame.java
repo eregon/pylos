@@ -9,9 +9,14 @@ import pylos.model.Position;
 
 
 public class EvaluateGame {
+	
+	static int lineOfTwo = 4, lineOfTree = 8;
 
-	public static int evaluate(State s) {
-		return countBallInHandPoint(s) + countRemovableBallsPoint(s) + countRawsPoint(s);
+	public static void evaluate(GameState gs) {
+		gs.score = countBallInHandPoint(gs.state) + countRemovableBallsPoint(gs.state) + countRawsPoint(gs.state);
+		gs.state.switchPlayer();
+		gs.score -= countBallInHandPoint(gs.state) + countRemovableBallsPoint(gs.state) + countRawsPoint(gs.state);
+		gs.state.switchPlayer();
 		
 	}
 
@@ -49,11 +54,11 @@ public class EvaluateGame {
 			}
 			switch (scoreTmp) {
 			case 2:
-				score += 4;
+				score += lineOfTwo;
 				break;
 				
 			case 3:
-				score += 8;
+				score += lineOfTree;
 				break;
 				
 			default:
