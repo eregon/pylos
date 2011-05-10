@@ -22,6 +22,7 @@ import pylos.model.Player;
 public class Network {
 	static final String rmiScheme = "rmi://";
 	static final String localhost = "localhost";
+	static final String remoteHost = "localhost";
 	static final String remoteObjectBaseName = "/RemotePylos";
 	static String remoteObjectName;
 
@@ -37,9 +38,9 @@ public class Network {
 
 		String uID = ManagementFactory.getRuntimeMXBean().getName();
 		remoteObjectName = remoteObjectBaseName + uID;
-
+		System.out.println(getIP());
 		launchServer();
-		scanForRemote(localhost); // TODO: ask the host
+		scanForRemote(remoteHost); // TODO: ask the host
 	}
 
 	private void launchServer() {
