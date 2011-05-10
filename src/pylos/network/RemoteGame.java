@@ -30,4 +30,13 @@ public class RemoteGame extends UnicastRemoteObject implements RemoteGameInterfa
 	public void scanForRemote(String host) throws RemoteException {
 		Pylos.network.scanForRemote(host);
 	}
+
+	public byte askForPlayer() throws RemoteException {
+		if (Model.player1.isUndefined() && Model.player2.isUndefined()) {
+			Model.player1.isLocal();
+			Model.player2.isRemote();
+			return Model.player2.toByte();
+		}
+		return 0;
+	}
 }

@@ -15,4 +15,6 @@ public interface RemoteGameInterface extends Remote {
 
 	// Network
 	void scanForRemote(String host) throws RemoteException;
+
+	byte askForPlayer() throws RemoteException;
 }

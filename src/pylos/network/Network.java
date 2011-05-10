@@ -16,6 +16,8 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
 import pylos.Config;
+import pylos.model.Model;
+import pylos.model.Player;
 
 public class Network {
 	static final String rmiScheme = "rmi://";
@@ -76,6 +78,15 @@ public class Network {
 						remoteGames.add(remoteGame);
 						remoteObjectsNames.add(path);
 						System.out.println("Paired with " + base + path);
+
+						if (Model.player1.isUndefined() && Model.player2.isUndefined()) {
+							byte player = remoteGame.askForPlayer();
+							if (player != 0) {
+								Player me = Player.fromByte(player);
+								me.isLocal();
+								Model.otherPlayer(me).isRemote();
+							}
+						}
 
 						remoteGame.scanForRemote(getIP());
 					}

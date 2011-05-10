@@ -3,6 +3,7 @@ package pylos.model;
 import java.util.LinkedList;
 import java.util.List;
 
+import pylos.Config;
 import pylos.exception.PylosError;
 import pylos.view.PlayerGraphics;
 
@@ -18,11 +19,18 @@ public class Player {
 		WAIT
 	}
 
+	public enum Location {
+		UNDEFINED,
+		LOCAL,
+		REMOTE
+	}
+
 	public static final int nbBalls = Model.BALLS / 2;
 	public final Ball[] balls = new Ball[nbBalls];
 	public final int side;
 	public PlayerGraphics graphics;
 	public Action action = Action.PLACE;
+	Location location = Location.UNDEFINED;
 
 	public Player(int side) {
 		this.side = side;
@@ -32,13 +40,27 @@ public class Player {
 		graphics = new PlayerGraphics(this);
 	}
 
+	public static Player fromByte(byte player) {
+		switch (player) {
+		case 1:
+			return Model.player1;
+
+		case 2:
+			return Model.player2;
+
+		default:
+			System.err.println("Invalid player number: " + player);
+			return null;
+		}
+	}
+
 	public byte toByte() {
 		return (byte) (this == Model.player1 ? 1 : 2);
 	}
 
 	@Override
 	public String toString() {
-		return "Player " + toByte();
+		return "Player " + toByte() + " (" + location + ")";
 	}
 
 	public LinkedList<Ball> partitionBalls(LinkedList<Ball> ballsOnBoard) {
@@ -145,7 +167,11 @@ public class Player {
 
 	// Action methods
 	public void resetAction() {
-		action = Action.PLACE;
+		if (!Config.CAN_MOVE_OTHER && location == Location.REMOTE) {
+			action = Action.WAIT;
+		} else {
+			action = Action.PLACE;
+		}
 	}
 
 	public boolean isMounting() {
@@ -162,5 +188,22 @@ public class Player {
 
 	public void removeBalls() {
 		action = Action.REMOVE;
+	}
+
+	// Location methods
+	public void isLocal() {
+		location = Location.LOCAL;
+		resetAction();
+		System.out.println(this);
+	}
+
+	public void isRemote() {
+		location = Location.REMOTE;
+		resetAction();
+		System.out.println(this);
+	}
+
+	public boolean isUndefined() {
+		return location == Location.UNDEFINED;
 	}
 }
