@@ -11,11 +11,6 @@ public class Mount extends Move{
 		super(toPlace);
 		mountedRemoved = new Remove(toRemove);	
 	}
-
-	public Mount(int x, int y, int z, int ix, int iy, int iz) {
-		super(x, y, z);
-		mountedRemoved = new Remove(ix, iy, iz);
-	}
 	
 	public State doMove(State s) {
 		State state = mountedRemoved.doMove(s);
@@ -30,7 +25,7 @@ public class Mount extends Move{
 	 * Remove >> Enleve 1 ou 2 boules (cmt identifier 1 ou 2 ? 2eme classe ?)
 	 */
 	public String toString() {
-		return super.toString() + ", Mount";
+		return "Mount " + mountedRemoved.toString() + " to :" + super.toString();
 	}
 
 }

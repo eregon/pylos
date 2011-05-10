@@ -42,10 +42,9 @@ public class Remove extends Move{
 	}
 	
 	public String toString() {
-		String s = "hasSecond = " + hasSecond + " - ";
-		s += "{ " + position.x+ ", " + position.y + ", " + position.z + " }";
+		String s = "( REMOVE ) { " + position.x+ ", " + position.y + ", " + position.z + " }";
 		if(hasSecond)
-			s += "{ " + second.x + ", " + second.y + ", " + second.z + " }";	
+			s += "( AND ) { " + second.x + ", " + second.y + ", " + second.z + " }";	
 		return s;
 	}
 	public boolean equals(Remove r, int x, int y, int z) {

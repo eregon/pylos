@@ -22,9 +22,31 @@ public class State {
 	}
 	
 	public State(State s) {
-		state = s.state;
-		ballOnSide = s.ballOnSide;
+		state = copy(s.state);
+		ballOnSide[0] = s.ballOnSide[0];
+		ballOnSide[1] = s.ballOnSide[1];
 		currentPlayer = s.currentPlayer;
+	}
+	
+	public int[] copy(int[] b) {
+		int[] copy = new int[2];
+		for (int i = 0; i < b.length; i++) {
+			copy[i] = b[i];
+		}
+		return b;
+	}
+	
+	public byte[][][] copy(byte[][][] s) {
+		byte[][][] copy = new byte[Model.LEVELS][][];
+		for (int z = 0; z < Model.LEVELS; z++) {
+			copy[z] = new byte[Model.LEVELS - z][Model.LEVELS - z];
+			for (int y = 0; y < Model.LEVELS - z; y++) {
+				for (int x = 0; x < Model.LEVELS - z; x++) {
+					copy[z][y][x] = s[z][y][x];
+				}
+			}
+		}
+		return copy;
 	}
 	
 	public void updateFromModel() {
@@ -125,7 +147,7 @@ public class State {
 			return true;
 		for (int x = accessible.x; x <= accessible.x + 1; x++) {
 			for (int y = accessible.y; y <= accessible.y + 1; y++) {
-				if(state[accessible.z - 1][y][x] == 0 || accessible == ignore)
+				if(state[accessible.z - 1][y][x] == 0 || Position.at(x, y, accessible.z - 1) == ignore)
 					return false;
 			}
 		}
@@ -255,5 +277,18 @@ public class State {
 	
 	public boolean hasAlreadyBeenRemoved(Remove r, int x, int y, int z) {
 		return r.position.x == x && r.position.y == y && r.position.z == z;
+	}
+
+	public void printState() {
+		for (int z = 0; z < Model.LEVELS; z++) {		// print state
+		System.out.println();
+		for (int x = 0; x < Model.LEVELS - z; x++) {
+			for (int y = 0; y < Model.LEVELS - z; y++) {
+				System.out.print(state[z][x][y]);
+			}
+			System.out.println();
+		}
+		
+	}
 	}
 }

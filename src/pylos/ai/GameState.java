@@ -4,8 +4,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import pylos.ai.move.Mount;
 import pylos.ai.move.Move;
+import pylos.ai.move.Remove;
 import pylos.model.Model;
+import pylos.model.Position;
 
 public class GameState implements Iterable<GameState> {
 
@@ -42,13 +45,12 @@ public class GameState implements Iterable<GameState> {
 						Move move = new Move(x, y, z);
 						move.hasRemoveStep(state);
 						possibleMoves.add(move);
+					} else if(ball == state.currentPlayer && state.isMountable(Position.at(x, y, z))) {
+						for (Move toMount : state.addPositionToMount(Position.at(x, y, z))) {
+							toMount.hasRemoveStep(state);
+							possibleMoves.add(toMount);
+						}
 					}
-//					if(ball == state.currentPlayer && state.isMountable(x, y, z)) {
-//						for (Mount toMount : state.addPositionToMount(x, y, z)) {
-//							toMount.hasRemoveStep(state);
-//							possibleMoves.add(move);
-//						}
-//					}
 				}
 			}
 
@@ -57,25 +59,21 @@ public class GameState implements Iterable<GameState> {
 	
 	public Iterator<GameState> iterator() {
 		List<GameState> list = new LinkedList<GameState>();
-//		State s;
-//		while (!possibleMoves.isEmpty()) {
-//			Move move = possibleMoves.get(0);
-//			possibleMoves.remove(move);
-//			if (move.removeStep) {
-//				while (!move.removables.isEmpty()) {
-//					Remove remove = move.removables.get(0);	// si je place dans un move un mount et fait move.do est ce que ce sera le do du move ou du mount?
-//					move.removables.remove(remove);
-//					move.remove = remove;
-//					s = move.doMove(state);
-//					s.switchPlayer();
-//					list.add(new GameState(this, s, move));
-//				}
-//			} else {
-//				s = move.doMove(state);
-//				s.switchPlayer();
-//				list.add(new GameState(this, s, move));
-//			}
-//		}
+		State s;
+		for (Move move : possibleMoves) {	
+			if (move.removeStep) {
+				for (Remove r : move.removables) {
+					move.remove = r;
+					s = move.doMove(state);
+					s.switchPlayer();
+					list.add(new GameState(this, s, move));
+				}
+			} else {
+				s = move.doMove(state);
+				s.switchPlayer();
+				list.add(new GameState(this, s, move));
+			}
+		}
 		return list.iterator();
 	}
 }
