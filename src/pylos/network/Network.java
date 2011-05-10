@@ -47,29 +47,15 @@ public class Network {
 		try {
 			FutureTask<?> startRegistry = new FutureTask<Void>(new Callable<Void>() {
 				public Void call() throws Exception {
-					System.out.println("Searching the rmiregistry ...");
-					LocateRegistry.getRegistry(Registry.REGISTRY_PORT);
-					System.out.println("Getting objects list ...");
-					Naming.list(rmiScheme + localhost);
+					System.out.println("Searching or creating the rmiregistry ...");
+					LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
 					return null;
 				}
 			});
 			new Thread(startRegistry).start();
 			startRegistry.get(Config.CREATE_RMI_REGISTRY_TIMEOUT, TimeUnit.MILLISECONDS);
 		} catch (Exception e) {
-			try {
-				FutureTask<?> startRegistry = new FutureTask<Void>(new Callable<Void>() {
-					public Void call() throws Exception {
-						System.out.println("Creating the rmiregistry ...");
-						LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-						return null;
-					}
-				});
-				new Thread(startRegistry).start();
-				startRegistry.get(Config.CREATE_RMI_REGISTRY_TIMEOUT, TimeUnit.MILLISECONDS);
-			} catch (Exception e2) {
-				System.err.println("Could not create the rmiregistry.");
-			}
+			// Already Running
 		}
 
 		try {
