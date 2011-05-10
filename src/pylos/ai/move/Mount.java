@@ -1,14 +1,15 @@
 package pylos.ai.move;
 
 import pylos.ai.State;
+import pylos.model.Position;
 
 public class Mount extends Move{
 
 	Remove mountedRemoved;
 	
-	public Mount(int[][] pos) {
-		super(pos[0]);
-		mountedRemoved = new Remove(pos[1]);	
+	public Mount(Position toPlace, Position toRemove) {
+		super(toPlace);
+		mountedRemoved = new Remove(toRemove);	
 	}
 
 	public Mount(int x, int y, int z, int ix, int iy, int iz) {

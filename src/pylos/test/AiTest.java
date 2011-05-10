@@ -1,13 +1,10 @@
 package pylos.test;
 
-import java.util.List;
-
 import pylos.ai.EvaluateGame;
 import pylos.ai.GameState;
 import pylos.ai.State;
 import pylos.ai.move.Mount;
 import pylos.ai.move.Move;
-import pylos.ai.move.Remove;
 import pylos.model.Model;
 import pylos.model.Position;
 
@@ -15,7 +12,7 @@ public class AiTest extends PylosTestCase{
 	public void testRemovable() {
 		State s = new State();
 		s.state[1][1][2] = 1;
-		assertFalse(s.isRemovable(3, 1, 0));
+		assertFalse(s.isRemovable(Position.at(3, 1, 0)));
 	}
 	public void testEvaluate() {
 		MainTest.gameSample();
@@ -90,8 +87,7 @@ public class AiTest extends PylosTestCase{
 		Move m = new Move(3, 3, 0);
 		m.hasRemoveStep(s);
 		assertTrue(m.removeStep);
-		int[] pos = {3, 3, 0};
-		assertEquals(3, s.lines(pos).size());
+		assertEquals(3, s.lines(Position.at(3, 3, 0)).size());
 //		for (List<int[]> i : s.lines(pos)) {		// print lines
 //			System.out.println();
 //			for (int[] js : i) {

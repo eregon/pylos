@@ -5,20 +5,19 @@ import java.util.List;
 
 import pylos.ai.State;
 import pylos.model.Model;
+import pylos.model.Position;
 
 public class Move {
-	public int[] position = new int [3];
+	public Position position;
 	public boolean removeStep = false;
 	public Remove remove;
 	public List<Remove> removables;
 	
 	public Move(int x, int y, int z) {	// on place une boule ou on en enleve une
-		position[0] = x;
-		position[1] = y;
-		position[2] = z;
+		position = Position.at(x, y, z);
 	}
 	
-	public Move(int[] pos) {
+	public Move(Position pos) {
 		position = pos;
 	}
 
@@ -29,7 +28,7 @@ public class Move {
 	 */
 	public State doMove(State s) {  
 		State state = new State(s);
-		state.state[position[2]][position[1]][position[0]] = (byte)state.currentPlayer;
+		state.state[position.z][position.y][position.x] = (byte)state.currentPlayer;
 		state.ballOnSide[state.currentPlayer -1] --;
 		if(remove != null) {
 			state = remove.doMove(state);
@@ -46,7 +45,7 @@ public class Move {
 	}
 	
 	public boolean isCurrentMove(int x, int y, int z) {
-		return x == position[0] && y == position[1] && z == position[2];
+		return Position.at(x, y, z) == position;
 	}
 
 	public void hasRemoveStep(State state) {
@@ -63,7 +62,7 @@ public class Move {
 		for (int z = 0; z < Model.LEVELS; z++) {
 			for (int y = 0; y < Model.LEVELS - z; y++) {
 				for (int x = 0; x < Model.LEVELS - z; x++) {
-					if(isCurrentMove(x, y, z) || state.isRemovableByCurrentPlayer(x, y, z))
+					if(isCurrentMove(x, y, z) || state.isRemovableByCurrentPlayer(Position.at(x, y, z)))
 						removables.add(new Remove(x, y, z));
 				}
 				
@@ -76,7 +75,7 @@ public class Move {
 				for (int y = 0; y < Model.LEVELS - z; y++) {
 					for (int x = 0; x < Model.LEVELS - z; x++) {
 						if(!state.hasAlreadyBeenRemoved(r, x, y, z) && !state.isConteined(ignore, x, y, z) /*&& state.isAlreadyContened(removables, r, x, y, z)*/) {
-							if(isCurrentMove(x, y, z) || state.isRemovableByCurrentPlayerIgnoring(x, y, z, r.position))
+							if(isCurrentMove(x, y, z) || state.isRemovableByCurrentPlayerIgnoring(Position.at(x, y, z), r.position))
 								removables.add(new Remove(r.position, x, y, z));
 						}
 					}
@@ -96,14 +95,13 @@ public class Move {
 	 * @return
 	 */
 	private boolean anySquare(State state) {
-		if (position[2] >= 2)
+		if (position.z >= 2)
 			return false;
-		for (List<int[]> square : state.fourSquare(position)) {
+		for (List<Position> square : state.fourSquare(position)) {
 			boolean validSquare = true;
-			for (int[] p : square) {
-				int ball = state.state[p[2]][p[1]][p[0]];
-				boolean equals = p[0] == position[0] && p[1] == position[1] && p[2] == position[2];
-				if (!equals && ball == 0 || ball != state.currentPlayer && ball != 0) {
+			for (Position p : square) {
+				int ball = state.state[p.z][p.y][p.z];
+				if (p != position && ball == 0 || ball != state.currentPlayer && ball != 0) {
 					validSquare = false;
 					break;
 				}
@@ -115,14 +113,13 @@ public class Move {
 	}
 
 	private boolean anyLine(State state) {
-		if(position[2] >= 2)
+		if(position.z >= 2)
 			return false;
-		for(List<int[]> line : state.lines(position)) {
+		for(List<Position> line : state.lines(position)) {
 			boolean validLine = true;
-			for (int[] p : line) {
-				int ball = state.state[p[2]][p[1]][p[0]];
-				boolean equals = p[0] == position[0] && p[1] == position[1] && p[2] == position[2];
-				if (!equals && ball == 0|| ball != state.currentPlayer && ball != 0) {
+			for (Position p : line) {
+				int ball = state.state[p.z][p.y][p.x];
+				if (p != position && ball == 0 || ball != state.currentPlayer && ball != 0) {
 					validLine = false;
 					break;
 				}
@@ -134,6 +131,6 @@ public class Move {
 	}
 	
 	public String toString() {
-		return "{ " + position[0] + ", " + position[1] + ", " + position[2] + " }"; 
+		return "{ " + position.x + ", " + position.y + ", " + position.z + " }"; 
 	}
 }

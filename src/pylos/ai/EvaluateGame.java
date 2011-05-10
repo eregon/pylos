@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import pylos.model.Model;
+import pylos.model.Position;
 
 
 
@@ -17,27 +18,26 @@ public class EvaluateGame {
 	public static int countRawsPoint(State s) {
 		int score = 0;
 		int scoreTmp = 0;
-		List<List<int[]>> lines = new LinkedList<List<int[]>>();
+		List<List<Position>> lines = new LinkedList<List<Position>>();
 		for (int z = 0; z < Model.LEVELS - 2; z++) {
 			for (int xy = 0; xy < Model.LEVELS - z; xy++) {
-				int[] pos = {xy, xy, z};
-				for (List<int[]> line : s.linesNoDiagonales(pos)) {
+				for (List<Position> line : s.linesNoDiagonales(Position.at(xy, xy, z))) {
 					lines.add(line);
 				}
-				for(List<int[]> line : s.getDiagonales(z)) {
+				for(List<Position> line : s.getDiagonales(z)) {
 					lines.add(line);
 				}
 			}
 			for (int x = 0; x < Model.LEVELS_1 - z; x++) {
 				for (int y = 0; y < Model.LEVELS_1 - z; y++) {
-					lines.add(s.square(x, y, z));
+					lines.add(s.square(Position.at(x, y, z)));
 				}
 			}
 		}
-		for (List<int[]> list : lines) {
+		for (List<Position> list : lines) {
 			scoreTmp = 0;
-			for (int[] p : list) {
-				int ball = s.state[p[2]][p[1]][p[0]];
+			for (Position p : list) {
+				int ball = s.state[p.z][p.y][p.x];
 				if(ball != 0) {
 					if(ball == s.currentPlayer) {
 						scoreTmp ++;
@@ -69,7 +69,7 @@ public class EvaluateGame {
 		for (int z = 0; z < Model.LEVELS; z++) {
 			for (int y = 0; y < Model.LEVELS - z; y++) {
 				for (int x = 0; x < Model.LEVELS - z; x++) {
-					if(s.state[z][y][x] == s.currentPlayer && s.isRemovable(x, y, z))
+					if(s.state[z][y][x] == s.currentPlayer && s.isRemovable(Position.at(x, y, z)))
 						score ++;
 				}
 				

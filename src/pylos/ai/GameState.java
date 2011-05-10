@@ -4,9 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import pylos.ai.move.Mount;
 import pylos.ai.move.Move;
-import pylos.ai.move.Remove;
 import pylos.model.Model;
 
 public class GameState implements Iterable<GameState> {
