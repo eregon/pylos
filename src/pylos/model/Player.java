@@ -154,7 +154,8 @@ public class Player {
 
 	public void mountBall(Ball ball) {
 		ball.removeFromBoard();
-		action = Action.MOUNT;
+		if (canMove())
+			action = Action.MOUNT;
 	}
 
 	public void removeBall(Ball ball) {
@@ -171,10 +172,10 @@ public class Player {
 
 	// Action methods
 	public void resetAction() {
-		if (!Config.CAN_MOVE_OTHER && location == Location.REMOTE) {
-			action = Action.WAIT;
-		} else {
+		if (canMove()) {
 			action = Action.PLACE;
+		} else {
+			action = Action.WAIT;
 		}
 	}
 
@@ -191,7 +192,8 @@ public class Player {
 	}
 
 	public void removeBalls() {
-		action = Action.REMOVE;
+		if (canMove())
+			action = Action.REMOVE;
 	}
 
 	// Location methods
@@ -205,6 +207,10 @@ public class Player {
 		location = Location.REMOTE;
 		resetAction();
 		System.out.println(this);
+	}
+
+	public boolean canMove() {
+		return Config.CAN_MOVE_OTHER || location != Location.REMOTE;
 	}
 
 	public boolean isUndefined() {
