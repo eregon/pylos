@@ -23,7 +23,7 @@ public class Position implements Serializable {
 
 	/**
 	 * Get local instance when deserializing.
-	 *
+	 * 
 	 * @throws ObjectStreamException
 	 */
 	public Object readResolve() throws ObjectStreamException {

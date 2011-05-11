@@ -21,8 +21,8 @@ import pylos.model.Player;
 
 public class Network {
 	static final String rmiScheme = "rmi://";
-	static final String localhost = "localhost";
-	static final String remoteHost = "localhost";
+	static final String localhost = "192.168.0.3";
+	static final String remoteHost = "192.168.0.2";
 	static final String remoteObjectBaseName = "/RemotePylos";
 	static String remoteObjectName;
 
@@ -103,7 +103,8 @@ public class Network {
 							}
 						}
 
-						remoteGame.scanForRemote(getIP());
+						// remoteGame.scanForRemote(getIP());
+						remoteGame.scanForRemote(localhost);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
