@@ -216,4 +216,8 @@ public class Player {
 	public boolean isUndefined() {
 		return location == Location.UNDEFINED;
 	}
+
+	public boolean local() {
+		return location != Location.REMOTE;
+	}
 }
