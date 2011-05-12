@@ -14,6 +14,8 @@ public class StateIterator implements Enumeration<StateNode> {
 	StateNode next;
 	int x, y, z;
 
+	private Enumeration<StateNode> moves;
+
 	public StateIterator(State s) {
 		state = s;
 		x = y = z = 0;
@@ -34,8 +36,6 @@ public class StateIterator implements Enumeration<StateNode> {
 		return r;
 	}
 
-	private Enumeration<StateNode> moves;
-
 	private StateNode generateNext() {
 		if (moves != null && moves.hasMoreElements())
 			return moves.nextElement();
@@ -49,22 +49,22 @@ public class StateIterator implements Enumeration<StateNode> {
 			if (state.createsLineOrSquare(p)) {
 				moves = new RemovableEnumerator(state, p);
 			} else {
-				// Aucune boule ne peut être enlevée.
-				incrementVarialbes();
+				// Aucune generateNextboule ne peut être enlevée.
+				incrementVariables();
 				Ply ply = new Ply(p, new Position[0]);
 				return new StateNode(ply, ply.apply(state));
 			}
-		} else if (state.isMountable(p)) {
+		} else if (state.isMountableByCurrentPlayer(p)) {
 			moves = new MountableEnumerator(p);
 		} else {
 			moves = null;
 		}
 
-		incrementVarialbes();
+		incrementVariables();
 		return generateNext();
 	}
 
-	private void incrementVarialbes() {
+	private void incrementVariables() {
 		x++;
 		if (x == Model.LEVELS - z) {
 			x = 0;

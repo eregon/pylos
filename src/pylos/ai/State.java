@@ -8,6 +8,8 @@ import pylos.model.Model;
 import pylos.model.Position;
 
 public class State {
+	public final int minVal = -150, maxVal = 150;
+
 	public byte[][][] state = new byte[Model.LEVELS][][];
 	public int[] ballOnSide = new int[2];
 	public byte currentPlayer;
@@ -15,9 +17,9 @@ public class State {
 
 	public State() {
 		currentPlayer = Model.currentPlayer.toByte();
-		opponnent = (byte) (currentPlayer == 1 ? 2 : 1);
-		ballOnSide[0] = 15;
-		ballOnSide[1] = 15;
+		opponnent = Model.currentPlayer.other().toByte();
+		ballOnSide[currentPlayer - 1] = 15;
+		ballOnSide[opponnent - 1] = 15;
 		Ball ball;
 		for (int z = 0; z < Model.LEVELS; z++) {
 			state[z] = new byte[Model.LEVELS - z][Model.LEVELS - z];
@@ -35,11 +37,26 @@ public class State {
 	}
 
 	public State(State s) {
-		state = s.state.clone(); // verifier que ca fait bien clone
+		clone(s);
+	}
+
+	public void clone(State s) {
+		for (int z = 0; z < Model.LEVELS; z++) {
+			state[z] = new byte[Model.LEVELS - z][Model.LEVELS - z];
+			for (int y = 0; y < Model.LEVELS - z; y++) {
+				for (int x = 0; x < Model.LEVELS - z; x++) {
+					state[z][y][x] = s.state[z][y][x];
+				}
+			}
+		}
 		ballOnSide[0] = s.ballOnSide[0];
 		ballOnSide[1] = s.ballOnSide[1];
 		currentPlayer = s.currentPlayer;
 		opponnent = (byte) (currentPlayer == 1 ? 2 : 1);
+	}
+
+	public int evaluate() {
+		return ballOnSide[0] * 10 - ballOnSide[1] * 10;
 	}
 
 	public boolean accessible(Position p) {
@@ -76,7 +93,7 @@ public class State {
 	}
 
 	public boolean createsLineOrSquare(Position p) {
-		// TODO Auto-generated method stub
+		// TODO
 		return false;
 	}
 
@@ -104,7 +121,7 @@ public class State {
 	 * to avoid out of bound exception
 	 */
 
-	public boolean isMountable(Position position) {
+	public boolean isMountableByCurrentPlayer(Position position) {
 		return isRemovableByCurrentPlayer(position) && !addPositionToMount(position).isEmpty();
 	}
 
