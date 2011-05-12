@@ -37,7 +37,6 @@ public class Config {
 		} catch (Exception e) {
 			ConsoleHandler ch = new ConsoleHandler();
 			logger.addHandler(ch);
-			logger.setLevel(Level.CONFIG);
 			e.printStackTrace();
 		}
 	}
