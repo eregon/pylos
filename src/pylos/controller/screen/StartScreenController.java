@@ -10,6 +10,9 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 
 public class StartScreenController implements ScreenController {
+	final static String LOCAL_HOST = " local host";
+	final static String REMOTE_HOST = " remote host";
+
 	Nifty nifty;
 	Screen screen;
 	View view;
@@ -28,7 +31,9 @@ public class StartScreenController implements ScreenController {
 		networkPanel = ScreenControllerUtils.find(screen, "layer/network/networkTextFields");
 		networkPanel.hideWithoutEffect();
 		localhostTextField = screen.findControl("localhost", TextFieldControl.class);
+		localhostTextField.setText(LOCAL_HOST);
 		remotehostTextField = screen.findControl("remotehost", TextFieldControl.class);
+		remotehostTextField.setText(REMOTE_HOST);
 	}
 
 	public void onEndScreen() {
@@ -54,11 +59,13 @@ public class StartScreenController implements ScreenController {
 	}
 
 	public void clearLocalhostLabel() {
-		localhostTextField.setText("");
+		if (localhostTextField.getText().equals(LOCAL_HOST))
+			localhostTextField.setText("");
 	}
 
 	public void clearRemotehostLabel() {
-		remotehostTextField.setText("");
+		if (remotehostTextField.getText().equals(REMOTE_HOST))
+			remotehostTextField.setText("");
 	}
 
 	public void createNetworkGame() {
