@@ -24,11 +24,9 @@
 	</target>
 
 	<target name="clean-logs">
-		<delete>
-			<fileset dir="log">
-				<include name="*"/>
-				<exclude name=".gitkeep"/>
-			</fileset>
+		<delete dir="log">
+			<include name="*"/>
+			<exclude name=".gitkeep"/>
 		</delete>
 	</target>
 </project>
