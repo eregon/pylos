@@ -4,6 +4,7 @@ import pylos.Pylos;
 import pylos.exception.PylosError;
 import pylos.model.Ball;
 import pylos.model.Model;
+import pylos.model.Player;
 import pylos.model.Position;
 import pylos.view.View;
 
@@ -34,13 +35,22 @@ public abstract class Controller {
 		if (Model.currentPlayer.allBallsOnBoard())
 			nextTurn();
 		else
-			view.setStatus("Place or mount a ball (right click)");
+			setPlayerStatus("Place or mount a ball (right click)");
 	}
 
 	public static void finishTurn() {
 		if (Model.isWinner()) {
 			updateView();
-			Pylos.logger.info(Model.currentPlayer + " won");
+			Player winner = Model.currentPlayer, loser = winner.other();
+			Pylos.logger.info(winner + " won");
+			if (winner.local() != loser.local()) {
+				if (winner.local())
+					view.setStatus("You have won ! (Player " + winner.toByte() + ")");
+				else
+					view.setStatus("You have lost ! (Player " + loser.toByte() + ")");
+			} else {
+				view.setStatus("Player " + winner.toByte() + " won !");
+			}
 		} else {
 			nextTurn();
 		}
@@ -54,7 +64,15 @@ public abstract class Controller {
 
 	private static void removeBalls() {
 		Model.currentPlayer.removeBalls();
-		view.setStatus("Remove 1 or 2 balls (remove only one by a right click)");
+		setPlayerStatus("Remove 1 or 2 balls (remove only one by a right click)");
+	}
+
+	private static void setPlayerStatus(String status) {
+		if (Model.currentPlayer.canMove()) {
+			view.setStatus(status);
+		} else {
+			view.setStatus("Waiting opponent");
+		}
 	}
 
 	public static void placePlayerBall(Position position) {
@@ -74,7 +92,7 @@ public abstract class Controller {
 			Model.currentPlayer.mountBall(ball);
 			view.updatePositionsToMount(ball);
 			updateView();
-			view.setStatus("Choose where to place the ball");
+			setPlayerStatus("Choose where to place the ball");
 		}
 	}
 

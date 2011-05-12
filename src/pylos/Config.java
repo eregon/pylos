@@ -8,6 +8,7 @@ import java.util.logging.SimpleFormatter;
 
 public class Config {
 	public static boolean NETWORK = true;
+	public static int RMI_PORT = 1723; // Registry.REGISTRY_PORT
 	public static boolean LOW_GRAPHICS = false; // Set this to true if it is too slow
 	public static final long CREATE_RMI_REGISTRY_TIMEOUT = 5000; // ms
 	public static final boolean CAN_MOVE_OTHER = false; // if one player can play for the other

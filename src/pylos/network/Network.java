@@ -7,7 +7,6 @@ import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.NoSuchObjectException;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,9 +19,8 @@ import pylos.model.Model;
 import pylos.model.Player;
 
 public class Network {
-	static final String rmiScheme = "rmi://";
-	static final String localhost = "192.168.0.3";
-	static final String remoteHost = "192.168.0.2";
+	static final String localhost = "localhost";
+	static final String remoteHost = "localhost";
 	static final String remoteObjectBaseName = "/RemotePylos";
 	static String remoteObjectName;
 
@@ -34,65 +32,64 @@ public class Network {
 		return !remoteGames.isEmpty();
 	}
 
+	private String rmiURL(String host) {
+		return "//" + host + ":" + Config.RMI_PORT;
+	}
+
 	public void createConnections() {
 
 		String uID = ManagementFactory.getRuntimeMXBean().getName();
-		remoteObjectName = remoteObjectBaseName + uID;
+		remoteObjectName = remoteObjectBaseName + uID; // + getIP() ?
 		System.out.println(getIP());
 		launchServer();
 		scanForRemote(remoteHost); // TODO: ask the host
+		scanForRemote(localhost);
 	}
 
 	private void launchServer() {
 		try {
 			FutureTask<?> startRegistry = new FutureTask<Void>(new Callable<Void>() {
 				public Void call() throws Exception {
-					System.out.println("Searching the rmiregistry ...");
-					LocateRegistry.getRegistry(Registry.REGISTRY_PORT);
-					System.out.println("Getting objects list ...");
-					Naming.list(rmiScheme + localhost);
+					System.out.println("Searching or creating the rmiregistry ...");
+					LocateRegistry.createRegistry(Config.RMI_PORT);
+					System.out.println("Created the registry");
 					return null;
 				}
 			});
 			new Thread(startRegistry).start();
 			startRegistry.get(Config.CREATE_RMI_REGISTRY_TIMEOUT, TimeUnit.MILLISECONDS);
 		} catch (Exception e) {
-			try {
-				FutureTask<?> startRegistry = new FutureTask<Void>(new Callable<Void>() {
-					public Void call() throws Exception {
-						System.out.println("Creating the rmiregistry ...");
-						LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-						return null;
-					}
-				});
-				new Thread(startRegistry).start();
-				startRegistry.get(Config.CREATE_RMI_REGISTRY_TIMEOUT, TimeUnit.MILLISECONDS);
-			} catch (Exception e2) {
-				System.err.println("Could not create the rmiregistry.");
-			}
+			// Already Running
 		}
 
 		try {
+			String url = rmiURL(localhost) + remoteObjectName;
 			RemoteGameInterface localGame = new RemoteGame();
-			Naming.rebind(remoteObjectName, localGame);
+			Naming.rebind(url, localGame);
 			this.localGame = localGame;
-			System.out.println("Server is ready: " + localhost + remoteObjectName);
+			System.out.println("Server is ready: " + url);
 		} catch (Exception e) {
 			System.out.println("Server failed: " + e);
 		}
 	}
 
 	public void scanForRemote(String host) {
-		String base = rmiScheme + host;
 		try {
-			for (String remoteName : Naming.list(host)) {
+			String base = rmiURL(host);
+			String[] list = Naming.list(base);
+
+			System.out.println(base);
+			System.out.println(list.length);
+			for (String remoteName : list) {
+				System.out.println(remoteName);
 				String path = (new URI(remoteName)).getPath();
 				try {
 					if (!path.equals(remoteObjectName) && !remoteObjectsNames.contains(path)) {
-						RemoteGameInterface remoteGame = (RemoteGameInterface) Naming.lookup(base + path);
+						String url = base + path;
+						RemoteGameInterface remoteGame = (RemoteGameInterface) Naming.lookup(url);
 						remoteGames.add(remoteGame);
 						remoteObjectsNames.add(path);
-						System.out.println("Paired with " + base + path);
+						System.out.println("Paired with " + url);
 
 						if (Model.player1.isUndefined() && Model.player2.isUndefined()) {
 							byte player = remoteGame.askForPlayer();
@@ -103,8 +100,7 @@ public class Network {
 							}
 						}
 
-						// remoteGame.scanForRemote(getIP());
-						remoteGame.scanForRemote(localhost);
+						remoteGame.scanForRemote(getIP()); // TODO: be able to specify own's ip
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

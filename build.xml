@@ -15,6 +15,7 @@
 				<path refid="classpath"/>
 				<pathelement path="bin"/>
 			</classpath>
+			<jvmarg line="-Djava.security.policy=no.policy"/>
 		</java>
 	</target>
 
