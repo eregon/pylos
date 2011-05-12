@@ -120,17 +120,6 @@ public class Network {
 		}
 	}
 
-	/*
-	 * private String getIP() {
-	 * try {
-	 * return InetAddress.getLocalHost().getHostAddress();
-	 * } catch (UnknownHostException e) {
-	 * System.err.println("Could not get ip: " + e);
-	 * return null;
-	 * }
-	 * }
-	 */
-
 	public void stop() {
 		if (localGame != null) {
 			try {
