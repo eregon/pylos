@@ -60,7 +60,11 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player " + toByte() + " (" + location + ")";
+		return "Player " + toByte();
+	}
+
+	public String toStringWithLocation() {
+		return this + " (" + location + ")";
 	}
 
 	public Player other() {
@@ -200,13 +204,13 @@ public class Player {
 	public void isLocal() {
 		location = Location.LOCAL;
 		resetAction();
-		System.out.println(this);
+		System.out.println(toStringWithLocation());
 	}
 
 	public void isRemote() {
 		location = Location.REMOTE;
 		resetAction();
-		System.out.println(this);
+		System.out.println(toStringWithLocation());
 	}
 
 	public boolean canMove() {
