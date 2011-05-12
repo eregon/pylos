@@ -46,7 +46,7 @@ public class View extends SimpleApplication implements ActionListener {
 		super();
 		showSettings = false;
 		settings = new AppSettings(true);
-		settings.setResolution(Config.resolution[0], Config.resolution[1]);
+		settings.setResolution(Config.RESOLUTION[0], Config.RESOLUTION[1]);
 		settings.setTitle("Pylos");
 	}
 
