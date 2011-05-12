@@ -54,8 +54,8 @@ public class View extends SimpleApplication implements ActionListener {
 	public void simpleInitApp() {
 		assetManager.registerLocator(Pylos.assetsPath, FileLocator.class);
 
-		initCamera();
 		initKeys();
+		initCamera();
 		startNifty();
 
 		// initGame();
@@ -64,11 +64,7 @@ public class View extends SimpleApplication implements ActionListener {
 	// simpleUpdate() is empty, everything is in AppState
 
 	void initKeys() {
-		try {
-			inputManager.deleteMapping("SIMPLEAPP_Exit");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		inputManager.clearMappings();
 		inputManager.addMapping(Quit, new KeyTrigger(KeyInput.KEY_Q), new KeyTrigger(KeyInput.KEY_ESCAPE));
 		inputManager.addListener(this, Quit);
 	}
