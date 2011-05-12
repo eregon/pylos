@@ -79,6 +79,7 @@ public class View extends SimpleApplication implements ActionListener {
 		chaseCam.setInvertVerticalAxis(true);
 		chaseCam.setDefaultHorizontalRotation(-FastMath.PI / 6);
 		chaseCam.setDefaultVerticalRotation(FastMath.PI / 4);
+		chaseCam.setMaxDistance(500);
 	}
 
 	void startNifty() {
