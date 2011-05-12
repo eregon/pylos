@@ -66,15 +66,15 @@ public class StartScreenController implements ScreenController {
 			Pylos.network.createConnections(localhostTextField.getText());
 			view.initGame();
 		} else {
-			System.err.println("Host is invalid: " + localhostTextField.getText());
+			System.err.println("Local host is invalid: " + localhostTextField.getText());
 		}
 	}
 
 	public void joinNetworkGame() {
 		if (!Network.validHost(localhostTextField.getText())) {
-			System.err.println("Host is invalid: " + localhostTextField.getText());
+			System.err.println("Local host is invalid: " + localhostTextField.getText());
 		} else if (!Network.validHost(remotehostTextField.getText())) {
-			System.err.println("Host is invalid: " + remotehostTextField.getText());
+			System.err.println("Remote host is invalid: " + remotehostTextField.getText());
 		} else {
 			Pylos.network.createConnections(localhostTextField.getText(), remotehostTextField.getText());
 			view.initGame();

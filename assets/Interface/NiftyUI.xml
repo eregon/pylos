@@ -62,14 +62,14 @@
             </effect>
           </control>
           <panel width="20px" />
-          <control name="textfield" id="localhost" width="120px" text=" local ip">
+          <control name="textfield" id="localhost" width="120px" text=" local host">
             <interact onClick="clearLocalhostLabel()" />
             <effect>
               <onShow name="move" mode="in" direction="left" length="700" inherit="true" />
             </effect>
           </control>
           <panel width="20px" />
-          <control name="textfield" id="remotehost" width="120px" text=" remote ip">
+          <control name="textfield" id="remotehost" width="120px" text=" remote host">
             <interact onClick="clearRemotehostLabel()" />
             <effect>
               <onShow name="move" mode="in" direction="right" length="700" inherit="true" />
