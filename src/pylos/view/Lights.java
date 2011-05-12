@@ -4,10 +4,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import pylos.Config;
+import pylos.Pylos;
 
+import com.jme3.effect.ParticleEmitter;
+import com.jme3.effect.ParticleMesh;
 import com.jme3.light.DirectionalLight;
 import com.jme3.light.Light;
 import com.jme3.light.PointLight;
+import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
@@ -49,6 +53,12 @@ public class Lights {
 			lights.add(light);
 		}
 
+		if (Config.FIRE) {
+			float d = 10;
+			for (int i = 0; i < 4; i++)
+				createFire((i % 2 * 2 - 1) * d, (i - i % 2 - 1) * d);
+		}
+
 		addLights();
 	}
 
@@ -73,5 +83,25 @@ public class Lights {
 		for (Light light : lights) {
 			node.addLight(light);
 		}
+	}
+
+	void createFire(float x, float y) {
+		ParticleEmitter fire = new ParticleEmitter("Emitter", ParticleMesh.Type.Triangle, 30);
+		Material mat = new Material(Pylos.view.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");
+		mat.setTexture("Texture", Pylos.view.getAssetManager().loadTexture("Effects/Explosion/flame.png"));
+		fire.setMaterial(mat);
+		fire.setImagesX(2);
+		fire.setImagesY(2); // 2x2 texture animation
+		fire.setEndColor(new ColorRGBA(1f, 0f, 0f, 1f)); // red
+		fire.setStartColor(new ColorRGBA(1f, 1f, 0f, 0.5f)); // yellow
+		fire.setInitialVelocity(new Vector3f(0, 2, 0));
+		fire.setStartSize(1.5f);
+		fire.setEndSize(0.1f);
+		fire.setGravity(0);
+		fire.setLowLife(0.5f);
+		fire.setHighLife(3f);
+		fire.setVelocityVariation(0.3f);
+		fire.move(x, 0, y);
+		node.attachChild(fire);
 	}
 }
