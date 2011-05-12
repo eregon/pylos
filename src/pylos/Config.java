@@ -1,5 +1,6 @@
 package pylos;
 
+import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -11,7 +12,7 @@ public class Config {
 	public static boolean LOW_GRAPHICS = false; // Set this to true if it is too slow
 	public static final long CREATE_RMI_REGISTRY_TIMEOUT = 5000; // ms
 	public static final boolean CAN_MOVE_OTHER = false; // if one player can play for the other
-	public static final int[] RESOLUTION = { 800, 600 }; // 1280, 750
+	public static final int[] RESOLUTION = { 1280, 750 }; // 1280, 750
 
 	public static void configureProject() {
 		configureLogger();
@@ -34,6 +35,9 @@ public class Config {
 			fh.setFormatter(new SimpleFormatter());
 			logger.addHandler(fh);
 		} catch (Exception e) {
+			ConsoleHandler ch = new ConsoleHandler();
+			logger.addHandler(ch);
+			logger.setLevel(Level.CONFIG);
 			e.printStackTrace();
 		}
 	}
