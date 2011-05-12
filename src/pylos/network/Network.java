@@ -10,6 +10,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
@@ -37,6 +38,7 @@ public class Network {
 	}
 
 	public void createConnections() {
+		setRMIhostname(localhost);
 
 		String uID = ManagementFactory.getRuntimeMXBean().getName();
 		remoteObjectName = remoteObjectBaseName + uID; // + getIP() ?
@@ -44,6 +46,15 @@ public class Network {
 		launchServer();
 		scanForRemote(remoteHost); // TODO: ask the host
 		scanForRemote(localhost);
+	}
+
+	/**
+	 * equivalent of command line arg -Djava.rmi.server.hostname=myhostname
+	 */
+	private void setRMIhostname(String hostname) {
+		Properties systemProperties = new Properties(System.getProperties());
+		systemProperties.put("java.rmi.server.hostname", hostname);
+		System.setProperties(systemProperties);
 	}
 
 	private void launchServer() {
