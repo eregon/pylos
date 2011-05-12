@@ -2,7 +2,6 @@ package pylos.controller.screen;
 
 import pylos.Pylos;
 import de.lessvoid.nifty.Nifty;
-import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
@@ -23,9 +22,8 @@ public class MainScreenController implements ScreenController {
 	}
 
 	public void onStartScreen() {
-		Element bottomPanel = screen.findElementByName("layer").findElementByName("panel");
-		statusText = bottomPanel.findElementByName("status").getRenderer(TextRenderer.class);
-		fpsText = bottomPanel.findElementByName("fps").getRenderer(TextRenderer.class);
+		statusText = ScreenControllerUtils.find(screen, "layer/panel/status").getRenderer(TextRenderer.class);
+		fpsText = ScreenControllerUtils.find(screen, "layer/panel/fps").getRenderer(TextRenderer.class);
 	}
 
 	public void setStatus(String status) {

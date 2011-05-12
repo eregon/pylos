@@ -18,8 +18,7 @@ public class StartScreenController implements ScreenController {
 		this.nifty = nifty;
 		this.screen = screen;
 		view = Pylos.view;
-		multiButtonsPanel = screen.findElementByName("layer").
-				findElementByName("multi").findElementByName("multiButtons");
+		multiButtonsPanel = ScreenControllerUtils.find(screen, "layer/multi/multiButtons");
 		multiButtonsPanel.hideWithoutEffect();
 	}
 
