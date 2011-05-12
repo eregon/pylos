@@ -1,7 +1,9 @@
 package pylos.view;
 
+import java.io.File;
 import java.util.LinkedList;
 
+import pylos.Pylos;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Player;
@@ -21,15 +23,14 @@ public class BoardGraphics {
 	static final float HORIZONTAL_SCALE = 0.8f;
 	static final float VERTICAL_SCALE = 0.85f;
 	static final int BALLS_BY_SIDE = 9;
-	final float adjust = 0;// .15f;//0.335f;
 	Spatial board;
 
 	public BoardGraphics(View view) {
-		board = view.getAssetManager().loadModel("Models/Board/Board.mesh.xml");
-		// Material mat_stl = new Material(view.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
-		// Texture tex_ml = view.getAssetManager().loadTexture("Models/Board/Texture/marbre.jpg");
-		// mat_stl.setTexture("ColorMap", tex_ml);
-		// board.setMaterial(mat_stl);
+		if (new File(Pylos.assetsPath, "Models/Board/Board.j3o").exists()) {
+			board = view.getAssetManager().loadModel("Models/Board/Board.j3o");
+		} else {
+			board = view.getAssetManager().loadModel("Models/Board/Board.mesh.xml");
+		}
 		board.scale(HORIZONTAL_SCALE, VERTICAL_SCALE, HORIZONTAL_SCALE);
 	}
 
@@ -41,9 +42,9 @@ public class BoardGraphics {
 	 * The balls on the board must be placed this way (to look like natural moves)
 	 * 
 	 * @formatter:off
-	 * 13 14
-	 * 11 12
-	 * 9 10
+	 * 13              14
+	 * 11              12
+	 * 9               10
 	 * 7 5 3 1 0 2 4 6 8
 	 */
 	// @formatter:on
@@ -59,15 +60,24 @@ public class BoardGraphics {
 
 			// 0-8 front line
 			for (int i = 0; i < limitFront; i++) {
-				ballsOnSide.pop().graphics.center().move(distanceCenterSide * player.side, BOARD_SIDE_HEIGHT, ((i + 1) / 2) * BALL_DIAMETER * (i % 2 == 1 ? 1 : -1));
+				ballsOnSide.pop().graphics.center().move(
+						distanceCenterSide * player.side,
+						BOARD_SIDE_HEIGHT,
+						((i + 1) / 2) * BALL_DIAMETER * (i % 2 == 1 ? 1 : -1));
 			}
 
 			// 9-14 sides
 			final int offset = BALLS_BY_SIDE / 2 - 1;
 			for (int i = 0; i < limitZPos; i++) {
-				ballsOnSide.pop().graphics.center().move((offset - i) * BALL_DIAMETER * player.side, BOARD_SIDE_HEIGHT, distanceCenterSide);
+				ballsOnSide.pop().graphics.center().move(
+						(offset - i) * BALL_DIAMETER * player.side,
+						BOARD_SIDE_HEIGHT,
+						distanceCenterSide);
 				if (i < limitZNeg) {
-					ballsOnSide.pop().graphics.center().move((offset - i) * BALL_DIAMETER * player.side, BOARD_SIDE_HEIGHT, -distanceCenterSide);
+					ballsOnSide.pop().graphics.center().move(
+							(offset - i) * BALL_DIAMETER * player.side,
+							BOARD_SIDE_HEIGHT,
+							-distanceCenterSide);
 				}
 			}
 
@@ -79,6 +89,9 @@ public class BoardGraphics {
 
 	public void place(Geometry ball, Position pos) {
 		float offset = (Model.ballsBySideAtLevel(pos.z) - 1) * BALL_DIAMETER / 2;
-		ball.center().move(pos.x * BALL_DIAMETER - offset, BoardGraphics.BOARD_HEIGHT + pos.z * BALL_DIAMETER * HALF_SQRT_2 + adjust, pos.y * BALL_DIAMETER - offset);
+		ball.center().move(
+				pos.x * BALL_DIAMETER - offset,
+				BoardGraphics.BOARD_HEIGHT + pos.z * BALL_DIAMETER * HALF_SQRT_2,
+				pos.y * BALL_DIAMETER - offset);
 	}
 }
