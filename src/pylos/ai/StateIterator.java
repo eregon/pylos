@@ -19,14 +19,12 @@ public class StateIterator implements Enumeration<StateNode> {
 		x = y = z = 0;
 	}
 
-	@Override
 	public boolean hasMoreElements() {
 		if (next == null)
 			next = generateNext();
 		return next != null;
 	}
 
-	@Override
 	public StateNode nextElement() {
 		StateNode r = null;
 		if (hasMoreElements()) {
@@ -96,14 +94,12 @@ public class StateIterator implements Enumeration<StateNode> {
 			x2 = y2 = z2 = 0;
 		}
 
-		@Override
 		public boolean hasMoreElements() {
 			if (next == null)
 				next = generateNext();
 			return next != null;
 		}
 
-		@Override
 		public StateNode nextElement() {
 			StateNode r = null;
 			if (hasMoreElements()) {
@@ -203,7 +199,6 @@ public class StateIterator implements Enumeration<StateNode> {
 			}
 		}
 
-		@Override
 		public StateNode nextElement() {
 			StateNode next;
 			if (currentState != null) {
