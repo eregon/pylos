@@ -42,14 +42,11 @@ public class Pylos {
 		Controller.initialize(view);
 		view.show();
 
-		if (Config.NETWORK) {
-			network = new Network();
-		}
+		network = new Network();
 	}
 
 	public static void stop() {
 		view.stop();
-		if (Config.NETWORK)
-			network.stop();
+		network.stop();
 	}
 }

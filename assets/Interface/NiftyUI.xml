@@ -7,7 +7,7 @@
 
   <screen id="start_screen" controller="pylos.controller.screen.StartScreenController">
     <layer id="layer" childLayout="vertical">
-      <panel id="title" width="100%" height="50%" childLayout="vertical">
+      <panel id="title" width="100%" height="40%" childLayout="vertical">
         <panel height="*" />
         <label text="Pylos" color="#ffff" font="aurulent-sans-36-bold-with-shadow.fnt" />
       </panel>
@@ -17,35 +17,69 @@
         <panel id="modeButtons" width="320px" childLayout="horizontal" align="center">
           <control id="singlePlayer" type="button" label="Single Player" width="150px">
             <effect>
-              <onStartScreen name="move" mode="in" direction="left" length="1000" inherit="true" />
+              <onStartScreen name="move" mode="in" direction="left" length="700" inherit="true" />
               <onClick name="move" mode="out" direction="left" length="1000" inherit="true" onEndEffect="singlePlayer()" />
             </effect>
           </control>
           <panel width="20px" />
           <control id="multiPlayer" type="button" label="Multi Player" width="150px">
+            <interact onClick="multiPlayer()" />
             <effect>
-              <onStartScreen name="move" mode="in" direction="right" length="1000" inherit="true" />
-              <onClick name="move" mode="out" direction="right" length="1000" inherit="true" onStartEffect="multiPlayer()" />
+              <onStartScreen name="move" mode="in" direction="right" length="700" inherit="true" />
             </effect>
           </control>
         </panel>
         <panel width="*" />
       </panel>
       <panel height="10px" />
-      <panel id="multi" childLayout="horizontal">
+      <panel id="multi" childLayout="horizontal" height="40px">
         <panel width="*" />
-        <panel id="multiButtons" width="320px" childLayout="horizontal" align="center">
+        <panel id="multiButtons" width="460px" childLayout="horizontal" align="center">
           <control id="localGame" type="button" label="Local" width="150px">
             <effect>
-              <onShow name="move" mode="in" direction="left" length="1000" inherit="true" />
+              <onShow name="move" mode="in" direction="left" length="700" inherit="true" />
               <onClick name="move" mode="out" direction="left" length="1000" inherit="true" onEndEffect="startLocalGame()" />
             </effect>
           </control>
-          <panel width="20px" />
+          <panel width="160px" />
           <control id="networkGame" type="button" label="Network" width="150px">
+            <interact onClick="networkGame()" />
             <effect>
-              <onShow name="move" mode="in" direction="right" length="1000" inherit="true" />
-              <onClick name="move" mode="out" direction="right" length="1000" inherit="true" onEndEffect="startNetworkGame()" />
+              <onShow name="move" mode="in" direction="right" length="700" inherit="true" />
+            </effect>
+          </control>
+        </panel>
+        <panel width="*" />
+      </panel>
+      <panel height="10px" />
+      <panel id="network" childLayout="horizontal" height="40px">
+        <panel width="*" />
+        <panel id="networkTextFields" width="600px" childLayout="horizontal" align="center">
+          <control id="createNetworkGame" type="button" label="Create" width="150px">
+            <effect>
+              <onShow name="move" mode="in" direction="left" length="700" inherit="true" />
+              <onClick name="move" mode="out" direction="left" length="1000" inherit="true" onEndEffect="createNetworkGame()" />
+            </effect>
+          </control>
+          <panel width="20px" />
+          <control name="textfield" id="localhost" width="120px">
+            <interact onClick="clearLocalhostLabel()" />
+            <effect>
+              <onShow name="move" mode="in" direction="left" length="700" inherit="true" />
+            </effect>
+          </control>
+          <panel width="20px" />
+          <control name="textfield" id="remotehost" width="120px">
+            <interact onClick="clearRemotehostLabel()" />
+            <effect>
+              <onShow name="move" mode="in" direction="right" length="700" inherit="true" />
+            </effect>
+          </control>
+          <panel width="20px" />
+          <control id="joinNetworkGame" type="button" label="Join" width="150px">
+            <effect>
+              <onShow name="move" mode="in" direction="right" length="700" inherit="true" />
+              <onClick name="move" mode="out" direction="right" length="1000" inherit="true" onEndEffect="joinNetworkGame()" />
             </effect>
           </control>
         </panel>

@@ -2,6 +2,7 @@ package pylos.view;
 
 import java.util.List;
 
+import pylos.Config;
 import pylos.Pylos;
 import pylos.controller.Controller;
 import pylos.controller.screen.MainScreenController;
@@ -45,7 +46,7 @@ public class View extends SimpleApplication implements ActionListener {
 		super();
 		showSettings = false;
 		settings = new AppSettings(true);
-		settings.setResolution(800, 600);
+		settings.setResolution(Config.RESOLUTION[0], Config.RESOLUTION[1]);
 		settings.setTitle("Pylos");
 	}
 
