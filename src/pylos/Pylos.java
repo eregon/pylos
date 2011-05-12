@@ -44,7 +44,6 @@ public class Pylos {
 
 		if (Config.NETWORK) {
 			network = new Network();
-			network.createConnections();
 		}
 	}
 

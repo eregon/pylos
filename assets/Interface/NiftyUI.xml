@@ -12,20 +12,40 @@
         <label text="Pylos" color="#ffff" font="aurulent-sans-36-bold-with-shadow.fnt" />
       </panel>
       <panel height="10%" />
-      <panel id="center" childLayout="horizontal">
+      <panel id="center" childLayout="horizontal" height="40px">
         <panel width="*" />
-        <panel id="buttons" width="320px" childLayout="horizontal" align="center">
+        <panel id="modeButtons" width="320px" childLayout="horizontal" align="center">
           <control id="singlePlayer" type="button" label="Single Player" width="150px">
             <effect>
               <onStartScreen name="move" mode="in" direction="left" length="1000" inherit="true" />
-              <onClick name="move" mode="out" direction="left" length="1000" inherit="true" onEndEffect="singlePlayer()"/>
+              <onClick name="move" mode="out" direction="left" length="1000" inherit="true" onEndEffect="singlePlayer()" />
             </effect>
           </control>
           <panel width="20px" />
           <control id="multiPlayer" type="button" label="Multi Player" width="150px">
             <effect>
               <onStartScreen name="move" mode="in" direction="right" length="1000" inherit="true" />
-              <onClick name="move" mode="out" direction="right" length="1000" inherit="true" onEndEffect="multiPlayer()"/>
+              <onClick name="move" mode="out" direction="right" length="1000" inherit="true" onStartEffect="multiPlayer()" />
+            </effect>
+          </control>
+        </panel>
+        <panel width="*" />
+      </panel>
+      <panel height="10px" />
+      <panel id="multi" childLayout="horizontal">
+        <panel width="*" />
+        <panel id="multiButtons" width="320px" childLayout="horizontal" align="center">
+          <control id="localGame" type="button" label="Local" width="150px">
+            <effect>
+              <onShow name="move" mode="in" direction="left" length="1000" inherit="true" />
+              <onClick name="move" mode="out" direction="left" length="1000" inherit="true" onEndEffect="startLocalGame()" />
+            </effect>
+          </control>
+          <panel width="20px" />
+          <control id="networkGame" type="button" label="Network" width="150px">
+            <effect>
+              <onShow name="move" mode="in" direction="right" length="1000" inherit="true" />
+              <onClick name="move" mode="out" direction="right" length="1000" inherit="true" onEndEffect="startNetworkGame()" />
             </effect>
           </control>
         </panel>
