@@ -1,9 +1,7 @@
 package pylos.network;
 
 import java.lang.management.ManagementFactory;
-import java.net.InetAddress;
 import java.net.URI;
-import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.NoSuchObjectException;
 import java.rmi.registry.LocateRegistry;
@@ -20,8 +18,8 @@ import pylos.model.Model;
 import pylos.model.Player;
 
 public class Network {
-	static final String localhost = "localhost";
-	static final String remoteHost = "localhost";
+	static final String localhost = "192.168.0.2";
+	static final String remoteHost = "192.168.0.3";
 	static final String remoteObjectBaseName = "/RemotePylos";
 	static String remoteObjectName;
 
@@ -42,7 +40,7 @@ public class Network {
 
 		String uID = ManagementFactory.getRuntimeMXBean().getName();
 		remoteObjectName = remoteObjectBaseName + uID; // + getIP() ?
-		System.out.println(getIP());
+		System.out.println(localhost);
 		launchServer();
 		scanForRemote(remoteHost); // TODO: ask the host
 		scanForRemote(localhost);
@@ -111,7 +109,7 @@ public class Network {
 							}
 						}
 
-						remoteGame.scanForRemote(getIP()); // TODO: be able to specify own's ip
+						remoteGame.scanForRemote(localhost); // TODO: be able to specify own's ip
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -122,14 +120,16 @@ public class Network {
 		}
 	}
 
-	private String getIP() {
-		try {
-			return InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {
-			System.err.println("Could not get ip: " + e);
-			return null;
-		}
-	}
+	/*
+	 * private String getIP() {
+	 * try {
+	 * return InetAddress.getLocalHost().getHostAddress();
+	 * } catch (UnknownHostException e) {
+	 * System.err.println("Could not get ip: " + e);
+	 * return null;
+	 * }
+	 * }
+	 */
 
 	public void stop() {
 		if (localGame != null) {
