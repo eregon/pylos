@@ -18,8 +18,8 @@ import pylos.model.Model;
 import pylos.model.Player;
 
 public class Network {
-	static final String localhost = "192.168.0.2";
-	static final String remoteHost = "192.168.0.3";
+	static final String localhost = "130.104.102.155";
+	static final String remoteHost = "130.104.102.112";
 	static final String remoteObjectBaseName = "/RemotePylos";
 	static String remoteObjectName;
 

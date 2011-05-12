@@ -12,14 +12,17 @@ public class StartScreenController implements ScreenController {
 	Screen screen;
 	View view;
 
-	Element multiButtonsPanel;
+	Element multiplayerPanel;
+	Element networkPanel;
 
 	public void bind(Nifty nifty, Screen screen) {
 		this.nifty = nifty;
 		this.screen = screen;
 		view = Pylos.view;
-		multiButtonsPanel = ScreenControllerUtils.find(screen, "layer/multi/multiButtons");
-		multiButtonsPanel.hideWithoutEffect();
+		multiplayerPanel = ScreenControllerUtils.find(screen, "layer/multi/multiButtons");
+		multiplayerPanel.hideWithoutEffect();
+		networkPanel = ScreenControllerUtils.find(screen, "layer/network/networkTextFields");
+		networkPanel.hideWithoutEffect();
 	}
 
 	public void onEndScreen() {
@@ -33,7 +36,11 @@ public class StartScreenController implements ScreenController {
 	}
 
 	public void multiPlayer() {
-		multiButtonsPanel.show();
+		multiplayerPanel.show();
+	}
+
+	public void networkGame() {
+		networkPanel.show();
 	}
 
 	public void startLocalGame() {
