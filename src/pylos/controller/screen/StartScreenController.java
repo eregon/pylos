@@ -1,6 +1,7 @@
 package pylos.controller.screen;
 
 import pylos.Pylos;
+import pylos.model.Model;
 import pylos.network.Network;
 import pylos.view.View;
 import de.lessvoid.nifty.Nifty;
@@ -43,7 +44,8 @@ public class StartScreenController implements ScreenController {
 	}
 
 	public void singlePlayer() {
-		System.out.println("Needs AI implementation ;)");
+		Model.currentPlayer.other().ai = true;
+		view.initGame();
 	}
 
 	public void multiPlayer() {
