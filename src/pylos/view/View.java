@@ -57,8 +57,6 @@ public class View extends SimpleApplication implements ActionListener {
 		initKeys();
 		initCamera();
 		startNifty();
-
-		// initGame();
 	}
 
 	// simpleUpdate() is empty, everything is in AppState
