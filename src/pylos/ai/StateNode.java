@@ -35,7 +35,6 @@ public class StateNode {
 				best = current;
 			}
 		}
-		best.state.printState();
 		return best != null ? best.ply : null;
 	}
 
