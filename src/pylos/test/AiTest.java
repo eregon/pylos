@@ -1,7 +1,6 @@
 package pylos.test;
 
 import pylos.ai.AlphabetaAi;
-import pylos.ai.State;
 
 public class AiTest extends PylosTestCase {
 
@@ -13,8 +12,7 @@ public class AiTest extends PylosTestCase {
 		 * ..o. ...
 		 * .... ...
 		 */
-		State s = new State();
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 8; i++) {
 			AlphabetaAi.AI();
 		}
 

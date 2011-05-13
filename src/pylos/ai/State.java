@@ -8,8 +8,6 @@ import pylos.model.Model;
 import pylos.model.Position;
 
 public class State {
-	public final int minVal = -150, maxVal = 150;
-
 	public byte[][][] state = new byte[Model.LEVELS][][];
 	public int[] ballOnSide = new int[2];
 	public byte currentPlayer;
@@ -17,7 +15,7 @@ public class State {
 
 	public State() {
 		currentPlayer = Model.currentPlayer.toByte();
-		opponnent = Model.currentPlayer.other().toByte();
+		opponnent = Model.otherPlayer().toByte();
 		ballOnSide[currentPlayer - 1] = 15;
 		ballOnSide[opponnent - 1] = 15;
 		Ball ball;
@@ -103,7 +101,7 @@ public class State {
 			boolean validLine = true;
 			for (Position p : line) {
 				int ball = state[p.z][p.y][p.x];
-				if (p != position && ball == 0 || ball != currentPlayer && ball != 0) {
+				if (p != position && ball == 0 || ball == opponnent) {
 					validLine = false;
 					break;
 				}
@@ -114,6 +112,10 @@ public class State {
 		return false;
 	}
 
+	public boolean isAlreadyRemoved(Position check, Position removed) {
+		return check == removed;
+	}
+
 	private boolean anySquares(Position position) {
 		if (position.z >= 2)
 			return false;
@@ -121,7 +123,7 @@ public class State {
 			boolean validSquare = true;
 			for (Position p : square) {
 				int ball = state[p.z][p.y][p.z];
-				if (position != p && ball == 0 || ball != currentPlayer && ball != 0) {
+				if (p != position && ball == 0 || ball == opponnent) {
 					validSquare = false;
 					break;
 				}
@@ -130,10 +132,6 @@ public class State {
 				return true;
 		}
 		return false;
-	}
-
-	public boolean isAlreadyRemoved(Position check, Position removed) {
-		return check == removed;
 	}
 
 	public boolean isRemovableByCurrentPlayer(Position position) {
@@ -192,5 +190,18 @@ public class State {
 			}
 		}
 		return true;
+	}
+
+	public void printBallOnSide() {
+		System.out.println("ballOnSide [0] = " + ballOnSide[0] + "ballOnSide [1] = " + ballOnSide[1]);
+	}
+
+	public void swichPlayers() {
+		currentPlayer = opponnent;
+		opponnent = (byte) (currentPlayer == 1 ? 2 : 1);
+	}
+
+	public boolean endGame() {
+		return state[3][0][0] != 0;
 	}
 }

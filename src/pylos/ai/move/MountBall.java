@@ -6,6 +6,7 @@ public class MountBall extends Ply {
 
 	public MountBall(Position from, Position to, Position[] removes) {
 		super(to, addRemove(from, removes));
+		mount = true;
 	}
 
 	public static Position[] addRemove(Position from, Position[] removes) {

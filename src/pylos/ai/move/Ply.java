@@ -8,6 +8,7 @@ public class Ply {
 
 	public Position at;
 	public Position[] removes;
+	public boolean mount;
 
 	public Ply(Position at, Position[] removes) {
 		this.at = at;
@@ -27,11 +28,11 @@ public class Ply {
 				state.ballOnSide[state.currentPlayer - 1]++;
 			}
 		}
-		state.currentPlayer = (byte) (state.currentPlayer == 1 ? 2 : 1);
+		state.swichPlayers();
 		return state;
 	}
 
-	public void makeMove() {
+	public void makeMove() { // pourquoi ia autorisée à metter boule en 2, 2, 0 et retirer sans faire ligne ?
 		System.out.println("ai place a ball at : " + at);
 		Model.currentPlayer.putBallOnBoard(at);
 		if (removes != null) {
