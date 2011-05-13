@@ -44,7 +44,7 @@ public class StartScreenController implements ScreenController {
 	}
 
 	public void singlePlayer() {
-		Model.currentPlayer.other().ai = true;
+		Model.otherPlayer().isAi();
 		view.initGame();
 	}
 

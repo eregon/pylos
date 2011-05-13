@@ -32,9 +32,11 @@ public class Ply {
 	}
 
 	public void makeMove() {
+		System.out.println("ai place a ball at : " + at);
 		Model.currentPlayer.putBallOnBoard(at);
 		if (removes != null) {
 			for (Position remove : removes) {
+				System.out.println("ai remove a ball at : " + remove);
 				Model.currentPlayer.removeBall(Model.board.ballAt(remove));
 			}
 		}

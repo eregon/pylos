@@ -93,7 +93,42 @@ public class State {
 	}
 
 	public boolean createsLineOrSquare(Position p) {
-		// TODO
+		return anyLines(p) || anySquares(p);
+	}
+
+	private boolean anyLines(Position position) {
+		if (position.z >= 2)
+			return false;
+		for (List<Position> line : position.lines()) {
+			boolean validLine = true;
+			for (Position p : line) {
+				int ball = state[p.z][p.y][p.x];
+				if (p != position && ball == 0 || ball != currentPlayer && ball != 0) {
+					validLine = false;
+					break;
+				}
+			}
+			if (validLine)
+				return true;
+		}
+		return false;
+	}
+
+	private boolean anySquares(Position position) {
+		if (position.z >= 2)
+			return false;
+		for (List<Position> square : position.fourSquare()) {
+			boolean validSquare = true;
+			for (Position p : square) {
+				int ball = state[p.z][p.y][p.z];
+				if (position != p && ball == 0 || ball != currentPlayer && ball != 0) {
+					validSquare = false;
+					break;
+				}
+			}
+			if (validSquare)
+				return true;
+		}
 		return false;
 	}
 

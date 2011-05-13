@@ -22,6 +22,7 @@ public class Player {
 	public enum Location {
 		UNDEFINED,
 		LOCAL,
+		AI,
 		REMOTE
 	}
 
@@ -213,8 +214,14 @@ public class Player {
 		System.out.println(toStringWithLocation());
 	}
 
+	public void isAi() {
+		location = Location.AI;
+		resetAction();
+		System.out.println(toStringWithLocation());
+	}
+
 	public boolean canMove() {
-		return Config.CAN_MOVE_OTHER || location != Location.REMOTE;
+		return Config.CAN_MOVE_OTHER || location != Location.REMOTE || location != Location.AI;
 	}
 
 	public boolean isUndefined() {
@@ -223,5 +230,9 @@ public class Player {
 
 	public boolean local() {
 		return location != Location.REMOTE;
+	}
+
+	public boolean Ai() {
+		return location == Location.AI;
 	}
 }

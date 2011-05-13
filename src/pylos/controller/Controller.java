@@ -59,9 +59,10 @@ public abstract class Controller {
 
 	private static void nextTurn() {
 		Model.currentPlayer = Model.otherPlayer();
-		if (Model.currentPlayer.ai) {
+		if (Model.currentPlayer.Ai() && !Model.currentPlayer.allBallsOnBoard()) {
 			AlphabetaAi.AI();
 			updateView();
+			finishTurn();
 		} else {
 			initTurn();
 			updateView();
