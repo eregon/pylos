@@ -15,6 +15,12 @@ public class Ply {
 		this.removes = removes;
 	}
 
+	public State applyAndSwitchPlayer(State s) {
+		State state = new State(s);
+		state.swichPlayers();
+		return apply(s);
+	}
+
 	public State apply(State s) { // at and removes ply can be null
 		State state = new State(s);
 		if (at != null) {
@@ -28,7 +34,6 @@ public class Ply {
 				state.ballOnSide[state.currentPlayer - 1]++;
 			}
 		}
-		state.swichPlayers();
 		return state;
 	}
 

@@ -37,8 +37,10 @@ public class StateIterator implements Enumeration<StateNode> {
 	}
 
 	private StateNode generateNext() {
-		if (moves != null && moves.hasMoreElements())
+		if (moves != null && moves.hasMoreElements()) {
+			System.out.println("op");
 			return moves.nextElement();
+		}
 
 		if (z == Model.LEVELS)
 			return null;
@@ -47,12 +49,13 @@ public class StateIterator implements Enumeration<StateNode> {
 
 		if (state.accessible(p)) {
 			if (state.createsLineOrSquare(p)) {
+				System.out.println("lines or squares");
 				moves = new RemovableEnumerator(state, p);
 			} else {
 				// Aucune generateNextboule ne peut être enlevée.
 				incrementVariables();
 				Ply ply = new Ply(p, new Position[0]);
-				return new StateNode(ply, ply.apply(state));
+				return new StateNode(ply, ply.applyAndSwitchPlayer(state));
 			}
 		} else if (state.isMountableByCurrentPlayer(p)) {
 			moves = new MountableEnumerator(p);
@@ -89,7 +92,6 @@ public class StateIterator implements Enumeration<StateNode> {
 			to = p;
 			this.state = state;
 			ns = ply.apply(state);
-			ns.currentPlayer = state.currentPlayer; // ply.apply change the currentplayer so we need to reinitialize
 			next = null;
 			x1 = y1 = z1 = 0;
 			x2 = y2 = z2 = 0;
@@ -120,12 +122,12 @@ public class StateIterator implements Enumeration<StateNode> {
 			if (p1 == p2) {
 				if (ns.isRemovableByCurrentPlayer(p1)) {
 					Ply p = new Ply(to, new Position[] { p1 });
-					returnValue = new StateNode(p, p.apply(state));
+					returnValue = new StateNode(p, p.applyAndSwitchPlayer(state));
 				}
 			} else {
 				if (ns.isRemovableByCurrentPlayer(p1) && ns.isRemovableByCurrentPlayer(p2)) {
 					Ply p = new Ply(to, new Position[] { p1, p2 });
-					returnValue = new StateNode(p, p.apply(state));
+					returnValue = new StateNode(p, p.applyAndSwitchPlayer(state));
 				}
 			}
 
@@ -233,7 +235,7 @@ public class StateIterator implements Enumeration<StateNode> {
 					currentState = null;
 				} else {
 					Ply ply = new MountBall(from, new_pos, new Position[0]);
-					currentState = new StateNode(ply, ply.apply(state));
+					currentState = new StateNode(ply, ply.applyAndSwitchPlayer(state));
 					current = null;
 				}
 			}

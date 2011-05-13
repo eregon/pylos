@@ -75,6 +75,10 @@ public class State {
 		System.out.println(toString());
 	}
 
+	public void printBallOnSide() {
+		System.out.println("ballOnSide [0] = " + ballOnSide[0] + "ballOnSide [1] = " + ballOnSide[1]);
+	}
+
 	@Override
 	public String toString() {
 		String s = new String();
@@ -101,7 +105,7 @@ public class State {
 			boolean validLine = true;
 			for (Position p : line) {
 				int ball = state[p.z][p.y][p.x];
-				if (p != position && ball == 0 || ball == opponnent) {
+				if ((ball == 0 && p != position) || (ball != 0 && ball != currentPlayer)) {
 					validLine = false;
 					break;
 				}
@@ -123,7 +127,7 @@ public class State {
 			boolean validSquare = true;
 			for (Position p : square) {
 				int ball = state[p.z][p.y][p.z];
-				if (p != position && ball == 0 || ball == opponnent) {
+				if ((ball == 0 && p != position) || (ball != 0 && ball != currentPlayer)) {
 					validSquare = false;
 					break;
 				}
@@ -190,10 +194,6 @@ public class State {
 			}
 		}
 		return true;
-	}
-
-	public void printBallOnSide() {
-		System.out.println("ballOnSide [0] = " + ballOnSide[0] + "ballOnSide [1] = " + ballOnSide[1]);
 	}
 
 	public void swichPlayers() {
