@@ -7,6 +7,7 @@ public class Runner {
 	public static Test suite() {
 		TestSuite suite = new TestSuite(Runner.class.getName());
 		// $JUnit-BEGIN$
+		suite.addTestSuite(AiTest.class);
 		suite.addTestSuite(AnyLineOrSquareTest.class);
 		suite.addTestSuite(MainTest.class);
 		suite.addTestSuite(MountBallTest.class);
