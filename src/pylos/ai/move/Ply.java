@@ -36,7 +36,7 @@ public class Ply {
 		Model.currentPlayer.putBallOnBoard(at);
 		if (removes != null) {
 			for (Position remove : removes) {
-				System.out.println("ai remove a ball at : " + remove);
+				System.out.println("ai removes a ball at : " + remove);
 				Model.currentPlayer.removeBall(Model.board.ballAt(remove));
 			}
 		}

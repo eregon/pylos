@@ -89,6 +89,7 @@ public class StateIterator implements Enumeration<StateNode> {
 			to = p;
 			this.state = state;
 			ns = ply.apply(state);
+			ns.currentPlayer = state.currentPlayer; // ply.apply change the currentplayer so we need to reinitialize
 			next = null;
 			x1 = y1 = z1 = 0;
 			x2 = y2 = z2 = 0;
@@ -118,11 +119,13 @@ public class StateIterator implements Enumeration<StateNode> {
 
 			if (p1 == p2) {
 				if (ns.isRemovableByCurrentPlayer(p1)) {
+					System.out.println("removable : " + p1);
 					Ply p = new Ply(to, new Position[] { p1 });
 					returnValue = new StateNode(p, p.apply(state));
 				}
 			} else {
 				if (ns.isRemovableByCurrentPlayer(p1) && ns.isRemovableByCurrentPlayer(p2)) {
+					System.out.println("removable : " + p1 + p2);
 					Ply p = new Ply(to, new Position[] { p1, p2 });
 					returnValue = new StateNode(p, p.apply(state));
 				}
