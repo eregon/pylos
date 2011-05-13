@@ -1,6 +1,7 @@
 package pylos.controller;
 
 import pylos.Pylos;
+import pylos.ai.AlphabetaAi;
 import pylos.exception.PylosError;
 import pylos.model.Ball;
 import pylos.model.Model;
@@ -58,8 +59,13 @@ public abstract class Controller {
 
 	private static void nextTurn() {
 		Model.currentPlayer = Model.otherPlayer();
-		initTurn();
-		updateView();
+		if (Model.currentPlayer.ai) {
+			AlphabetaAi.AI();
+			updateView();
+		} else {
+			initTurn();
+			updateView();
+		}
 	}
 
 	private static void removeBalls() {

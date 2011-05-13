@@ -38,6 +38,5 @@ public class Ply {
 				Model.currentPlayer.removeBall(Model.board.ballAt(remove));
 			}
 		}
-		Model.currentPlayer = Model.currentPlayer.other();
 	}
 }
