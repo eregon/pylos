@@ -21,7 +21,7 @@ public class State {
 
 	public State() {
 		currentPlayer = Model.currentPlayer.toByte();
-		opponent = Model.otherPlayer().toByte();
+		opponent = (byte) (3 - currentPlayer);
 		ballOnSide[human] = 15;
 		ballOnSide[ai] = 15;
 		Ball ball;
