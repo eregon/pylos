@@ -19,7 +19,7 @@ public class Player {
 		WAIT
 	}
 
-	public enum Location {
+	public enum Type {
 		UNDEFINED,
 		LOCAL,
 		AI,
@@ -31,7 +31,7 @@ public class Player {
 	public final int side;
 	public PlayerGraphics graphics;
 	public Action action = Action.PLACE;
-	Location location = Location.UNDEFINED;
+	Type type = Type.UNDEFINED;
 
 	public Player(int side) {
 		this.side = side;
@@ -65,7 +65,7 @@ public class Player {
 	}
 
 	public String toStringWithLocation() {
-		return this + " (" + location + ")";
+		return this + " (" + type + ")";
 	}
 
 	public Player other() {
@@ -203,36 +203,36 @@ public class Player {
 
 	// Location methods
 	public void isLocal() {
-		location = Location.LOCAL;
+		type = Type.LOCAL;
 		resetAction();
 		System.out.println(toStringWithLocation());
 	}
 
 	public void isRemote() {
-		location = Location.REMOTE;
+		type = Type.REMOTE;
 		resetAction();
 		System.out.println(toStringWithLocation());
 	}
 
 	public void isAi() {
-		location = Location.AI;
+		type = Type.AI;
 		resetAction();
 		System.out.println(toStringWithLocation());
 	}
 
 	public boolean canMove() {
-		return Config.CAN_MOVE_OTHER || location == Location.LOCAL;
+		return Config.CAN_MOVE_OTHER || type == Type.LOCAL;
 	}
 
 	public boolean isUndefined() {
-		return location == Location.UNDEFINED;
+		return type == Type.UNDEFINED;
 	}
 
 	public boolean local() {
-		return location != Location.REMOTE;
+		return type != Type.REMOTE;
 	}
 
 	public boolean Ai() {
-		return location == Location.AI;
+		return type == Type.AI;
 	}
 }
