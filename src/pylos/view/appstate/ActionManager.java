@@ -80,6 +80,9 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 	}
 
 	public void onAction(String action, boolean pressed, float tpf) {
+		if (!Model.currentPlayer.canMove())
+			return;
+
 		long time = System.currentTimeMillis();
 		if (action == LeftClick) {
 			if (pressed) {

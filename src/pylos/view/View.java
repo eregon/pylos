@@ -118,7 +118,7 @@ public class View extends SimpleApplication implements ActionListener {
 
 		setStatus("Welcome to Pylos !");
 
-		Controller.updateView();
+		Controller.initTurn();
 	}
 
 	// simpleUpdate() is empty, everything is in AppState
@@ -153,8 +153,7 @@ public class View extends SimpleApplication implements ActionListener {
 	}
 
 	public void setStatus(String status) {
-		if (screenController != null)
-			screenController.setStatus(status);
+		screenController.setStatus(status);
 	}
 
 	public void onAction(String action, boolean isPressed, float tpf) {

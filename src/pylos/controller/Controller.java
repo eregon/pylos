@@ -20,7 +20,6 @@ public abstract class Controller {
 
 	public static void initialize(View view) {
 		Controller.view = view;
-		initTurn();
 	}
 
 	public static void updateView() {
@@ -33,14 +32,13 @@ public abstract class Controller {
 	public static void initTurn() {
 		Model.currentPlayer.resetAction();
 		ballRemoved = 0;
+		updateView();
 		if (Model.currentPlayer.allBallsOnBoard()) {
 			nextTurn();
 		} else {
 			setPlayerStatus("Place or mount a ball (right click)");
-			if (Model.currentPlayer.AI()) {
+			if (Model.currentPlayer.AI())
 				AlphaBeta.AI();
-				finishTurn();
-			}
 		}
 	}
 
@@ -65,7 +63,6 @@ public abstract class Controller {
 	private static void nextTurn() {
 		Model.currentPlayer = Model.otherPlayer();
 		initTurn();
-		updateView();
 	}
 
 	private static void removeBalls() {
@@ -74,15 +71,13 @@ public abstract class Controller {
 	}
 
 	private static void setPlayerStatus(String status) {
-		if (Model.currentPlayer.canMove())
-			view.setStatus(status);
-		else
-			view.setStatus(Model.currentPlayer.AI() ? "Waiting AI" : "Waiting opponent");
+		view.setStatus(Model.currentPlayer.sayStatus(status));
+		System.out.println(Model.currentPlayer.sayStatus(status));
 	}
 
 	public static void placeAIBall(Position position, Position[] removables, boolean mount) {
 		Model.currentPlayer.putBallOnBoard(position);
-		updateView();
+		// updateView();
 		if (!mount)
 			Pylos.AIlogger.info("AI place a ball at : " + position);
 
@@ -101,7 +96,7 @@ public abstract class Controller {
 
 	private static void removeAIBall(Position position) {
 		Model.currentPlayer.removeBall(Model.board.ballAt(position));
-		updateView();
+		// updateView();
 	}
 
 	public static void placePlayerBall(Position position) {

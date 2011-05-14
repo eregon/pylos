@@ -235,4 +235,17 @@ public class Player {
 	public boolean AI() {
 		return type == Type.AI;
 	}
+
+	public String sayStatus(String status) {
+		switch (type) {
+		case LOCAL:
+			return status;
+		case AI:
+			return "Waiting AI";
+		case REMOTE:
+			return "Waiting opponent";
+		default:
+			return null;
+		}
+	}
 }

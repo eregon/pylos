@@ -2,21 +2,29 @@ package pylos.ai;
 
 import java.util.Enumeration;
 
+import pylos.Pylos;
+import pylos.controller.Controller;
+
 public class AlphaBeta {
 	static int depth = 1;
 	final static boolean MAX_PLAYER = true;
 	final static boolean MIN_PLAYER = false;
 
 	public static void AI() {
-
 		State s = new State();
-		StateNode node = new StateNode(null, s);
-		if (s.ballOnSide[State.human] + s.ballOnSide[State.ai] <= 20)
-			depth = 4;
-		else
-			depth = 2;
-		alphaBeta(node, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, MAX_PLAYER);
-		node.getBestMove().makeMove();// attention NPE
+		final StateNode node = new StateNode(null, s);
+		depth = (s.ballOnSide[State.human] + s.ballOnSide[State.ai] <= 20) ? 4 : 2;
+
+		// We do not want AI to block the main thread
+		new Thread(new Runnable() {
+			public void run() {
+				long t = System.currentTimeMillis();
+				alphaBeta(node, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, MAX_PLAYER);
+				Pylos.AIlogger.info("alphaBeta took " + (System.currentTimeMillis() - t) + " ms");
+				node.getBestMove().makeMove();// attention NPE
+				Controller.finishTurn();
+			}
+		}).start();
 	}
 
 	public static int alphaBeta(StateNode node, int depth, int a, int b, boolean player) {
