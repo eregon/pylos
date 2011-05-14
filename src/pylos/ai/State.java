@@ -17,12 +17,11 @@ public class State {
 	public byte[][][] state = new byte[Model.LEVELS][][];
 	public int[] ballOnSide = new int[3];
 	public byte currentPlayer;
-
-	byte opponnent;
+	byte opponent;
 
 	public State() {
 		currentPlayer = Model.currentPlayer.toByte();
-		opponnent = Model.otherPlayer().toByte();
+		opponent = Model.otherPlayer().toByte();
 		ballOnSide[human] = 15;
 		ballOnSide[ai] = 15;
 		Ball ball;
@@ -53,7 +52,7 @@ public class State {
 		ballOnSide[human] = s.ballOnSide[human];
 		ballOnSide[ai] = s.ballOnSide[ai];
 		currentPlayer = s.currentPlayer;
-		opponnent = (byte) (currentPlayer == 1 ? 2 : 1);
+		opponent = (byte) (currentPlayer == 1 ? 2 : 1);
 	}
 
 	public int evaluate() {
@@ -227,8 +226,8 @@ public class State {
 	}
 
 	public void swichPlayers() {
-		currentPlayer = opponnent;
-		opponnent = (byte) (currentPlayer == 1 ? 2 : 1);
+		currentPlayer = opponent;
+		opponent = (byte) (currentPlayer == 1 ? 2 : 1);
 	}
 
 	public boolean endGame() {
