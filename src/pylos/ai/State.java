@@ -43,14 +43,10 @@ public class State {
 	public State(State s) {
 		for (int z = 0; z < Model.LEVELS; z++) {
 			state[z] = new byte[Model.LEVELS - z][Model.LEVELS - z];
-			for (int y = 0; y < Model.LEVELS - z; y++) {
-				for (int x = 0; x < Model.LEVELS - z; x++) {
-					state[z][y][x] = s.state[z][y][x];
-				}
-			}
+			for (int y = 0; y < Model.LEVELS - z; y++)
+				state[z][y] = s.state[z][y].clone();
 		}
-		ballOnSide[human] = s.ballOnSide[human];
-		ballOnSide[ai] = s.ballOnSide[ai];
+		ballOnSide = s.ballOnSide.clone();
 		currentPlayer = s.currentPlayer;
 		opponent = s.opponent;
 	}
