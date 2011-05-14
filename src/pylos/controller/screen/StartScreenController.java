@@ -2,6 +2,7 @@ package pylos.controller.screen;
 
 import pylos.Pylos;
 import pylos.model.Model;
+import pylos.model.Player;
 import pylos.network.Network;
 import pylos.view.View;
 import de.lessvoid.nifty.Nifty;
@@ -44,7 +45,8 @@ public class StartScreenController implements ScreenController {
 	}
 
 	public void singlePlayer() {
-		Model.otherPlayer().isAi();
+		Model.player1.isLocal();
+		Model.player2.isAi();
 		view.initGame();
 	}
 
@@ -53,6 +55,8 @@ public class StartScreenController implements ScreenController {
 	}
 
 	public void startLocalGame() {
+		for (Player player : Model.players)
+			player.isLocal();
 		view.initGame();
 	}
 

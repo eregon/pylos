@@ -221,8 +221,7 @@ public class Player {
 	}
 
 	public boolean canMove() {
-		// FIXME: should not be UNDEFINED
-		return Config.CAN_MOVE_OTHER || location == Location.LOCAL || location == Location.UNDEFINED;
+		return Config.CAN_MOVE_OTHER || location == Location.LOCAL;
 	}
 
 	public boolean isUndefined() {
