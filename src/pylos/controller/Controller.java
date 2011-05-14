@@ -36,7 +36,7 @@ public abstract class Controller {
 		if (Model.currentPlayer.allBallsOnBoard()) {
 			nextTurn();
 		} else {
-			if (Model.currentPlayer.Ai()) {
+			if (Model.currentPlayer.AI()) {
 				AlphaBeta.AI();
 				finishTurn();
 			}
@@ -81,7 +81,7 @@ public abstract class Controller {
 		}
 	}
 
-	public static void placeAiBall(Position position, Position[] removables, boolean mount) {
+	public static void placeAIBall(Position position, Position[] removables, boolean mount) {
 		Model.currentPlayer.putBallOnBoard(position);
 		updateView();
 		if (!mount)
@@ -94,13 +94,13 @@ public abstract class Controller {
 					mount = false;
 				} else
 					System.out.println("AI removes a ball at : " + removable);
-				removeAiBall(removable);
+				removeAIBall(removable);
 			}
 		}
 
 	}
 
-	private static void removeAiBall(Position position) {
+	private static void removeAIBall(Position position) {
 		Model.currentPlayer.removeBall(Model.board.ballAt(position));
 		updateView();
 	}

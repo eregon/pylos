@@ -214,7 +214,7 @@ public class Player {
 		System.out.println(toStringWithLocation());
 	}
 
-	public void isAi() {
+	public void isAI() {
 		type = Type.AI;
 		resetAction();
 		System.out.println(toStringWithLocation());
@@ -232,7 +232,7 @@ public class Player {
 		return type != Type.REMOTE;
 	}
 
-	public boolean Ai() {
+	public boolean AI() {
 		return type == Type.AI;
 	}
 }

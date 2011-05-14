@@ -38,6 +38,6 @@ public class Ply {
 	}
 
 	public void makeMove() {
-		Controller.placeAiBall(at, removes, mount);
+		Controller.placeAIBall(at, removes, mount);
 	}
 }

@@ -2,9 +2,9 @@ package pylos.test;
 
 import pylos.ai.State;
 
-public class AiTest extends PylosTestCase {
+public class AITest extends PylosTestCase {
 
-	// public void testAi() {
+	// public void testAI() {
 	// MainTest.gameSample();
 	// /**
 	// * ooo.
@@ -13,7 +13,7 @@ public class AiTest extends PylosTestCase {
 	// * .... ...
 	// */
 	// for (int i = 0; i < 8; i++) {
-	// AlphabetaAi.AI();
+	// AlphaBeta.AI();
 	// }
 	// }
 
