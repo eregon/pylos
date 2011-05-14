@@ -47,17 +47,17 @@ public class AlphaBeta {
 		}
 	}
 
-	private static int min(int beta, int alphaBeta, StateNode node, StateNode currentSon) {
+	private static int min(int beta, int alphaBeta, StateNode node, StateNode currentChild) {
 		boolean isMoveBetter = beta > alphaBeta;
 		if (isMoveBetter)
-			node.bestMove = currentSon;
+			node.bestMove = currentChild;
 		return isMoveBetter ? alphaBeta : beta;
 	}
 
-	private static int max(int alpha, int alphaBeta, StateNode node, StateNode currentSon) {
+	private static int max(int alpha, int alphaBeta, StateNode node, StateNode currentChild) {
 		boolean isMoveBetter = alpha < alphaBeta;
 		if (isMoveBetter)
-			node.bestMove = currentSon;
+			node.bestMove = currentChild;
 		return isMoveBetter ? alphaBeta : alpha;
 	}
 }
