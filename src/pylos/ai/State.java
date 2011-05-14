@@ -17,7 +17,7 @@ public class State {
 	public int[] ballOnSide = new int[2];
 	public byte currentPlayer;
 
-	final int ai = 2, human = 1; // ia = max, human = min
+	final byte ai = 2, human = 1; // ia = max, human = min
 	byte opponnent;
 
 	public State() {
@@ -61,7 +61,7 @@ public class State {
 		for (int z = 0; z < Model.LEVELS; z++) {
 			for (int y = 0; y < Model.LEVELS - z; y++) {
 				for (int x = 0; x < Model.LEVELS - z; x++) {
-					int ball = state[z][y][x];
+					byte ball = state[z][y][x];
 					if (ball == 0) {
 						if (anyLines(Position.at(x, y, z), ai) || anySquares(Position.at(x, y, z), ai)) {
 							score += RAWS_POINT;
@@ -126,13 +126,13 @@ public class State {
 		return anyLines(p, currentPlayer) || anySquares(p, currentPlayer);
 	}
 
-	private boolean anyLines(Position position, int currentPlayer) {
+	private boolean anyLines(Position position, byte currentPlayer) {
 		if (position.z >= 2)
 			return false;
 		for (List<Position> line : position.lines()) {
 			boolean validLine = true;
 			for (Position p : line) {
-				int ball = state[p.z][p.y][p.x];
+				byte ball = state[p.z][p.y][p.x];
 				if ((ball == 0 && p != position) || (ball != 0 && ball != currentPlayer)) {
 					validLine = false;
 					break;
@@ -149,13 +149,13 @@ public class State {
 		return check == removed;
 	}
 
-	public boolean anySquares(Position position, int currentPlayer) {
+	public boolean anySquares(Position position, byte currentPlayer) {
 		if (position.z >= 2)
 			return false;
 		for (List<Position> square : position.fourSquare()) {
 			boolean validSquare = true;
 			for (Position p : square) {
-				int ball = state[p.z][p.y][p.x];
+				byte ball = state[p.z][p.y][p.x];
 				if ((ball == 0 && p != position) || (ball != 0 && ball != currentPlayer)) {
 					validSquare = false;
 					break;
