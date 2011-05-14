@@ -9,12 +9,16 @@ import pylos.model.Model;
 import pylos.model.Position;
 
 public class State {
+	final int HAND_POINT = 10;
+	final int RAWS_POINT = 12;
+	final int REMOVABLE_POINT = 2;
+
 	public byte[][][] state = new byte[Model.LEVELS][][];
 	public int[] ballOnSide = new int[2];
-	final public int ai = 2, human = 1; // ia = max, human = min
 	public byte currentPlayer;
-	public byte opponnent;
-	final int HAND_POINT = 10, RAWS_POINT = 12, REMOVABLE_POINT = 2;
+
+	final int ai = 2, human = 1; // ia = max, human = min
+	byte opponnent;
 
 	public State() {
 		currentPlayer = Model.currentPlayer.toByte();
