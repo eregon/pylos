@@ -18,7 +18,7 @@ public class StateNode {
 		return bestMove != null ? bestMove.ply : null;
 	}
 
-	public Enumeration<StateNode> successors() {
+	public Enumeration<StateNode> children() {
 		return new StateIterator(state);
 	}
 }

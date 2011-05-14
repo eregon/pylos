@@ -24,22 +24,22 @@ public class AlphaBeta {
 			return node.state.evaluate();
 		}
 
-		Enumeration<StateNode> sne = node.successors();
-		StateNode current = null;
+		Enumeration<StateNode> children = node.children();
+		StateNode child;
 		int alpha = a, beta = b;
 
 		if (player == MAX_PLAYER) {
-			while (sne.hasMoreElements()) {
-				current = sne.nextElement();
-				alpha = max(alpha, alphaBeta(current, depth - 1, alpha, beta, !player), node, current);
+			while (children.hasMoreElements()) {
+				child = children.nextElement();
+				alpha = max(alpha, alphaBeta(child, depth - 1, alpha, beta, !player), node, child);
 				if (beta <= alpha)
 					break; // beta cut-off
 			}
 			return alpha;
 		} else {
-			while (sne.hasMoreElements()) {
-				current = sne.nextElement();
-				beta = min(beta, alphaBeta(current, depth - 1, alpha, beta, !player), node, current);
+			while (children.hasMoreElements()) {
+				child = children.nextElement();
+				beta = min(beta, alphaBeta(child, depth - 1, alpha, beta, !player), node, child);
 				if (beta <= alpha)
 					break; // alpha cut-off
 			}
