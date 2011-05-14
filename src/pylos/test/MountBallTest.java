@@ -58,10 +58,6 @@ public class MountBallTest extends PylosTestCase {
 		 * .... ...
 		 */
 
-		for (Ball ball : Model.currentPlayer.getMountableBalls()) {
-			System.out.println(ball.position);
-		}
-
 		assertEquals(1, Model.currentPlayer.getMountableBalls().size());
 
 		assertEquals(Model.board.ballAt(Position.at(2, 2, 0)), Model.currentPlayer.getMountableBalls().get(0));
