@@ -12,9 +12,9 @@ public class MountBall extends Ply {
 	public static Position[] addRemove(Position from, Position[] removes) {
 		Position[] tmp = new Position[removes.length + 1];
 		for (int i = 0; i < removes.length; i++) {
-			tmp[i] = removes[i];
+			tmp[i + 1] = removes[i];
 		}
-		tmp[removes.length] = from;
+		tmp[0] = from;
 		return tmp;
 
 	}

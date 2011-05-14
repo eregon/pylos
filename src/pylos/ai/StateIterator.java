@@ -38,7 +38,6 @@ public class StateIterator implements Enumeration<StateNode> {
 
 	private StateNode generateNext() {
 		if (moves != null && moves.hasMoreElements()) {
-			System.out.println("op");
 			return moves.nextElement();
 		}
 
@@ -49,7 +48,6 @@ public class StateIterator implements Enumeration<StateNode> {
 
 		if (state.accessible(p)) {
 			if (state.createsLineOrSquare(p)) {
-				System.out.println("lines or squares");
 				moves = new RemovableEnumerator(state, p);
 			} else {
 				// Aucune generateNextboule ne peut être enlevée.

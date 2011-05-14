@@ -3,7 +3,7 @@ package pylos.ai;
 import java.util.Enumeration;
 
 public class AlphabetaAi {
-	static final int depth = 2;
+	static int depth = 1;
 	final static boolean MAX_PLAYER = true;
 	final static boolean MIN_PLAYER = false;
 
@@ -11,7 +11,12 @@ public class AlphabetaAi {
 
 		State s = new State();
 		StateNode node = new StateNode(null, s);
+		if (s.ballOnSide[0] + s.ballOnSide[1] <= 20)
+			depth = 4;
+		else
+			depth = 2;
 		alphaBeta(node, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, MAX_PLAYER);
+		System.out.println(node.bestMove.ply.mount);
 		node.getBestMove().makeMove();// attention NPE
 	}
 

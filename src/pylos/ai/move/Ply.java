@@ -1,14 +1,14 @@
 package pylos.ai.move;
 
 import pylos.ai.State;
-import pylos.model.Model;
+import pylos.controller.Controller;
 import pylos.model.Position;
 
 public class Ply {
 
 	public Position at;
 	public Position[] removes;
-	public boolean mount;
+	public boolean mount = false;
 
 	public Ply(Position at, Position[] removes) {
 		this.at = at;
@@ -38,13 +38,10 @@ public class Ply {
 	}
 
 	public void makeMove() { // pourquoi ia autorisée à metter boule en 2, 2, 0 et retirer sans faire ligne ?
-		System.out.println("ai place a ball at : " + at);
-		Model.currentPlayer.putBallOnBoard(at);
 		if (removes != null) {
-			for (Position remove : removes) {
-				System.out.println("ai removes a ball at : " + remove);
-				Model.currentPlayer.removeBall(Model.board.ballAt(remove));
-			}
+			Controller.placeAiBall(at, removes, mount);
+		} else {
+			Controller.placeAiBall(at, new Position[0], false);
 		}
 	}
 }

@@ -82,6 +82,30 @@ public abstract class Controller {
 		}
 	}
 
+	public static void placeAiBall(Position position, Position[] removables, boolean mount) {
+		Model.currentPlayer.putBallOnBoard(position);
+		updateView();
+		if (!mount)
+			System.out.println("AI place a ball at : " + position);
+
+		if (Model.currentPlayer.anyLineOrSquare(position) && !Model.otherPlayer().allBallsOnBoard()) {
+			for (Position removable : removables) {
+				if (mount) {
+					System.out.println("AI mout a ball from : " + removable + " to :" + position);
+					mount = false;
+				} else
+					System.out.println("AI removes a ball at : " + removable);
+				removeAiBall(removable);
+			}
+		}
+
+	}
+
+	private static void removeAiBall(Position position) {
+		Model.currentPlayer.removeBall(Model.board.ballAt(position));
+		updateView();
+	}
+
 	public static void placePlayerBall(Position position) {
 		Model.currentPlayer.putBallOnBoard(position);
 		updateView();

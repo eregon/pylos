@@ -10,14 +10,16 @@ import pylos.model.Position;
 public class State {
 	public byte[][][] state = new byte[Model.LEVELS][][];
 	public int[] ballOnSide = new int[2];
+	final public int ai = 2, human = 1; // ia = max, human = min
 	public byte currentPlayer;
 	public byte opponnent;
+	final int HAND_POINT = 10, RAWS_POINT = 12, REMOVABLE_POINT = 2;
 
 	public State() {
 		currentPlayer = Model.currentPlayer.toByte();
 		opponnent = Model.otherPlayer().toByte();
-		ballOnSide[currentPlayer - 1] = 15;
-		ballOnSide[opponnent - 1] = 15;
+		ballOnSide[0] = 15; // boules du joueur
+		ballOnSide[1] = 15; // boules de l'ia
 		Ball ball;
 		for (int z = 0; z < Model.LEVELS; z++) {
 			state[z] = new byte[Model.LEVELS - z][Model.LEVELS - z];
@@ -54,7 +56,30 @@ public class State {
 	}
 
 	public int evaluate() {
-		return ballOnSide[0] * 10 - ballOnSide[1] * 10;
+		int score = ballOnSide[ai - 1] * HAND_POINT - ballOnSide[human - 1] * HAND_POINT;
+		for (int z = 0; z < Model.LEVELS; z++) {
+			for (int y = 0; y < Model.LEVELS - z; y++) {
+				for (int x = 0; x < Model.LEVELS - z; x++) {
+					int ball = state[z][y][x];
+					if (ball == 0) {
+						if (anyLines(Position.at(x, y, z), ai) || anySquares(Position.at(x, y, z), ai)) {
+							score += RAWS_POINT;
+						}
+						if (anyLines(Position.at(x, y, z), human) || anySquares(Position.at(x, y, z), human)) {
+							score -= RAWS_POINT;
+						}
+					} else {
+						if (isRemovable(Position.at(x, y, z))) {
+							if (ball == ai)
+								score += REMOVABLE_POINT;
+							else
+								score -= REMOVABLE_POINT;
+						}
+					}
+				}
+			}
+		}
+		return score;
 	}
 
 	public boolean accessible(Position p) {
@@ -95,10 +120,10 @@ public class State {
 	}
 
 	public boolean createsLineOrSquare(Position p) {
-		return anyLines(p) || anySquares(p);
+		return anyLines(p, currentPlayer) || anySquares(p, currentPlayer);
 	}
 
-	private boolean anyLines(Position position) {
+	private boolean anyLines(Position position, int currentPlayer) {
 		if (position.z >= 2)
 			return false;
 		for (List<Position> line : position.lines()) {
@@ -110,8 +135,9 @@ public class State {
 					break;
 				}
 			}
-			if (validLine)
+			if (validLine) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -120,20 +146,21 @@ public class State {
 		return check == removed;
 	}
 
-	private boolean anySquares(Position position) {
+	public boolean anySquares(Position position, int currentPlayer) {
 		if (position.z >= 2)
 			return false;
 		for (List<Position> square : position.fourSquare()) {
 			boolean validSquare = true;
 			for (Position p : square) {
-				int ball = state[p.z][p.y][p.z];
+				int ball = state[p.z][p.y][p.x];
 				if ((ball == 0 && p != position) || (ball != 0 && ball != currentPlayer)) {
 					validSquare = false;
 					break;
 				}
 			}
-			if (validSquare)
+			if (validSquare) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -159,7 +186,7 @@ public class State {
 	 */
 
 	public boolean isMountableByCurrentPlayer(Position position) {
-		return isRemovableByCurrentPlayer(position) && !addPositionToMount(position).isEmpty();
+		return !addPositionToMount(position).isEmpty() && isRemovableByCurrentPlayer(position);
 	}
 
 	/**
