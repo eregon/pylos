@@ -31,12 +31,18 @@ public abstract class Controller {
 	}
 
 	public static void initTurn() {
-		Model.currentPlayer.resetAction();
-		ballRemoved = 0;
-		if (Model.currentPlayer.allBallsOnBoard())
-			nextTurn();
-		else
-			setPlayerStatus("Place or mount a ball (right click)");
+		if (Model.currentPlayer.Ai() && !Model.currentPlayer.allBallsOnBoard()) {
+			AlphabetaAi.AI();
+			updateView();
+			finishTurn();
+		} else {
+			Model.currentPlayer.resetAction();
+			ballRemoved = 0;
+			if (Model.currentPlayer.allBallsOnBoard())
+				nextTurn();
+			else
+				setPlayerStatus("Place or mount a ball (right click)");
+		}
 	}
 
 	public static void finishTurn() {
@@ -59,14 +65,8 @@ public abstract class Controller {
 
 	private static void nextTurn() {
 		Model.currentPlayer = Model.otherPlayer();
-		if (Model.currentPlayer.Ai() && !Model.currentPlayer.allBallsOnBoard()) {
-			AlphabetaAi.AI();
-			updateView();
-			finishTurn();
-		} else {
-			initTurn();
-			updateView();
-		}
+		initTurn();
+		updateView();
 	}
 
 	private static void removeBalls() {
@@ -88,7 +88,7 @@ public abstract class Controller {
 		if (!mount)
 			System.out.println("AI place a ball at : " + position);
 
-		if (Model.currentPlayer.anyLineOrSquare(position) && !Model.otherPlayer().allBallsOnBoard()) {
+		if (Model.currentPlayer.anyLineOrSquare(position) && !Model.otherPlayer().allBallsOnBoard() || mount && !Model.otherPlayer().allBallsOnBoard()) {
 			for (Position removable : removables) {
 				if (mount) {
 					System.out.println("AI mout a ball from : " + removable + " to :" + position);

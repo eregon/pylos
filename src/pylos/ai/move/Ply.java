@@ -37,11 +37,7 @@ public class Ply {
 		return state;
 	}
 
-	public void makeMove() { // pourquoi ia autorisée à metter boule en 2, 2, 0 et retirer sans faire ligne ?
-		if (removes != null) {
-			Controller.placeAiBall(at, removes, mount);
-		} else {
-			Controller.placeAiBall(at, new Position[0], false);
-		}
+	public void makeMove() {
+		Controller.placeAiBall(at, removes, mount);
 	}
 }

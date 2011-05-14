@@ -79,6 +79,8 @@ public class State {
 				}
 			}
 		}
+		if(state[3][0][0] != 0)
+			return state[3][0][0] == ai ? Integer.MAX_VALUE : Integer.MIN_VALUE;
 		return score;
 	}
 

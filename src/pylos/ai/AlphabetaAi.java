@@ -16,7 +16,6 @@ public class AlphabetaAi {
 		else
 			depth = 2;
 		alphaBeta(node, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, MAX_PLAYER);
-		System.out.println(node.bestMove.ply.mount);
 		node.getBestMove().makeMove();// attention NPE
 	}
 
