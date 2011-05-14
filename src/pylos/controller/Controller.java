@@ -2,7 +2,6 @@ package pylos.controller;
 
 import pylos.Pylos;
 import pylos.ai.AlphaBeta;
-import pylos.exception.PylosError;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Player;
@@ -110,14 +109,10 @@ public abstract class Controller {
 	}
 
 	public static void mountPlayerBall(Ball ball) {
-		if (Model.getPositionsToMount(ball).isEmpty()) {
-			throw new PylosError("Can not mount ball, there is no place to mount it.");
-		} else {
-			Model.currentPlayer.mountBall(ball);
-			view.updatePositionsToMount(ball);
-			updateView();
-			setPlayerStatus("Choose where to place the ball");
-		}
+		Model.currentPlayer.mountBall(ball);
+		view.updatePositionsToMount(ball);
+		updateView();
+		setPlayerStatus("Choose where to place the ball");
 	}
 
 	public static void removePlayerBall(Ball ball, boolean lastRemoved) {
