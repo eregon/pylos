@@ -1,7 +1,7 @@
 package pylos.controller;
 
 import pylos.Pylos;
-import pylos.ai.AlphabetaAi;
+import pylos.ai.AlphaBeta;
 import pylos.exception.PylosError;
 import pylos.model.Ball;
 import pylos.model.Model;
@@ -37,7 +37,7 @@ public abstract class Controller {
 			nextTurn();
 		} else {
 			if (Model.currentPlayer.Ai()) {
-				AlphabetaAi.AI();
+				AlphaBeta.AI();
 				finishTurn();
 			}
 			setPlayerStatus("Place or mount a ball (right click)");

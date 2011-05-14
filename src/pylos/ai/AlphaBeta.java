@@ -2,7 +2,7 @@ package pylos.ai;
 
 import java.util.Enumeration;
 
-public class AlphabetaAi {
+public class AlphaBeta {
 	static int depth = 1;
 	final static boolean MAX_PLAYER = true;
 	final static boolean MIN_PLAYER = false;
