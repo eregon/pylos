@@ -27,6 +27,7 @@ public class Config {
 
 		createFileLogger(Pylos.logger);
 		createFileLogger(Logger.getLogger("com.jme3"));
+		Logger.getLogger("com.jme3").setLevel(Level.WARNING);
 		createFileLogger(Logger.getLogger("de.lessvoid.nifty"));
 	}
 
