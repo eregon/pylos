@@ -18,10 +18,6 @@ public class StateNode {
 		return bestMove != null ? bestMove.ply : null;
 	}
 
-	private Ply getRandomMove() {
-		return successors().nextElement().ply;
-	}
-
 	public Enumeration<StateNode> successors() {
 		return new StateIterator(state);
 	}
