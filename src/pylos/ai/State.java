@@ -3,6 +3,7 @@ package pylos.ai;
 import java.util.LinkedList;
 import java.util.List;
 
+import pylos.Pylos;
 import pylos.model.Ball;
 import pylos.model.Model;
 import pylos.model.Position;
@@ -79,7 +80,7 @@ public class State {
 				}
 			}
 		}
-		if(state[3][0][0] != 0)
+		if (state[3][0][0] != 0)
 			return state[3][0][0] == ai ? Integer.MAX_VALUE : Integer.MIN_VALUE;
 		return score;
 	}
@@ -99,11 +100,11 @@ public class State {
 	}
 
 	public void printState() {
-		System.out.println(toString());
+		Pylos.AIlogger.info(toString());
 	}
 
 	public void printBallOnSide() {
-		System.out.println("ballOnSide [0] = " + ballOnSide[0] + "ballOnSide [1] = " + ballOnSide[1]);
+		Pylos.AIlogger.info("ballOnSide [0] = " + ballOnSide[0] + "ballOnSide [1] = " + ballOnSide[1]);
 	}
 
 	@Override

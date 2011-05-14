@@ -85,15 +85,15 @@ public abstract class Controller {
 		Model.currentPlayer.putBallOnBoard(position);
 		updateView();
 		if (!mount)
-			System.out.println("AI place a ball at : " + position);
+			Pylos.AIlogger.info("AI place a ball at : " + position);
 
 		if (Model.currentPlayer.anyLineOrSquare(position) && !Model.otherPlayer().allBallsOnBoard() || mount && !Model.otherPlayer().allBallsOnBoard()) {
 			for (Position removable : removables) {
 				if (mount) {
-					System.out.println("AI mout a ball from : " + removable + " to :" + position);
+					Pylos.AIlogger.info("AI mout a ball from : " + removable + " to :" + position);
 					mount = false;
 				} else
-					System.out.println("AI removes a ball at : " + removable);
+					Pylos.AIlogger.info("AI removes a ball at : " + removable);
 				removeAIBall(removable);
 			}
 		}

@@ -17,6 +17,7 @@ public class Pylos {
 	public static final String rootPath = new File(Pylos.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
 	public static final String assetsPath = rootPath + "/assets";
 	public static final Logger logger = Logger.getLogger("pylos");
+	public static final Logger AIlogger = Logger.getLogger("pylos.ai");
 
 	/**
 	 * Initialize the environment.
