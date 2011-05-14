@@ -16,7 +16,7 @@ public class Pylos {
 	// Ugly hack to get root path: this is Java ...
 	public static final String rootPath = new File(Pylos.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
 	public static final String assetsPath = rootPath + "/assets";
-	public static final Logger logger = Logger.getLogger(Pylos.class.getName());
+	public static final Logger logger = Logger.getLogger("pylos");
 
 	/**
 	 * Initialize the environment.
