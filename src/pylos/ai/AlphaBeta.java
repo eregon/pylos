@@ -11,7 +11,7 @@ public class AlphaBeta {
 
 		State s = new State();
 		StateNode node = new StateNode(null, s);
-		if (s.ballOnSide[0] + s.ballOnSide[1] <= 20)
+		if (s.ballOnSide[State.human] + s.ballOnSide[State.ai] <= 20)
 			depth = 4;
 		else
 			depth = 2;

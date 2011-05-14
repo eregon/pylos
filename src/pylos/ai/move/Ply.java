@@ -25,13 +25,13 @@ public class Ply {
 		State state = new State(s);
 		if (at != null) {
 			state.state[at.z][at.y][at.x] = state.currentPlayer;
-			state.ballOnSide[s.currentPlayer - 1]--;
+			state.ballOnSide[s.currentPlayer]--;
 		}
 		if (removes != null) {
 			for (Position remove : removes) {
 				Position p = remove;
 				state.state[p.z][p.y][p.x] = 0;
-				state.ballOnSide[state.currentPlayer - 1]++;
+				state.ballOnSide[state.currentPlayer]++;
 			}
 		}
 		return state;

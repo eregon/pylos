@@ -9,22 +9,22 @@ import pylos.model.Model;
 import pylos.model.Position;
 
 public class State {
-	final int HAND_POINT = 10;
-	final int RAWS_POINT = 12;
-	final int REMOVABLE_POINT = 2;
+	static final int HAND_POINT = 10;
+	static final int RAWS_POINT = 12;
+	static final int REMOVABLE_POINT = 2;
+	public static final byte ai = 2, human = 1; // ai = max, human = min
 
 	public byte[][][] state = new byte[Model.LEVELS][][];
-	public int[] ballOnSide = new int[2];
+	public int[] ballOnSide = new int[3];
 	public byte currentPlayer;
 
-	final byte ai = 2, human = 1; // ia = max, human = min
 	byte opponnent;
 
 	public State() {
 		currentPlayer = Model.currentPlayer.toByte();
 		opponnent = Model.otherPlayer().toByte();
-		ballOnSide[0] = 15; // boules du joueur
-		ballOnSide[1] = 15; // boules de l'ia
+		ballOnSide[human] = 15;
+		ballOnSide[ai] = 15;
 		Ball ball;
 		for (int z = 0; z < Model.LEVELS; z++) {
 			state[z] = new byte[Model.LEVELS - z][Model.LEVELS - z];
@@ -32,7 +32,7 @@ public class State {
 				for (int x = 0; x < Model.LEVELS - z; x++) {
 					ball = Model.board.ballAt(Position.at(x, y, z));
 					if (ball != null) {
-						ballOnSide[ball.owner.toByte() - 1]--;
+						ballOnSide[ball.owner.toByte()]--;
 					}
 					state[z][y][x] = ball == null ? 0 : ball.owner.toByte();
 				}
@@ -50,14 +50,14 @@ public class State {
 				}
 			}
 		}
-		ballOnSide[0] = s.ballOnSide[0];
-		ballOnSide[1] = s.ballOnSide[1];
+		ballOnSide[human] = s.ballOnSide[human];
+		ballOnSide[ai] = s.ballOnSide[ai];
 		currentPlayer = s.currentPlayer;
 		opponnent = (byte) (currentPlayer == 1 ? 2 : 1);
 	}
 
 	public int evaluate() {
-		int score = ballOnSide[ai - 1] * HAND_POINT - ballOnSide[human - 1] * HAND_POINT;
+		int score = ballOnSide[ai] * HAND_POINT - ballOnSide[human] * HAND_POINT;
 		for (int z = 0; z < Model.LEVELS; z++) {
 			for (int y = 0; y < Model.LEVELS - z; y++) {
 				for (int x = 0; x < Model.LEVELS - z; x++) {
@@ -104,7 +104,7 @@ public class State {
 	}
 
 	public void printBallOnSide() {
-		Pylos.AIlogger.info("ballOnSide [0] = " + ballOnSide[0] + "ballOnSide [1] = " + ballOnSide[1]);
+		Pylos.AIlogger.info("ballOnSide[human] = " + ballOnSide[human] + "ballOnSide[ai] = " + ballOnSide[ai]);
 	}
 
 	@Override
