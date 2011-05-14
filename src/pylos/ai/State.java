@@ -52,7 +52,7 @@ public class State {
 		ballOnSide[human] = s.ballOnSide[human];
 		ballOnSide[ai] = s.ballOnSide[ai];
 		currentPlayer = s.currentPlayer;
-		opponent = (byte) (currentPlayer == 1 ? 2 : 1);
+		opponent = s.opponent;
 	}
 
 	public int evaluate() {
@@ -227,7 +227,7 @@ public class State {
 
 	public void swichPlayers() {
 		currentPlayer = opponent;
-		opponent = (byte) (currentPlayer == 1 ? 2 : 1);
+		opponent = (byte) (3 - currentPlayer);
 	}
 
 	public boolean endGame() {
