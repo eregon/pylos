@@ -36,11 +36,11 @@ public abstract class Controller {
 		if (Model.currentPlayer.allBallsOnBoard()) {
 			nextTurn();
 		} else {
+			setPlayerStatus("Place or mount a ball (right click)");
 			if (Model.currentPlayer.AI()) {
 				AlphaBeta.AI();
 				finishTurn();
 			}
-			setPlayerStatus("Place or mount a ball (right click)");
 		}
 	}
 
@@ -74,11 +74,10 @@ public abstract class Controller {
 	}
 
 	private static void setPlayerStatus(String status) {
-		if (Model.currentPlayer.canMove()) {
+		if (Model.currentPlayer.canMove())
 			view.setStatus(status);
-		} else {
-			view.setStatus("Waiting opponent");
-		}
+		else
+			view.setStatus(Model.currentPlayer.AI() ? "Waiting AI" : "Waiting opponent");
 	}
 
 	public static void placeAIBall(Position position, Position[] removables, boolean mount) {
