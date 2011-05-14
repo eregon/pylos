@@ -31,17 +31,16 @@ public abstract class Controller {
 	}
 
 	public static void initTurn() {
-		if (Model.currentPlayer.Ai() && !Model.currentPlayer.allBallsOnBoard()) {
-			AlphabetaAi.AI();
-			updateView();
-			finishTurn();
+		Model.currentPlayer.resetAction();
+		ballRemoved = 0;
+		if (Model.currentPlayer.allBallsOnBoard()) {
+			nextTurn();
 		} else {
-			Model.currentPlayer.resetAction();
-			ballRemoved = 0;
-			if (Model.currentPlayer.allBallsOnBoard())
-				nextTurn();
-			else
-				setPlayerStatus("Place or mount a ball (right click)");
+			if (Model.currentPlayer.Ai()) {
+				AlphabetaAi.AI();
+				finishTurn();
+			}
+			setPlayerStatus("Place or mount a ball (right click)");
 		}
 	}
 
