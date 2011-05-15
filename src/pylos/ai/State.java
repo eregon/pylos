@@ -124,7 +124,7 @@ public class State {
 	private boolean anyLines(Position position, byte currentPlayer) {
 		if (position.z >= 2)
 			return false;
-		for (List<Position> line : position.lines()) {
+		for (List<Position> line : Position.lines.get(position)) {
 			boolean validLine = true;
 			for (Position p : line) {
 				byte ball = state[p.z][p.y][p.x];
@@ -147,7 +147,7 @@ public class State {
 	public boolean anySquares(Position position, byte currentPlayer) {
 		if (position.z >= 2)
 			return false;
-		for (List<Position> square : position.fourSquare()) {
+		for (List<Position> square : Position.fourSquare.get(position)) {
 			boolean validSquare = true;
 			for (Position p : square) {
 				byte ball = state[p.z][p.y][p.x];

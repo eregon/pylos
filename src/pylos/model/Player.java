@@ -126,7 +126,7 @@ public class Player {
 	private boolean anyLine(Position position) {
 		if (position.z >= 2)
 			return false;
-		for (List<Position> line : position.lines()) {
+		for (List<Position> line : Position.lines.get(position)) {
 			boolean validLine = true;
 			for (Position pos : line) {
 				if (!Model.board.anyBallAt(pos) || Model.board.ballAt(pos).owner != this) {
@@ -143,7 +143,7 @@ public class Player {
 	private boolean anySquare(Position position) {
 		if (position.z >= 2)
 			return false;
-		for (List<Position> list : position.fourSquare()) {
+		for (List<Position> list : Position.fourSquare.get(position)) {
 			boolean validSquare = true;
 			for (Position pos : list) {
 				if (!Model.board.anyBallAt(pos) || Model.board.ballAt(pos).owner != this) {

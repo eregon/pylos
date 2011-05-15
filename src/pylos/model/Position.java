@@ -2,8 +2,10 @@ package pylos.model;
 
 import java.io.ObjectStreamException;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represent an (immutable) position on the Board.
@@ -13,6 +15,9 @@ public class Position implements Serializable {
 	private static final Position[][][] positions = new Position[Model.LEVELS][][];
 	public static final Position[] all = new Position[Model.BALLS];
 	public static Position top;
+	public static Map<Position, List<List<Position>>> fourSquare = new HashMap<Position, List<List<Position>>>();
+	public static Map<Position, List<List<Position>>> lines = new HashMap<Position, List<List<Position>>>();
+
 	public final int x, y, z;
 
 	private Position(int x, int y, int z) {
@@ -35,7 +40,7 @@ public class Position implements Serializable {
 		return "(" + x + ", " + y + ", " + z + ")";
 	}
 
-	public static void createPositions() {
+	public static void initialize() {
 		int all_index = 0;
 		Position pos;
 		for (int level = 0; level < Model.LEVELS; level++) {
@@ -48,7 +53,13 @@ public class Position implements Serializable {
 				}
 			}
 		}
+
 		top = Position.at(0, 0, Model.LEVELS_1);
+
+		for (Position position : all) {
+			fourSquare.put(position, position.fourSquare());
+			lines.put(position, position.lines());
+		}
 	}
 
 	public static Position at(int x, int y, int z) {
@@ -59,7 +70,7 @@ public class Position implements Serializable {
 		return x >= 0 && y >= 0 && z >= 0 && x < Model.LEVELS - z && y < Model.LEVELS - z && z < Model.LEVELS;
 	}
 
-	public List<Position> square() {
+	private List<Position> square() {
 		List<Position> square = new LinkedList<Position>();
 
 		for (int x = this.x; x <= this.x + 1; x++) {
@@ -72,7 +83,7 @@ public class Position implements Serializable {
 		return square;
 	}
 
-	public List<List<Position>> fourSquare() {
+	private List<List<Position>> fourSquare() {
 		List<List<Position>> fourSquare = new LinkedList<List<Position>>();
 		List<Position> square;
 		for (int x = this.x - 1; x <= this.x; x++) {
@@ -87,7 +98,7 @@ public class Position implements Serializable {
 		return fourSquare;
 	}
 
-	public List<List<Position>> lines() {
+	private List<List<Position>> lines() {
 		List<List<Position>> lines = new LinkedList<List<Position>>();
 		List<Position> line;
 

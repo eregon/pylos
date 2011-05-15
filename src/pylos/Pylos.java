@@ -24,7 +24,7 @@ public class Pylos {
 	 * This should be called first.
 	 */
 	public static void initialize() {
-		Position.createPositions();
+		Position.initialize();
 	}
 
 	/**
