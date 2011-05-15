@@ -71,7 +71,6 @@ public abstract class Controller {
 
 	private static void setPlayerStatus(String status) {
 		view.setStatus(Model.currentPlayer.sayStatus(status));
-		System.out.println(Model.currentPlayer.sayStatus(status));
 	}
 
 	public static void placeAIBall(Position position, Position[] removables, boolean mount) {
