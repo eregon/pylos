@@ -9,9 +9,9 @@ import pylos.model.Model;
 import pylos.model.Position;
 
 public class State {
-	static final int HAND_POINT = 10;
-	static final int RAWS_POINT = 12;
-	static final int REMOVABLE_POINT = 2;
+	static final int HAND_POINT = 100;
+	static final int RAWS_POINT = 120;
+	static final int REMOVABLE_POINT = 40;
 	public static final byte ai = 2, human = 1; // ai = max, human = min
 
 	public byte[][][] state = new byte[Model.LEVELS][][];
@@ -53,6 +53,7 @@ public class State {
 
 	public int evaluate() {
 		int score = ballOnSide[ai] * HAND_POINT - ballOnSide[human] * HAND_POINT;
+		score += Math.random() * 9;
 		for (int z = 0; z < Model.LEVELS; z++) {
 			for (int y = 0; y < Model.LEVELS - z; y++) {
 				for (int x = 0; x < Model.LEVELS - z; x++) {

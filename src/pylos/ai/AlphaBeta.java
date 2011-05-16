@@ -13,7 +13,7 @@ public class AlphaBeta {
 	public static void AI() {
 		State s = new State();
 		final StateNode node = new StateNode(null, s);
-		depth = (s.ballOnSide[State.human] + s.ballOnSide[State.ai] <= 20) ? 4 : 2;
+		depth = (s.ballOnSide[State.human] + s.ballOnSide[State.ai] <= 10) ? 7 : 6;
 
 		// We do not want AI to block the main thread
 		new Thread(new Runnable() {
