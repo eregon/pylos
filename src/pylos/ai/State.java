@@ -42,7 +42,7 @@ public class State {
 
 	public State(State s) {
 		for (int z = 0; z < Model.LEVELS; z++) {
-			state[z] = new byte[Model.LEVELS - z][Model.LEVELS - z];
+			state[z] = new byte[Model.LEVELS - z][];
 			for (int y = 0; y < Model.LEVELS - z; y++)
 				state[z][y] = s.state[z][y].clone();
 		}
