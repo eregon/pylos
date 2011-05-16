@@ -16,9 +16,9 @@ public class Ply {
 	}
 
 	public State applyAndSwitchPlayer(State s) {
-		State state = new State(s);
+		State state = apply(s);
 		state.swichPlayers();
-		return apply(s);
+		return state;
 	}
 
 	public State apply(State s) { // at and removes ply can be null
