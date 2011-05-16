@@ -84,7 +84,7 @@ public abstract class Controller {
 		if (Model.currentPlayer.anyLineOrSquare(position) && !Model.otherPlayer().allBallsOnBoard() || mount && !Model.otherPlayer().allBallsOnBoard()) {
 			for (Position removable : removables) {
 				if (mount) {
-					Pylos.AIlogger.info("AI mout a ball from : " + removable + " to :" + position);
+					Pylos.AIlogger.info("AI mount a ball from : " + removable + " to :" + position);
 					mount = false;
 				} else
 					Pylos.AIlogger.info("AI removes a ball at : " + removable);
