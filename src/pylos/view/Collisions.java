@@ -31,9 +31,11 @@ public class Collisions {
 		Ray ray = new Ray(origin, direction);
 
 		try {
-			n = targets.collideWith(ray, results);
-			if (n > 0)
-				closest = results.getClosestCollision().getGeometry();
+			synchronized (targets) {
+				n = targets.collideWith(ray, results);
+				if (n > 0)
+					closest = results.getClosestCollision().getGeometry();
+			}
 		} catch (ConcurrentModificationException e) {
 			// Network methods can cause this exception
 			System.out.println(e);
