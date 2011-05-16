@@ -20,7 +20,7 @@ public class AlphaBeta {
 				long t = System.currentTimeMillis();
 				alphaBeta(node, Config.AI_DEPTH, Integer.MIN_VALUE, Integer.MAX_VALUE, MAX_PLAYER);
 				Pylos.AIlogger.info("alphaBeta took " + (System.currentTimeMillis() - t) + " ms");
-				node.getBestMove().makeMove();// attention NPE
+				node.getBestMove().makeMove();
 				Controller.finishTurn();
 			}
 		}).start();
