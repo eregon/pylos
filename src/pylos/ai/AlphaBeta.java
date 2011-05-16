@@ -13,12 +13,13 @@ public class AlphaBeta {
 	public static void AI() {
 		State s = new State();
 		final StateNode node = new StateNode(null, s);
+		final int depth = (s.ballOnSide[State.human] + s.ballOnSide[State.ai] > 20) ? Config.AI_DEPTH + 2 : Config.AI_DEPTH;
 
 		// We do not want AI to block the main thread
 		new Thread(new Runnable() {
 			public void run() {
 				long t = System.currentTimeMillis();
-				alphaBeta(node, Config.AI_DEPTH, Integer.MIN_VALUE, Integer.MAX_VALUE, MAX_PLAYER);
+				alphaBeta(node, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, MAX_PLAYER);
 				Pylos.AIlogger.info("alphaBeta took " + (System.currentTimeMillis() - t) + " ms");
 				node.getBestMove().makeMove();
 				Controller.finishTurn();
