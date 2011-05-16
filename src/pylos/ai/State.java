@@ -9,9 +9,9 @@ import pylos.model.Model;
 import pylos.model.Position;
 
 public class State {
-	static final int HAND_POINT = 100;
+	static final int HAND_POINT = 70;
 	static final int RAWS_POINT = 120;
-	static final int REMOVABLE_POINT = 40;
+	static final int REMOVABLE_POINT = 20;
 	public static final byte ai = 2, human = 1; // ai = max, human = min
 
 	public byte[][][] state = new byte[Model.LEVELS][][];

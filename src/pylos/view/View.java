@@ -98,10 +98,10 @@ public class View extends SimpleApplication implements ActionListener {
 
 	void initSky() {
 		rootNode.attachChild(SkyFactory.createSky(assetManager,
-				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_west.png"),
 				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_east.png"),
-				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_north.png"),
+				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_west.png"),
 				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_south.png"),
+				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_north.png"),
 				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_up.png"),
 				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_down.png"),
 				new Vector3f(1, 1, 1)));
