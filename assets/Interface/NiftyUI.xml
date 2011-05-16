@@ -72,6 +72,7 @@
           <control name="textfield" id="remotehost" width="120px">
             <interact onClick="clearRemotehostLabel()" />
             <effect>
+              <onGetFocus name="move" mode="in" length="0" onStartEffect="clearRemotehostLabel()"/>
               <onShow name="move" mode="in" direction="right" length="700" inherit="true" />
             </effect>
           </control>
