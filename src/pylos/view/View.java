@@ -94,6 +94,19 @@ public class View extends SimpleApplication implements ActionListener {
 		guiViewPort.addProcessor(niftyDisplay);
 	}
 
+	// simpleUpdate() is empty, everything is in AppState
+
+	void initSky() {
+		rootNode.attachChild(SkyFactory.createSky(assetManager,
+				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_west.png"),
+				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_east.png"),
+				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_north.png"),
+				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_south.png"),
+				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_up.png"),
+				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_down.png"),
+				new Vector3f(1, 1, 1)));
+	}
+
 	void initBalls() {
 		for (Ball ball : Model.board.balls) {
 			ball.graphics.create(this);
@@ -106,6 +119,8 @@ public class View extends SimpleApplication implements ActionListener {
 		nifty.gotoScreen("main_screen");
 
 		rootNode.attachChild(balls);
+
+		initSky();
 
 		board = new BoardGraphics(this);
 		rootNode.attachChild(board.getSpatial());
@@ -144,14 +159,6 @@ public class View extends SimpleApplication implements ActionListener {
 			board.place(graphics, position);
 			node.attachChild(graphics);
 		}
-		rootNode.attachChild(SkyFactory.createSky(assetManager,
-				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_west.png"),
-				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_east.png"),
-				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_north.png"),
-				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_south.png"),
-				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_up.png"),
-				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_down.png"),
-				new Vector3f(1, 1, 1)));
 	}
 
 	public Timer getTimer() {
