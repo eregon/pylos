@@ -29,7 +29,9 @@ public abstract class Controller {
 	}
 
 	public static void initTurn() {
-		Model.currentPlayer.resetAction();
+		for (Player player : Model.players)
+			player.resetAction();
+
 		ballRemoved = 0;
 		updateView();
 		if (Model.currentPlayer.allBallsOnBoard()) {
