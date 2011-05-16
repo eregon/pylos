@@ -19,15 +19,12 @@ import com.jme3.input.ChaseCamera;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
-
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import com.jme3.system.Timer;
-import com.jme3.texture.Texture;
 import com.jme3.util.SkyFactory;
 
 import de.lessvoid.nifty.Nifty;
@@ -147,12 +144,14 @@ public class View extends SimpleApplication implements ActionListener {
 			board.place(graphics, position);
 			node.attachChild(graphics);
 		}
-		rootNode.attachChild(SkyFactory.createSky(assetManager, assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_west.png"), 
-				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_east.png"), 
-				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_north.png"), 
+		rootNode.attachChild(SkyFactory.createSky(assetManager,
+				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_west.png"),
+				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_east.png"),
+				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_north.png"),
 				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_south.png"),
-				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_up.png"), 
-				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_down.png"), new Vector3f(1, 1, 1)));
+				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_up.png"),
+				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_down.png"),
+				new Vector3f(1, 1, 1)));
 	}
 
 	public Timer getTimer() {
