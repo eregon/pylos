@@ -225,7 +225,7 @@ public class Player {
 	}
 
 	public boolean canMove() {
-		return Config.CAN_MOVE_OTHER || type == Type.LOCAL;
+		return action != Action.WAIT && (Config.CAN_MOVE_OTHER || type == Type.LOCAL);
 	}
 
 	public boolean isUndefined() {
