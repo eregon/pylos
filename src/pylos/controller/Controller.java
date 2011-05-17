@@ -81,22 +81,18 @@ public abstract class Controller {
 		if (!mount)
 			Pylos.AIlogger.info("AI place a ball at : " + position);
 
-		if (Model.currentPlayer.anyLineOrSquare(position) && !Model.otherPlayer().allBallsOnBoard() || mount && !Model.otherPlayer().allBallsOnBoard()) {
+		if (!Model.otherPlayer().allBallsOnBoard() &&
+				(mount || Model.currentPlayer.anyLineOrSquare(position))) {
 			for (Position removable : removables) {
 				if (mount) {
 					Pylos.AIlogger.info("AI mount a ball from : " + removable + " to :" + position);
 					mount = false;
 				} else
 					Pylos.AIlogger.info("AI removes a ball at : " + removable);
-				removeAIBall(removable);
+				Model.currentPlayer.removeBall(Model.board.ballAt(removable)); // TODO: use removePlayerBall
 			}
 		}
 
-	}
-
-	private static void removeAIBall(Position position) {
-		Model.currentPlayer.removeBall(Model.board.ballAt(position));
-		// updateView();
 	}
 
 	public static void placePlayerBall(Position position) {
