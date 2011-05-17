@@ -14,6 +14,8 @@
 /libopenal64.so
 /OpenAL64.dll
 /lwjgl64.dll
+/Pylos.jar
+/Pylos_lib
 
 # OS,editor
 .DS_Store
