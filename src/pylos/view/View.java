@@ -61,7 +61,14 @@ public class View extends SimpleApplication implements ActionListener {
 		startNifty();
 	}
 
-	// simpleUpdate() is empty, everything is in AppState
+	@Override
+	public void simpleUpdate(float tpf) {
+		try {
+			super.simpleUpdate(tpf);
+		} catch (IllegalStateException e) {
+			System.out.println(e);
+		}
+	}
 
 	void initKeys() {
 		inputManager.clearMappings();
