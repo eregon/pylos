@@ -80,7 +80,7 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 	}
 
 	public void onAction(String action, boolean pressed, float tpf) {
-		if (!Model.currentPlayer.canMove())
+		if (!Model.currentPlayer.canMakeMove())
 			return;
 
 		long time = System.currentTimeMillis();

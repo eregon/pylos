@@ -224,8 +224,12 @@ public class Player {
 		action = Action.WAIT;
 	}
 
-	public boolean canMove() {
+	public boolean canMakeMove() {
 		return action != Action.WAIT && (Config.CAN_MOVE_OTHER || type == Type.LOCAL);
+	}
+
+	public boolean canMove() {
+		return Config.CAN_MOVE_OTHER || type == Type.LOCAL;
 	}
 
 	public boolean isUndefined() {
