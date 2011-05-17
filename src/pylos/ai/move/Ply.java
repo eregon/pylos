@@ -6,12 +6,12 @@ import pylos.model.Position;
 
 public class Ply {
 
-	public Position at;
-	public Position[] removes;
+	public Position placeAt = null;
+	public Position[] removes = null;
 	public boolean mount = false;
 
 	public Ply(Position at, Position[] removes) {
-		this.at = at;
+		placeAt = at;
 		this.removes = removes;
 	}
 
@@ -21,16 +21,18 @@ public class Ply {
 		return state;
 	}
 
+	/**
+	 * Make a copy of the State, and apply this ply
+	 */
 	public State apply(State s) { // at and removes ply can be null
 		State state = new State(s);
-		if (at != null) {
-			state.state[at.z][at.y][at.x] = state.currentPlayer;
+		if (placeAt != null) {
+			state.state[placeAt.z][placeAt.y][placeAt.x] = state.currentPlayer;
 			state.ballOnSide[s.currentPlayer]--;
 		}
 		if (removes != null) {
 			for (Position remove : removes) {
-				Position p = remove;
-				state.state[p.z][p.y][p.x] = 0;
+				state.state[remove.z][remove.y][remove.x] = 0;
 				state.ballOnSide[state.currentPlayer]++;
 			}
 		}
@@ -38,6 +40,6 @@ public class Ply {
 	}
 
 	public void makeMove() {
-		Controller.placeAIBall(at, removes, mount);
+		Controller.placeAIBall(placeAt, removes, mount);
 	}
 }

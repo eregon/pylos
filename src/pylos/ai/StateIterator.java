@@ -208,7 +208,7 @@ public class StateIterator implements Enumeration<StateNode> {
 			} else if (current != null) {
 				if (current.hasMoreElements()) {
 					next = current.nextElement();
-					next = new StateNode(new MountBall(from, next.ply.at, next.ply.removes), state);
+					next = new StateNode(new MountBall(from, next.ply.placeAt, next.ply.removes), state);
 				} else {
 					generateNext();
 					return nextElement();
