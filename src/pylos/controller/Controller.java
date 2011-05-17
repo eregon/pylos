@@ -29,8 +29,8 @@ public abstract class Controller {
 	}
 
 	public static void initTurn() {
-		for (Player player : Model.players)
-			player.resetAction();
+		Model.currentPlayer.resetAction();
+		Model.otherPlayer().waitForOther();
 
 		ballRemoved = 0;
 		updateView();

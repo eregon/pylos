@@ -220,6 +220,10 @@ public class Player {
 		System.out.println(toStringWithLocation());
 	}
 
+	public void waitForOther() {
+		action = Action.WAIT;
+	}
+
 	public boolean canMove() {
 		return Config.CAN_MOVE_OTHER || type == Type.LOCAL;
 	}
