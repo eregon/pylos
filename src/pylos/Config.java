@@ -1,5 +1,9 @@
 package pylos;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -8,15 +12,40 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class Config {
-	public static int AI_DEPTH = 4;
-	public static int RMI_PORT = 1723; // Registry.REGISTRY_PORT
-	public static boolean LOW_GRAPHICS = false; // Set this to true if it is too slow
-	public static final long CREATE_RMI_REGISTRY_TIMEOUT = 5000; // ms
-	public static final boolean CAN_MOVE_OTHER = false; // if one player can play for the other
-	public static final int[] RESOLUTION = { 800, 640 }; // 1280, 750
-	public static final boolean FIRE = false;
+	public static int[] RESOLUTION = new int[2];
+	public static int AI_DEPTH;
+	public static boolean LOW_GRAPHICS;
+	public static int RMI_PORT;
+	public static long CREATE_RMI_REGISTRY_TIMEOUT;
+	public static boolean CAN_MOVE_OTHER;
+	public static boolean FIRE;
+
+	static final File propertiesFile = new File(Pylos.rootPath + "/config.properties");
 
 	public static void configureProject() {
+		Properties properties = new Properties();
+
+		try {
+			propertiesFile.createNewFile(); // Ensure to have the properties file
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			properties.load(new FileInputStream(propertiesFile));
+			RESOLUTION[0] = Integer.valueOf(properties.getProperty("screen.width", "800"));
+			RESOLUTION[1] = Integer.valueOf(properties.getProperty("screen.height", "640"));
+			AI_DEPTH = Integer.valueOf(properties.getProperty("ai.depth", "4"));
+			LOW_GRAPHICS = Integer.valueOf(properties.getProperty("graphics.low", "0")) == 1;
+			RMI_PORT = Integer.valueOf(properties.getProperty("rmi.port", "1723"));
+			CREATE_RMI_REGISTRY_TIMEOUT = Integer.valueOf(properties.getProperty("rmi.timeout", "5000"));
+			CAN_MOVE_OTHER = Integer.valueOf(properties.getProperty("game.canMoveOther", "0")) == 1;
+			// Not quite ready yet
+			FIRE = false; // Integer.valueOf(properties.getProperty("extra.fire", "0")) == 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		configureLogger();
 	}
 
