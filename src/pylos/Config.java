@@ -13,7 +13,7 @@ public class Config {
 	public static boolean LOW_GRAPHICS = false; // Set this to true if it is too slow
 	public static final long CREATE_RMI_REGISTRY_TIMEOUT = 5000; // ms
 	public static final boolean CAN_MOVE_OTHER = false; // if one player can play for the other
-	public static final int[] RESOLUTION = { 1280, 750 }; // 1280, 750
+	public static final int[] RESOLUTION = { 800, 640 }; // 1280, 750
 	public static final boolean FIRE = false;
 
 	public static void configureProject() {
