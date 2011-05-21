@@ -209,6 +209,10 @@ public class Player {
 		return action != Action.WAIT && (Config.CAN_MOVE_OTHER || type == Type.LOCAL);
 	}
 
+	public boolean canPlace() {
+		return (action == Action.PLACE || action == Action.MOUNT) && (Config.CAN_MOVE_OTHER || type == Type.LOCAL);
+	}
+
 	// Location methods
 	public void isLocal() {
 		type = Type.LOCAL;

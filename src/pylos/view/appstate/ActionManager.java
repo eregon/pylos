@@ -70,7 +70,7 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 
 	@Override
 	public void update(float tpf) {
-		if (Model.currentPlayer.canMove() && Model.currentPlayer.isPlacing() && getCollisions()) {
+		if (Model.currentPlayer.canPlace() && getCollisions()) {
 			highlightBall.setMaterial(Model.currentPlayer.graphics.ballMaterial);
 			view.board.place(highlightBall, collisions.getPosition());
 			highlightBallNode.attachChild(highlightBall);
