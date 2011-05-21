@@ -22,6 +22,7 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import com.jme3.system.Timer;
@@ -62,12 +63,8 @@ public class View extends SimpleApplication implements ActionListener {
 	}
 
 	@Override
-	public void simpleUpdate(float tpf) {
-		try {
-			super.simpleUpdate(tpf);
-		} catch (IllegalStateException e) {
-			System.out.println(e);
-		}
+	public synchronized void update() {
+		super.update();
 	}
 
 	void initKeys() {
@@ -161,13 +158,17 @@ public class View extends SimpleApplication implements ActionListener {
 		updateNodeFromPositions(positionsToMountBall, Model.getPositionsToMount(ball));
 	}
 
-	public void updateNodeFromPositions(Node node, List<Position> positions) {
+	public synchronized void updateNodeFromPositions(Node node, List<Position> positions) {
 		node.detachAllChildren();
 		for (Position position : positions) {
 			PositionBallGraphics graphics = new PositionBallGraphics(position);
 			board.place(graphics, position);
 			node.attachChild(graphics);
 		}
+	}
+
+	public synchronized void move(Geometry geometry, float x, float y, float z) {
+		geometry.center().move(x, y, z);
 	}
 
 	public Timer getTimer() {

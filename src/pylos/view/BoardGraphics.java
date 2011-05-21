@@ -24,8 +24,10 @@ public class BoardGraphics {
 	static final float VERTICAL_SCALE = 0.85f;
 	static final int BALLS_BY_SIDE = 9;
 	Spatial board;
+	View view;
 
 	public BoardGraphics(View view) {
+		this.view = view;
 		if (new File(Pylos.assetsPath, "Models/Board/Board.j3o").exists()) {
 			board = view.getAssetManager().loadModel("Models/Board/Board.j3o");
 		} else {
@@ -60,7 +62,7 @@ public class BoardGraphics {
 
 			// 0-8 front line
 			for (int i = 0; i < limitFront; i++) {
-				ballsOnSide.pop().graphics.center().move(
+				view.move(ballsOnSide.pop().graphics,
 						distanceCenterSide * player.side,
 						BOARD_SIDE_HEIGHT,
 						((i + 1) / 2) * BALL_DIAMETER * (i % 2 == 1 ? 1 : -1));
@@ -69,12 +71,12 @@ public class BoardGraphics {
 			// 9-14 sides
 			final int offset = BALLS_BY_SIDE / 2 - 1;
 			for (int i = 0; i < limitZPos; i++) {
-				ballsOnSide.pop().graphics.center().move(
+				view.move(ballsOnSide.pop().graphics,
 						(offset - i) * BALL_DIAMETER * player.side,
 						BOARD_SIDE_HEIGHT,
 						distanceCenterSide);
 				if (i < limitZNeg) {
-					ballsOnSide.pop().graphics.center().move(
+					view.move(ballsOnSide.pop().graphics,
 							(offset - i) * BALL_DIAMETER * player.side,
 							BOARD_SIDE_HEIGHT,
 							-distanceCenterSide);
@@ -89,7 +91,7 @@ public class BoardGraphics {
 
 	public void place(Geometry ball, Position pos) {
 		float offset = (Model.ballsBySideAtLevel(pos.z) - 1) * BALL_DIAMETER / 2;
-		ball.center().move(
+		view.move(ball,
 				pos.x * BALL_DIAMETER - offset,
 				BoardGraphics.BOARD_HEIGHT + pos.z * BALL_DIAMETER * HALF_SQRT_2,
 				pos.y * BALL_DIAMETER - offset);

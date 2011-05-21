@@ -31,7 +31,9 @@ public class Collisions {
 		Ray ray = new Ray(origin, direction);
 
 		try {
-			n = targets.collideWith(ray, results);
+			synchronized (view) {
+				n = targets.collideWith(ray, results);
+			}
 			if (n > 0)
 				closest = results.getClosestCollision().getGeometry();
 		} catch (ConcurrentModificationException e) {
