@@ -23,9 +23,8 @@
 *.blend1
 
 # Logs
-/log/*
-!/log/.gitkeep
+/log
 /hs_err_pid*.log
 
 # config
-config.properties
+/config.properties

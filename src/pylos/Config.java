@@ -20,6 +20,7 @@ public class Config {
 	public static boolean CAN_MOVE_OTHER;
 	public static boolean FIRE;
 
+	static final File logDir = new File(Pylos.rootPath + "/log");
 	static final File propertiesFile = new File(Pylos.rootPath + "/config.properties");
 
 	public static void configureProject() {
@@ -55,6 +56,14 @@ public class Config {
 			handler.setLevel(Level.WARNING);
 		}
 
+		if (!logDir.exists()) {
+			try {
+				logDir.mkdir();
+			} catch (Exception e) {
+				System.err.println("Could not create log dir");
+			}
+		}
+
 		createFileLogger(Pylos.logger);
 		createFileLogger(Pylos.AIlogger);
 		createFileLogger(Logger.getLogger("com.jme3"));
@@ -64,7 +73,7 @@ public class Config {
 
 	public static void createFileLogger(Logger logger) {
 		try {
-			FileHandler fh = new FileHandler("log/" + logger.getName() + ".log");
+			FileHandler fh = new FileHandler(logDir + "/" + logger.getName() + ".log");
 			fh.setFormatter(new SimpleFormatter());
 			logger.addHandler(fh);
 		} catch (Exception e) {
