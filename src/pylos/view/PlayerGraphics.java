@@ -18,7 +18,7 @@ public class PlayerGraphics {
 		if (ballMaterial == null) {
 			ballMaterial = new Material(view.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
 			Texture tex_ml = view.getAssetManager().loadTexture("Models/Board/Texture/" +
-					(model == Model.player1 ? "marbrenoir.jpg" : "verre4.jpg"));
+					(model == Model.player1 ? "marbrenoir.jpg" : "verre.jpg"));
 			ballMaterial.setTexture("DiffuseMap", tex_ml);
 			ballMaterial.setFloat("Shininess", 55f);
 		}
