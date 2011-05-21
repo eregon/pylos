@@ -100,8 +100,6 @@ public class View extends SimpleApplication implements ActionListener {
 		guiViewPort.addProcessor(niftyDisplay);
 	}
 
-	// simpleUpdate() is empty, everything is in AppState
-
 	void initSky() {
 		rootNode.attachChild(SkyFactory.createSky(assetManager,
 				assetManager.loadTexture("Models/Board/Texture/sky/Stellar_Layout_east.png"),
@@ -143,8 +141,6 @@ public class View extends SimpleApplication implements ActionListener {
 
 		Controller.initTurn();
 	}
-
-	// simpleUpdate() is empty, everything is in AppState
 
 	public void show() {
 		start();
