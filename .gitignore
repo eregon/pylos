@@ -28,3 +28,7 @@
 
 # config
 /config.properties
+
+# Standalone
+/Pylos.jar
+/Pylos
