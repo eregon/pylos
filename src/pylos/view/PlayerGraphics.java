@@ -16,17 +16,11 @@ public class PlayerGraphics {
 
 	public void create(View view) {
 		if (ballMaterial == null) {
-			if (model == Model.player1) {
-				ballMaterial = new Material(view.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
-				Texture tex_ml = view.getAssetManager().loadTexture("Models/Board/Texture/marbrenoir.jpg");
-				ballMaterial.setTexture("DiffuseMap", tex_ml);
-				ballMaterial.setFloat("Shininess", 55f);
-			} else {
-				ballMaterial = new Material(view.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
-				Texture tex_ml = view.getAssetManager().loadTexture("Models/Board/Texture/verre4.jpg");
-				ballMaterial.setTexture("DiffuseMap", tex_ml);
-				ballMaterial.setFloat("Shininess", 55f);
-			}
+			ballMaterial = new Material(view.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
+			Texture tex_ml = view.getAssetManager().loadTexture("Models/Board/Texture/" +
+					(model == Model.player1 ? "marbrenoir.jpg" : "verre4.jpg"));
+			ballMaterial.setTexture("DiffuseMap", tex_ml);
+			ballMaterial.setFloat("Shininess", 55f);
 		}
 	}
 }
