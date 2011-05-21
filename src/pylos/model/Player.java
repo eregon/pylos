@@ -201,6 +201,14 @@ public class Player {
 			action = Action.REMOVE;
 	}
 
+	public void waitForOther() {
+		action = Action.WAIT;
+	}
+
+	public boolean canMakeMove() {
+		return action != Action.WAIT && (Config.CAN_MOVE_OTHER || type == Type.LOCAL);
+	}
+
 	// Location methods
 	public void isLocal() {
 		type = Type.LOCAL;
@@ -218,14 +226,6 @@ public class Player {
 		type = Type.AI;
 		resetAction();
 		System.out.println(toStringWithLocation());
-	}
-
-	public void waitForOther() {
-		action = Action.WAIT;
-	}
-
-	public boolean canMakeMove() {
-		return action != Action.WAIT && (Config.CAN_MOVE_OTHER || type == Type.LOCAL);
 	}
 
 	public boolean canMove() {
