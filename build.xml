@@ -19,6 +19,15 @@
 		</java>
 	</target>
 
+	<target name="standalone" depends="compile">
+		<delete dir="Pylos"/>
+		<mkdir dir="Pylos"/>
+		<copy file="Pylos.jar" todir="Pylos"/>
+		<copy todir="Pylos/assets">
+			<fileset dir="assets"/>
+		</copy>
+	</target>
+
 	<target name="clean">
 		<delete dir="bin"/>
 	</target>
