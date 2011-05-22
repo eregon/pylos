@@ -2,7 +2,9 @@ package pylos;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.Properties;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
@@ -21,15 +23,29 @@ public class Config {
 	public static boolean FIRE;
 
 	static final File logDir = new File(Pylos.rootPath + "/log");
+	static final File defaultPropertiesFile = new File(Pylos.rootPath + "/assets/Configuration/config.properties");
 	static final File propertiesFile = new File(Pylos.rootPath + "/config.properties");
 
 	public static void configureProject() {
 		Properties properties = new Properties();
 
-		try {
-			propertiesFile.createNewFile(); // Ensure to have the properties file
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (!propertiesFile.exists()) {
+			FileChannel input = null, output = null;
+			try {
+				input = new FileInputStream(defaultPropertiesFile).getChannel();
+				output = new FileOutputStream(propertiesFile).getChannel();
+				input.transferTo(0, input.size(), output);
+			} catch (Exception e) {
+				System.err.println("Could not copy default configuration file: " + e);
+			} finally {
+				try {
+					if (input != null)
+						input.close();
+					if (output != null)
+						output.close();
+				} catch (IOException e) {
+				}
+			}
 		}
 
 		try {
