@@ -14,13 +14,13 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class Config {
-	public static int[] RESOLUTION = new int[2];
-	public static int AI_DEPTH;
-	public static boolean LOW_GRAPHICS;
-	public static int RMI_PORT;
-	public static long CREATE_RMI_REGISTRY_TIMEOUT;
-	public static boolean CAN_MOVE_OTHER;
-	public static boolean FIRE;
+	public static int[] RESOLUTION = { 800, 640 };
+	public static int AI_DEPTH = 4;
+	public static boolean LOW_GRAPHICS = false;
+	public static int RMI_PORT = 1723;
+	public static long CREATE_RMI_REGISTRY_TIMEOUT = 5000;
+	public static boolean CAN_MOVE_OTHER = false;
+	public static boolean FIRE = false;
 
 	static final File logDir = new File(Pylos.rootPath + "/log");
 	static final File defaultPropertiesFile = new File(Pylos.rootPath + "/assets/Configuration/config.properties");
@@ -50,13 +50,13 @@ public class Config {
 
 		try {
 			properties.load(new FileInputStream(propertiesFile));
-			RESOLUTION[0] = Integer.valueOf(properties.getProperty("screen.width", "800"));
-			RESOLUTION[1] = Integer.valueOf(properties.getProperty("screen.height", "640"));
-			AI_DEPTH = Integer.valueOf(properties.getProperty("ai.depth", "4"));
-			LOW_GRAPHICS = Integer.valueOf(properties.getProperty("graphics.low", "0")) == 1;
-			RMI_PORT = Integer.valueOf(properties.getProperty("rmi.port", "1723"));
-			CREATE_RMI_REGISTRY_TIMEOUT = Integer.valueOf(properties.getProperty("rmi.timeout", "5000"));
-			CAN_MOVE_OTHER = Integer.valueOf(properties.getProperty("game.canMoveOther", "0")) == 1;
+			RESOLUTION[0] = Integer.valueOf(properties.getProperty("screen.width", Integer.toString(RESOLUTION[0])));
+			RESOLUTION[1] = Integer.valueOf(properties.getProperty("screen.height", Integer.toString(RESOLUTION[1])));
+			AI_DEPTH = Integer.valueOf(properties.getProperty("ai.depth", Integer.toString(AI_DEPTH)));
+			LOW_GRAPHICS = Boolean.valueOf(properties.getProperty("graphics.low", Boolean.toString(LOW_GRAPHICS)));
+			RMI_PORT = Integer.valueOf(properties.getProperty("rmi.port", Integer.toString(RMI_PORT)));
+			CREATE_RMI_REGISTRY_TIMEOUT = Integer.valueOf(properties.getProperty("rmi.timeout", Long.toString(CREATE_RMI_REGISTRY_TIMEOUT)));
+			CAN_MOVE_OTHER = Boolean.valueOf(properties.getProperty("game.canMoveOther", Boolean.toString(CAN_MOVE_OTHER)));
 			// Not quite ready yet
 			FIRE = false; // Integer.valueOf(properties.getProperty("extra.fire", "0")) == 1;
 		} catch (Exception e) {
