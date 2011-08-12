@@ -1,6 +1,8 @@
 package pylos;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.logging.Logger;
 
 import pylos.controller.Controller;
@@ -14,7 +16,7 @@ public class Pylos {
 	public static Network network;
 
 	// Ugly hack to get root path: this is Java ...
-	public static final String rootPath = new File(Pylos.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
+	public static final String rootPath = getProjectRootPath();
 	public static final String assetsPath = rootPath + "/assets";
 	public static final Logger logger = Logger.getLogger("pylos");
 	public static final Logger AIlogger = Logger.getLogger("pylos.ai");
@@ -49,5 +51,16 @@ public class Pylos {
 	public static void stop() {
 		view.stop();
 		network.stop();
+	}
+
+	public static String getProjectRootPath() {
+		String pylosClassPath = Pylos.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		String rootPath = new File(pylosClassPath).getParent();
+		try {
+			rootPath = URLDecoder.decode(rootPath, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			System.err.println("Could not decode root project url: " + rootPath + "\n" + e);
+		}
+		return rootPath;
 	}
 }
