@@ -19,8 +19,8 @@ public class Config {
 	public static boolean LOW_GRAPHICS = false;
 	public static int RMI_PORT = 1723;
 	public static long CREATE_RMI_REGISTRY_TIMEOUT = 5000;
-	public static boolean CAN_MOVE_OTHER = false;
-	public static boolean FIRE = false;
+	public final static boolean CAN_MOVE_OTHER = false;
+	public final static boolean FIRE = false;
 
 	static final File logDir = new File(Pylos.rootPath + "/log");
 	static final File defaultPropertiesFile = new File(Pylos.rootPath + "/assets/Configuration/config.properties");
@@ -56,9 +56,6 @@ public class Config {
 			LOW_GRAPHICS = Boolean.valueOf(properties.getProperty("graphics.low", Boolean.toString(LOW_GRAPHICS)));
 			RMI_PORT = Integer.valueOf(properties.getProperty("rmi.port", Integer.toString(RMI_PORT)));
 			CREATE_RMI_REGISTRY_TIMEOUT = Integer.valueOf(properties.getProperty("rmi.timeout", Long.toString(CREATE_RMI_REGISTRY_TIMEOUT)));
-			CAN_MOVE_OTHER = Boolean.valueOf(properties.getProperty("game.canMoveOther", Boolean.toString(CAN_MOVE_OTHER)));
-			// Not quite ready yet
-			FIRE = false; // Integer.valueOf(properties.getProperty("extra.fire", "0")) == 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
