@@ -79,7 +79,7 @@ public class MainTest extends PylosTestCase {
 		assertTrue(Model.isWinner());
 	}
 
-	public void testPlaceAt(Position position) {
+	public void testPlaceAt() {
 		ball.placeAt(Position.at(0, 0, 0));
 		ball.placeAt(Position.at(1, 2, 2));
 		assertFalse(Model.board.anyBallAt(Position.at(0, 0, 0)));

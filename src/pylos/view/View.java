@@ -179,6 +179,7 @@ public class View extends SimpleApplication implements ActionListener {
 		screenController.setStatus(status);
 	}
 
+	@Override
 	public void onAction(String action, boolean isPressed, float tpf) {
 		if (action == Quit)
 			Pylos.stop();

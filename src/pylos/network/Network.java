@@ -68,6 +68,7 @@ public class Network {
 	private void launchServer() {
 		try {
 			FutureTask<?> startRegistry = new FutureTask<Void>(new Callable<Void>() {
+				@Override
 				public Void call() throws Exception {
 					System.out.println("Searching or creating the rmiregistry ...");
 					LocateRegistry.createRegistry(Config.RMI_PORT);

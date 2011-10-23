@@ -17,6 +17,7 @@ public class AlphaBeta {
 
 		// We do not want AI to block the main thread
 		new Thread(new Runnable() {
+			@Override
 			public void run() {
 				long t = System.currentTimeMillis();
 				alphaBeta(node, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, MAX_PLAYER);

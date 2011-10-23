@@ -24,6 +24,7 @@ public class StartScreenController implements ScreenController {
 	TextFieldControl localhostTextField;
 	TextFieldControl remotehostTextField;
 
+	@Override
 	public void bind(Nifty nifty, Screen screen) {
 		this.nifty = nifty;
 		this.screen = screen;
@@ -38,9 +39,11 @@ public class StartScreenController implements ScreenController {
 		remotehostTextField.setText(REMOTE_HOST);
 	}
 
+	@Override
 	public void onEndScreen() {
 	}
 
+	@Override
 	public void onStartScreen() {
 	}
 

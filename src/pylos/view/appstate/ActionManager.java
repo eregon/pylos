@@ -79,6 +79,7 @@ public class ActionManager extends AbstractAppState implements ActionListener {
 		}
 	}
 
+	@Override
 	public void onAction(String action, boolean pressed, float tpf) {
 		if (!Model.currentPlayer.canMakeMove())
 			return;
