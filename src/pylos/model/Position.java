@@ -1,5 +1,7 @@
 package pylos.model;
 
+import static pylos.model.Model.LEVELS;
+
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -12,7 +14,7 @@ import java.util.Map;
  * x and y are horizontal coordinates, z is the level in the pyramid.
  */
 public class Position implements Serializable {
-	private static final Position[][][] positions = new Position[Model.LEVELS][][];
+	private static final Position[][][] positions = new Position[LEVELS][][];
 	public static final Position[] all = new Position[Model.BALLS];
 	public static Position top;
 	public static Map<Position, List<List<Position>>> fourSquare = new HashMap<Position, List<List<Position>>>();
@@ -43,10 +45,10 @@ public class Position implements Serializable {
 	public static void initialize() {
 		int all_index = 0;
 		Position pos;
-		for (int level = 0; level < Model.LEVELS; level++) {
-			positions[level] = new Position[Model.LEVELS - level][Model.LEVELS - level];
-			for (int y = 0; y < Model.LEVELS - level; y++) {
-				for (int x = 0; x < Model.LEVELS - level; x++) {
+		for (int level = 0; level < LEVELS; level++) {
+			positions[level] = new Position[LEVELS - level][LEVELS - level];
+			for (int y = 0; y < LEVELS - level; y++) {
+				for (int x = 0; x < LEVELS - level; x++) {
 					pos = new Position(x, y, level);
 					positions[level][y][x] = pos;
 					all[all_index++] = pos;
@@ -54,7 +56,7 @@ public class Position implements Serializable {
 			}
 		}
 
-		top = Position.at(0, 0, Model.LEVELS - 1);
+		top = Position.at(0, 0, LEVELS - 1);
 
 		for (Position position : all) {
 			fourSquare.put(position, position.fourSquare());
@@ -67,7 +69,7 @@ public class Position implements Serializable {
 	}
 
 	public static boolean isValid(int x, int y, int z) {
-		return x >= 0 && y >= 0 && z >= 0 && x < Model.LEVELS - z && y < Model.LEVELS - z && z < Model.LEVELS;
+		return x >= 0 && y >= 0 && z >= 0 && x < LEVELS - z && y < LEVELS - z && z < LEVELS;
 	}
 
 	private List<Position> square() {
@@ -103,20 +105,20 @@ public class Position implements Serializable {
 		List<Position> line;
 
 		line = new LinkedList<Position>();
-		for (int x = 0; x < Model.LEVELS - z; x++) {
+		for (int x = 0; x < LEVELS - z; x++) {
 			line.add(at(x, y, z));
 		}
 		lines.add(line);
 
 		line = new LinkedList<Position>();
-		for (int y = 0; y < Model.LEVELS - z; y++) {
+		for (int y = 0; y < LEVELS - z; y++) {
 			line.add(at(x, y, z));
 		}
 		lines.add(line);
 
 		if (onFirstDiagonal()) {
 			line = new LinkedList<Position>();
-			for (int xy = 0; xy < Model.LEVELS - z; xy++) {
+			for (int xy = 0; xy < LEVELS - z; xy++) {
 				if (isValid(xy, xy, z))
 					line.add(at(xy, xy, z));
 			}
@@ -125,9 +127,9 @@ public class Position implements Serializable {
 
 		if (onSecondDiagonal()) {
 			line = new LinkedList<Position>();
-			for (int xy = 0; xy < Model.LEVELS - z; xy++) {
-				if (isValid(xy, Model.LEVELS - 1 - z - xy, z))
-					line.add(at(xy, Model.LEVELS - 1 - z - xy, z));
+			for (int xy = 0; xy < LEVELS - z; xy++) {
+				if (isValid(xy, LEVELS - 1 - z - xy, z))
+					line.add(at(xy, LEVELS - 1 - z - xy, z));
 			}
 			lines.add(line);
 		}
@@ -136,7 +138,7 @@ public class Position implements Serializable {
 	}
 
 	private boolean onSecondDiagonal() {
-		return x + y == Model.LEVELS - 1 - z;
+		return x + y == LEVELS - 1 - z;
 	}
 
 	private boolean onFirstDiagonal() {

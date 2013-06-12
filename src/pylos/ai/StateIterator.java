@@ -1,11 +1,12 @@
 package pylos.ai;
 
+import static pylos.model.Model.LEVELS;
+
 import java.util.Enumeration;
 import java.util.List;
 
 import pylos.ai.move.MountBall;
 import pylos.ai.move.Ply;
-import pylos.model.Model;
 import pylos.model.Position;
 
 public class StateIterator implements Enumeration<StateNode> {
@@ -43,7 +44,7 @@ public class StateIterator implements Enumeration<StateNode> {
 			return moves.nextElement();
 		}
 
-		if (z == Model.LEVELS)
+		if (z == LEVELS)
 			return null;
 
 		Position p = Position.at(x, y, z);
@@ -69,11 +70,11 @@ public class StateIterator implements Enumeration<StateNode> {
 
 	private void incrementVariables() {
 		x++;
-		if (x == Model.LEVELS - z) {
+		if (x == LEVELS - z) {
 			x = 0;
 			y++;
 		}
-		if (y == Model.LEVELS - z) {
+		if (y == LEVELS - z) {
 			y = 0;
 			z++;
 		}
@@ -115,7 +116,7 @@ public class StateIterator implements Enumeration<StateNode> {
 		}
 
 		private StateNode generateNext() {
-			if (z1 == Model.LEVELS)
+			if (z1 == LEVELS)
 				return null;
 
 			Position p1 = Position.at(x1, y1, z1), p2 = Position.at(x2, y2, z2);
@@ -139,17 +140,17 @@ public class StateIterator implements Enumeration<StateNode> {
 
 		private void incrementVariables() {
 			x2++;
-			if (x2 == Model.LEVELS - z2) {
+			if (x2 == LEVELS - z2) {
 				y2++;
-				if (y2 == Model.LEVELS - z2) {
+				if (y2 == LEVELS - z2) {
 					z2++;
-					if (z2 == Model.LEVELS) {
+					if (z2 == LEVELS) {
 						x1++;
-						if (x1 == Model.LEVELS - z1) {
+						if (x1 == LEVELS - z1) {
 							y1++;
-							if (y1 == Model.LEVELS - z1) {
+							if (y1 == LEVELS - z1) {
 								z1++;
-								if (z1 == Model.LEVELS) {
+								if (z1 == LEVELS) {
 
 								} else {
 									x1 = 0;

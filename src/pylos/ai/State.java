@@ -1,5 +1,7 @@
 package pylos.ai;
 
+import static pylos.model.Model.LEVELS;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class State {
 	static final int REMOVABLE_POINT = 20;
 	public static final byte ai = 2, human = 1; // ai = max, human = min
 
-	public byte[][][] state = new byte[Model.LEVELS][][];
+	public byte[][][] state = new byte[LEVELS][][];
 	public int[] ballOnSide = new int[3];
 	public byte currentPlayer;
 	byte opponent;
@@ -25,10 +27,10 @@ public class State {
 		ballOnSide[human] = 15;
 		ballOnSide[ai] = 15;
 		Ball ball;
-		for (int z = 0; z < Model.LEVELS; z++) {
-			state[z] = new byte[Model.LEVELS - z][Model.LEVELS - z];
-			for (int y = 0; y < Model.LEVELS - z; y++) {
-				for (int x = 0; x < Model.LEVELS - z; x++) {
+		for (int z = 0; z < LEVELS; z++) {
+			state[z] = new byte[LEVELS - z][LEVELS - z];
+			for (int y = 0; y < LEVELS - z; y++) {
+				for (int x = 0; x < LEVELS - z; x++) {
 					ball = Model.board.ballAt(Position.at(x, y, z));
 					if (ball != null) {
 						ballOnSide[ball.owner.toByte()]--;
@@ -41,9 +43,9 @@ public class State {
 	}
 
 	public State(State s) {
-		for (int z = 0; z < Model.LEVELS; z++) {
-			state[z] = new byte[Model.LEVELS - z][];
-			for (int y = 0; y < Model.LEVELS - z; y++)
+		for (int z = 0; z < LEVELS; z++) {
+			state[z] = new byte[LEVELS - z][];
+			for (int y = 0; y < LEVELS - z; y++)
 				state[z][y] = s.state[z][y].clone();
 		}
 		ballOnSide = s.ballOnSide.clone();
@@ -54,9 +56,9 @@ public class State {
 	public int evaluate() {
 		int score = ballOnSide[ai] * HAND_POINT - ballOnSide[human] * HAND_POINT;
 		// score += Math.random() * 9;
-		for (int z = 0; z < Model.LEVELS; z++) {
-			for (int y = 0; y < Model.LEVELS - z; y++) {
-				for (int x = 0; x < Model.LEVELS - z; x++) {
+		for (int z = 0; z < LEVELS; z++) {
+			for (int y = 0; y < LEVELS - z; y++) {
+				for (int x = 0; x < LEVELS - z; x++) {
 					byte ball = state[z][y][x];
 					if (ball == 0) {
 						if (anyLines(Position.at(x, y, z), ai) || anySquares(Position.at(x, y, z), ai)) {
@@ -106,10 +108,10 @@ public class State {
 	@Override
 	public String toString() {
 		String s = new String();
-		for (int z = 0; z < Model.LEVELS; z++) { // print state
+		for (int z = 0; z < LEVELS; z++) { // print state
 			s += "\n";
-			for (int x = 0; x < Model.LEVELS - z; x++) {
-				for (int y = 0; y < Model.LEVELS - z; y++) {
+			for (int x = 0; x < LEVELS - z; x++) {
+				for (int y = 0; y < LEVELS - z; y++) {
 					s += state[z][x][y];
 				}
 				s += "\n";
@@ -194,9 +196,9 @@ public class State {
 	 */
 	public List<Position> addPositionToMount(Position position) {
 		List<Position> list = new LinkedList<Position>();
-		for (int z = position.z + 1; z < Model.LEVELS; z++) {
-			for (int x = 0; x < Model.LEVELS - z; x++) {
-				for (int y = 0; y < Model.LEVELS - z; y++) {
+		for (int z = position.z + 1; z < LEVELS; z++) {
+			for (int x = 0; x < LEVELS - z; x++) {
+				for (int y = 0; y < LEVELS - z; y++) {
 					if (accessibleIgnoring(Position.at(x, y, z), position)) {
 						list.add(Position.at(x, y, z));
 					}
