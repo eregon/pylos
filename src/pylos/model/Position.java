@@ -54,7 +54,7 @@ public class Position implements Serializable {
 			}
 		}
 
-		top = Position.at(0, 0, Model.LEVELS_1);
+		top = Position.at(0, 0, Model.LEVELS - 1);
 
 		for (Position position : all) {
 			fourSquare.put(position, position.fourSquare());
@@ -126,8 +126,8 @@ public class Position implements Serializable {
 		if (onSecondDiagonal()) {
 			line = new LinkedList<Position>();
 			for (int xy = 0; xy < Model.LEVELS - z; xy++) {
-				if (isValid(xy, Model.LEVELS_1 - z - xy, z))
-					line.add(at(xy, Model.LEVELS_1 - z - xy, z));
+				if (isValid(xy, Model.LEVELS - 1 - z - xy, z))
+					line.add(at(xy, Model.LEVELS - 1 - z - xy, z));
 			}
 			lines.add(line);
 		}
@@ -136,7 +136,7 @@ public class Position implements Serializable {
 	}
 
 	private boolean onSecondDiagonal() {
-		return x + y == Model.LEVELS_1 - z;
+		return x + y == Model.LEVELS - 1 - z;
 	}
 
 	private boolean onFirstDiagonal() {
