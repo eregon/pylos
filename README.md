@@ -22,3 +22,6 @@ If you are in a UNIX environment, you only need to run `./setup.sh` and it will 
 
 ### Eclipse settings
 XML -> XML Files -> Editor: indent using 2 spaces, line width: 150
+
+### Authors
+Benoit Daloze (@eregon) and Nicolas Gerard (@Dhaimadoshi)
